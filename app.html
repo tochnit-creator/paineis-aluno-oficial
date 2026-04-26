@@ -107,15 +107,26 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .panel.active{display:block;}
 
 /* BLOQUEIO */
-.tela-bloqueio{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;text-align:center;}
-.lock-big{font-size:48px;margin-bottom:1.25rem;opacity:.3;}
-.bloqueio-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:.5rem;}
-.bloqueio-sub{font-size:14px;color:var(--text3);line-height:1.7;max-width:320px;margin-bottom:1.5rem;}
-.plano-req{font-size:11px;font-weight:500;padding:4px 10px;border-radius:10px;background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;margin-bottom:1.5rem;display:inline-block;}
-.btn-solicitar{padding:10px 24px;background:var(--text);color:var(--bg);border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .15s;}
+.tela-bloqueio{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 1.5rem;text-align:center;}
+.lock-big{font-size:40px;margin-bottom:1rem;opacity:.25;}
+.bloqueio-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:.4rem;}
+.bloqueio-sub{font-size:13px;color:var(--text3);line-height:1.7;max-width:300px;margin-bottom:1.25rem;}
+.preco-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;width:100%;max-width:260px;}
+.preco-plano{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.preco-valor{font-family:'Playfair Display',serif;font-size:34px;font-weight:600;color:var(--gold);line-height:1;}
+.preco-valor sup{font-size:16px;font-family:'DM Sans',sans-serif;font-weight:500;vertical-align:super;}
+.preco-valor sub{font-size:14px;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--text3);vertical-align:baseline;}
+.preco-periodo{font-size:11px;color:var(--text3);margin-top:3px;}
+.preco-features{margin-top:.75rem;text-align:left;display:flex;flex-direction:column;gap:4px;}
+.preco-feature{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);}
+.preco-feature::before{content:"✓";color:var(--gold);font-weight:600;flex-shrink:0;font-size:11px;}
+.plano-req{font-size:11px;font-weight:500;padding:4px 10px;border-radius:10px;background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;margin-bottom:1.25rem;display:inline-block;}
+.btn-solicitar{padding:11px 28px;background:var(--text);color:var(--bg);border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .15s;}
 .btn-solicitar:hover{opacity:.8;}
 .btn-solicitar:disabled{opacity:.5;cursor:not-allowed;}
 .msg-sol{font-size:13px;margin-top:.75rem;color:var(--gold);}
+.grace-aviso{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:#b8860b;max-width:300px;}
+[data-theme="dark"] .grace-aviso{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);}
 
 /* SHARED COMPONENTS */
 .topic-main{display:flex;align-items:flex-start;gap:12px;margin:1.75rem 0 .75rem;}
@@ -561,6 +572,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     });
   }
 
+  // Preços e features por plano
+  const precos = {
+    basico: { valor: '29,90', features: ['Pregação', 'Ensino completo', 'EBD com dinâmicas'] },
+    premium: { valor: '49,90', features: ['Tudo do Básico', 'Aconselhamento', 'Devocional (Homens e Mulheres)', 'Acesso prioritário a novos conteúdos'] }
+  };
+
   window.switchTab = (tab) => {
     const planoNec = document.querySelector(`[data-tab="${tab}"]`)?.dataset.plano || 'gratuito';
     const temAcesso = niveis[planoAtual] >= niveis[planoNec];
@@ -577,20 +594,31 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     if (temAcesso) {
       document.getElementById('panel-' + tab).style.display = 'block';
     } else {
-      // Injeta tela de bloqueio no painel
       const panel = document.getElementById('panel-' + tab);
       panel.style.display = 'block';
       const nivelNec = nomePlano[niveis[planoNec]];
+      const preco = precos[planoNec] || { valor: '—', features: [] };
+      const featuresHTML = preco.features.map(f => `<div class="preco-feature">${f}</div>`).join('');
+
+      // Verifica se está em grace period
+      const graceHTML = planoAtual !== 'gratuito' ? '' : '';
+
       panel.innerHTML = `
         <div class="tela-bloqueio">
           <div class="lock-big">🔒</div>
-          <div class="bloqueio-title">Conteúdo bloqueado</div>
-          <div class="bloqueio-sub">Esta seção requer o plano <strong>${nivelNec}</strong>. Solicite o upgrade e aguarde a liberação.</div>
-          <div class="plano-req">Requer plano ${nivelNec}</div>
+          <div class="bloqueio-title">Plano ${nivelNec}</div>
+          <div class="bloqueio-sub">Desbloqueie este conteúdo assinando o plano ${nivelNec}.</div>
+          <div class="preco-card">
+            <div class="preco-plano">Plano ${nivelNec}</div>
+            <div class="preco-valor"><sup>R$</sup>${preco.valor}<sub>/mês</sub></div>
+            <div class="preco-periodo">Cobrado mensalmente · Cancele quando quiser</div>
+            <div class="preco-features">${featuresHTML}</div>
+          </div>
           <button class="btn-solicitar" id="btn-sol-${tab}" onclick="solicitarUpgrade('${planoNec}','${tab}')">
-            Solicitar upgrade para ${nivelNec}
+            Assinar por R$ ${preco.valor}/mês
           </button>
           <div class="msg-sol" id="msg-sol-${tab}"></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:.75rem;">Após o pagamento confirmado, o acesso é liberado pelo administrador.</div>
         </div>`;
     }
 
