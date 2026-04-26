@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Esboços Bíblicos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--gold:#b8860b;--gold2:#d4a017;--gold-light:#fdf6e3;--text:#1a1a1a;--text2:#4a4a4a;--text3:#8a8a8a;--border:#e5e0d8;--border2:#d4cfc6;--bg:#fff;--bg2:#f9f8f6;--bg3:#f2f0ec;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;color:var(--text);}
+
+header{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:54px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:28px;height:28px;background:var(--text);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gold2);font-family:'Playfair Display',serif;font-weight:600;}
+.logo-text{font-family:'Playfair Display',serif;font-size:15px;color:var(--text);}
+.logo-text span{color:var(--gold);}
+.admin-badge{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--text);color:var(--bg);font-weight:500;letter-spacing:.04em;}
+.btn-sair{font-size:12px;color:var(--text3);background:none;border:1px solid var(--border);border-radius:6px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-sair:hover{background:var(--bg3);}
+
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:2rem;}
+.stat-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.25rem;text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.stat-label{font-size:12px;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;}
+.stat-card.gold{border-color:var(--gold);background:var(--gold-light);}
+.stat-card.gold .stat-num{color:var(--gold);}
+
+/* FILTROS */
+.filtros{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap;align-items:center;}
+.filtro-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text3);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.filtro-btn.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+.search-input{flex:1;min-width:200px;padding:7px 12px;border:1px solid var(--border2);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;background:var(--bg);}
+.search-input:focus{border-color:var(--gold);}
+
+/* TABELA */
+.table-wrap{background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.table-header{display:grid;grid-template-columns:1fr 160px 130px 100px;padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;gap:8px;}
+.user-row{display:grid;grid-template-columns:1fr 160px 130px 100px;padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;gap:8px;transition:background .1s;}
+.user-row:last-child{border-bottom:none;}
+.user-row:hover{background:var(--bg2);}
+.user-info{display:flex;flex-direction:column;gap:2px;}
+.user-nome{font-size:13px;font-weight:500;color:var(--text);}
+.user-email{font-size:11px;color:var(--text3);}
+.user-data{font-size:11px;color:var(--text3);}
+
+/* PLANO SELECT */
+.plano-select{width:100%;padding:5px 8px;border:1px solid var(--border2);border-radius:6px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);cursor:pointer;outline:none;transition:border-color .15s;}
+.plano-select:focus{border-color:var(--gold);}
+.plano-select.gratuito{color:var(--text3);}
+.plano-select.basico{color:#185FA5;}
+.plano-select.premium{color:var(--gold);}
+
+/* BADGE PLANO */
+.plano-badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;display:inline-block;}
+.badge-gratuito{background:var(--bg3);color:var(--text3);border:1px solid var(--border);}
+.badge-basico{background:#e8f0fe;color:#185FA5;border:1px solid #b5d4f4;}
+.badge-premium{background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;}
+
+.btn-salvar{font-size:11px;padding:4px 10px;border-radius:5px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.btn-salvar:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-light);}
+.btn-salvar.saved{border-color:#2ecc71;color:#2ecc71;background:#f0fef4;}
+
+/* EMPTY / LOADING */
+.empty{text-align:center;padding:3rem;color:var(--text3);font-size:14px;}
+.loading-row{padding:2rem;text-align:center;color:var(--text3);font-size:13px;}
+
+/* SOLICITACOES */
+.section-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--text);margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.notif-badge{font-size:11px;padding:2px 7px;border-radius:10px;background:#e74c3c;color:#fff;font-family:'DM Sans',sans-serif;font-weight:500;}
+
+.sol-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.sol-info{flex:1;}
+.sol-nome{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.sol-email{font-size:12px;color:var(--text3);}
+.sol-pedido{font-size:11px;color:var(--gold);margin-top:4px;}
+.sol-acoes{display:flex;gap:6px;}
+.btn-aprovar{padding:6px 14px;border-radius:6px;border:none;background:var(--text);color:var(--bg);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s;}
+.btn-aprovar:hover{opacity:.8;}
+.btn-rejeitar{padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:none;color:var(--text3);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-rejeitar:hover{border-color:#e74c3c;color:#e74c3c;}
+
+.divider{height:1px;background:var(--border);margin:2rem 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">א</div>
+    <div class="logo-text">Esboços <span>Bíblicos</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="admin-badge">ADMIN</span>
+    <button class="btn-sair" onclick="sair()">Sair</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">—</div>
+      <div class="stat-label">Total de usuários</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-basico">—</div>
+      <div class="stat-label">Plano básico</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-num" id="stat-premium">—</div>
+      <div class="stat-label">Plano premium</div>
+    </div>
+  </div>
+
+  <!-- SOLICITAÇÕES -->
+  <div class="section-title">
+    Solicitações de upgrade
+    <span class="notif-badge" id="badge-sol" style="display:none">0</span>
+  </div>
+  <div id="lista-sol">
+    <div class="empty">Nenhuma solicitação pendente.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- USUÁRIOS -->
+  <div class="section-title">Todos os usuários</div>
+
+  <div class="filtros">
+    <button class="filtro-btn active" onclick="filtrar('todos',this)">Todos</button>
+    <button class="filtro-btn" onclick="filtrar('gratuito',this)">Gratuito</button>
+    <button class="filtro-btn" onclick="filtrar('basico',this)">Básico</button>
+    <button class="filtro-btn" onclick="filtrar('premium',this)">Premium</button>
+    <input class="search-input" type="text" placeholder="Buscar por nome ou e-mail..." oninput="buscar(this.value)"/>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-header">
+      <div>Usuário</div>
+      <div>Cadastro</div>
+      <div>Plano</div>
+      <div>Ação</div>
+    </div>
+    <div id="lista-usuarios">
+      <div class="loading-row">Carregando usuários...</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, getDocs, doc, updateDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ⚠️ SUBSTITUA PELAS SUAS CREDENCIAIS DO FIREBASE
+  const firebaseConfig = {
+    apiKey: "AIzaSyCUnfgLUuQfY6tTuUYUGkKceXTB1LDLf3M",
+    authDomain: "esbocos-biblicos.firebaseapp.com",
+    projectId: "esbocos-biblicos",
+    storageBucket: "esbocos-biblicos.firebasestorage.app",
+    messagingSenderId: "750572710955",
+    appId: "1:750572710955:web:a6cce3e11d178862a38e6e"
+  };
+
+  // ⚠️ SEU E-MAIL DE ADMIN (único que pode acessar esta página)
+  const ADMIN_EMAIL = "pecky277@gmail.com";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let todosUsuarios = [];
+  let filtroAtivo = 'todos';
+  let buscaAtiva = '';
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = 'index.html'; return; }
+    if (user.email !== ADMIN_EMAIL) { window.location.href = 'app.html'; return; }
+    await carregarUsuarios();
+    await carregarSolicitacoes();
+  });
+
+  async function carregarUsuarios() {
+    const snap = await getDocs(collection(db, 'usuarios'));
+    todosUsuarios = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    atualizarStats();
+    renderUsuarios();
+  }
+
+  async function carregarSolicitacoes() {
+    const q = query(collection(db, 'solicitacoes'), where('status', '==', 'pendente'));
+    const snap = await getDocs(q);
+    const sols = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const badge = document.getElementById('badge-sol');
+    if (sols.length > 0) { badge.textContent = sols.length; badge.style.display = 'inline'; }
+    const lista = document.getElementById('lista-sol');
+    if (sols.length === 0) { lista.innerHTML = '<div class="empty">Nenhuma solicitação pendente.</div>'; return; }
+    lista.innerHTML = sols.map(s => `
+      <div class="sol-card" id="sol-${s.id}">
+        <div class="sol-info">
+          <div class="sol-nome">${s.nome || '—'}</div>
+          <div class="sol-email">${s.email}</div>
+          <div class="sol-pedido">Solicita upgrade para: <strong>${s.planoSolicitado}</strong></div>
+        </div>
+        <div class="sol-acoes">
+          <button class="btn-aprovar" onclick="aprovarSolicitacao('${s.id}','${s.usuarioId}','${s.planoSolicitado}')">Aprovar</button>
+          <button class="btn-rejeitar" onclick="rejeitarSolicitacao('${s.id}')">Rejeitar</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function atualizarStats() {
+    document.getElementById('stat-total').textContent = todosUsuarios.length;
+    document.getElementById('stat-basico').textContent = todosUsuarios.filter(u => u.plano === 'basico').length;
+    document.getElementById('stat-premium').textContent = todosUsuarios.filter(u => u.plano === 'premium').length;
+  }
+
+  function renderUsuarios() {
+    let lista = todosUsuarios;
+    if (filtroAtivo !== 'todos') lista = lista.filter(u => u.plano === filtroAtivo);
+    if (buscaAtiva) lista = lista.filter(u =>
+      (u.nome || '').toLowerCase().includes(buscaAtiva) ||
+      (u.email || '').toLowerCase().includes(buscaAtiva)
+    );
+    const container = document.getElementById('lista-usuarios');
+    if (lista.length === 0) { container.innerHTML = '<div class="empty">Nenhum usuário encontrado.</div>'; return; }
+    container.innerHTML = lista.map(u => {
+      const data = u.criadoEm ? new Date(u.criadoEm.seconds * 1000).toLocaleDateString('pt-BR') : '—';
+      return `
+      <div class="user-row">
+        <div class="user-info">
+          <div class="user-nome">${u.nome || '—'}</div>
+          <div class="user-email">${u.email}</div>
+        </div>
+        <div class="user-data">${data}</div>
+        <div>
+          <select class="plano-select ${u.plano}" id="select-${u.id}" onchange="this.className='plano-select '+this.value">
+            <option value="gratuito" ${u.plano==='gratuito'?'selected':''}>Gratuito</option>
+            <option value="basico" ${u.plano==='basico'?'selected':''}>Básico</option>
+            <option value="premium" ${u.plano==='premium'?'selected':''}>Premium</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-salvar" id="salvar-${u.id}" onclick="salvarPlano('${u.id}')">Salvar</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  window.salvarPlano = async (uid) => {
+    const select = document.getElementById('select-' + uid);
+    const btn = document.getElementById('salvar-' + uid);
+    const novoPlano = select.value;
+    btn.textContent = '...';
+    await updateDoc(doc(db, 'usuarios', uid), { plano: novoPlano });
+    const u = todosUsuarios.find(x => x.id === uid);
+    if (u) u.plano = novoPlano;
+    atualizarStats();
+    btn.textContent = '✓ Salvo';
+    btn.className = 'btn-salvar saved';
+    setTimeout(() => { btn.textContent = 'Salvar'; btn.className = 'btn-salvar'; }, 2000);
+  };
+
+  window.aprovarSolicitacao = async (solId, usuarioId, plano) => {
+    await updateDoc(doc(db, 'solicitacoes', solId), { status: 'aprovado' });
+    await updateDoc(doc(db, 'usuarios', usuarioId), { plano });
+    document.getElementById('sol-' + solId)?.remove();
+    const u = todosUsuarios.find(x => x.id === usuarioId);
+    if (u) u.plano = plano;
+    atualizarStats();
+    renderUsuarios();
+    const badge = document.getElementById('badge-sol');
+    const atual = parseInt(badge.textContent) - 1;
+    if (atual <= 0) badge.style.display = 'none'; else badge.textContent = atual;
+  };
+
+  window.rejeitarSolicitacao = async (solId) => {
+    await updateDoc(doc(db, 'solicitacoes', solId), { status: 'rejeitado' });
+    document.getElementById('sol-' + solId)?.remove();
+    const badge = document.getElementById('badge-sol');
+    const atual = parseInt(badge.textContent) - 1;
+    if (atual <= 0) badge.style.display = 'none'; else badge.textContent = atual;
+  };
+
+  window.filtrar = (plano, btn) => {
+    filtroAtivo = plano;
+    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderUsuarios();
+  };
+
+  window.buscar = (v) => { buscaAtiva = v.toLowerCase(); renderUsuarios(); };
+
+  window.sair = async () => { await signOut(auth); window.location.href = 'index.html'; };
+</script>
+</body>
+</html>

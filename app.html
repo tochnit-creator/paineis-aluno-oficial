@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Esboços Bíblicos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#fff;--bg2:#f9f8f6;--bg3:#f2f0ec;--gold:#b8860b;--gold2:#d4a017;--gold-light:#fdf6e3;--text:#1a1a1a;--text2:#4a4a4a;--text3:#8a8a8a;--border:#e5e0d8;--border2:#d4cfc6;--sidebar:272px;}
+[data-theme="dark"]{--bg:#0f0e0c;--bg2:#181714;--bg3:#211f1b;--gold:#c9a84c;--gold2:#e8c97a;--gold-light:rgba(201,168,76,0.08);--text:#e8e4da;--text2:#a09880;--text3:#5a5448;--border:#2e2b24;--border2:#3a3630;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .25s,color .25s;}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:54px;background:var(--bg);border-bottom:1px solid var(--border);z-index:100;flex-shrink:0;transition:background .25s,border-color .25s;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:30px;height:30px;background:var(--text);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--gold2);font-family:'Playfair Display',serif;font-weight:600;transition:background .25s;}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);}
+.logo-text span{color:var(--gold);}
+.header-center{font-size:12px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;font-weight:300;}
+.header-right{display:flex;align-items:center;gap:8px;}
+.user-plano{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;}
+.plano-gratuito{background:var(--bg3);color:var(--text3);border:1px solid var(--border);}
+.plano-basico{background:#e8f0fe;color:#185FA5;border:1px solid #b5d4f4;}
+.plano-premium{background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;}
+.theme-toggle{width:36px;height:20px;border-radius:10px;border:1px solid var(--border2);background:var(--bg3);cursor:pointer;position:relative;transition:all .25s;flex-shrink:0;}
+.theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--gold);transition:transform .25s;}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(16px);}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;border-radius:5px;}
+.hamburger:hover{background:var(--bg3);}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text3);transition:all .25s;border-radius:2px;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.btn-sair{font-size:11px;color:var(--text3);background:none;border:1px solid var(--border);border-radius:5px;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-sair:hover{background:var(--bg3);}
+
+/* TABS */
+.tabs-bar{display:flex;align-items:center;gap:4px;padding:6px 1rem;background:var(--bg);border-bottom:1px solid var(--border);flex-shrink:0;transition:background .25s,border-color .25s;overflow-x:auto;}
+.tabs-bar::-webkit-scrollbar{display:none;}
+.tab-btn{flex:1;min-width:80px;padding:7px 8px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--bg2);border:1px solid var(--border);color:var(--text3);cursor:pointer;border-radius:7px;transition:all .15s;text-align:center;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:5px;}
+.tab-btn.active{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:500;}
+.tab-btn:hover:not(.active):not(.bloqueado){color:var(--text2);background:var(--bg3);}
+.tab-btn.bloqueado{opacity:.5;cursor:default;}
+.lock-icon{font-size:11px;}
+
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden;position:relative;}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:40;}
+.sidebar-overlay.active{display:block;}
+.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.4,0,.2,1),background .25s;overflow:hidden;}
+.sidebar.closed{transform:translateX(-100%);position:absolute;top:0;left:0;bottom:0;z-index:50;}
+.sidebar-search{padding:10px 12px;border-bottom:1px solid var(--border);}
+.sidebar-search input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif;transition:background .25s,color .25s;}
+.sidebar-search input::placeholder{color:var(--text3);}
+.sidebar-search input:focus{border-color:var(--gold);}
+.sidebar-scroll{overflow-y:auto;flex:1;}
+.sidebar-scroll::-webkit-scrollbar{width:3px;}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+.book-header{padding:16px 14px 6px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;transition:background .12s;border-left:2px solid transparent;}
+.sidebar-item:hover{background:var(--bg3);}
+.sidebar-item.active{background:var(--gold-light);border-left-color:var(--gold);}
+.sidebar-item-num{font-size:11px;color:var(--text3);min-width:32px;font-family:'Playfair Display',serif;font-style:italic;}
+.sidebar-item-title{font-size:13px;color:var(--text2);line-height:1.3;flex:1;}
+.sidebar-item.active .sidebar-item-title{color:var(--text);font-weight:500;}
+.sidebar-item-badge{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);white-space:nowrap;}
+
+.main{flex:1;overflow-y:auto;}
+.main::-webkit-scrollbar{width:4px;}
+.main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+.content{max-width:700px;margin:0 auto;padding:2rem 1.5rem;}
+
+/* CONTENT */
+.content-header{margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);}
+.breadcrumb{font-size:11px;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.6rem;}
+.content-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--text);line-height:1.3;margin-bottom:.3rem;}
+.content-subtitle{font-size:13px;color:var(--text3);font-weight:300;}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:.75rem;}
+.badge{font-size:10px;padding:3px 8px;border-radius:8px;letter-spacing:.03em;border:1px solid;}
+.badge-tema{border-color:var(--gold);color:var(--gold);background:var(--gold-light);}
+.badge-tipo{border-color:var(--border2);color:var(--text3);background:var(--bg2);}
+
+/* VERSE */
+.verse-block{background:var(--gold-light);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin-bottom:1.5rem;transition:background .25s;}
+.verse-ref{font-size:11px;color:var(--gold);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;}
+.verse-text{font-family:'Playfair Display',serif;font-size:15px;color:var(--text);line-height:1.75;font-style:italic;}
+
+/* VERSÕES */
+.versoes-title{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
+.versoes-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.versoes-grid{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
+.versao-item{display:flex;border-bottom:1px solid var(--border);transition:background .15s;}
+.versao-item:last-child{border-bottom:none;}
+.versao-item.destaque{background:var(--gold-light);}
+.versao-label{flex-shrink:0;width:110px;padding:.85rem 1rem;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;gap:2px;background:var(--bg2);transition:background .25s;}
+.versao-item.destaque .versao-label{background:rgba(184,134,11,0.08);}
+.versao-sigla{font-size:12px;font-weight:500;color:var(--text);letter-spacing:.02em;}
+.versao-nome{font-size:10px;color:var(--text3);line-height:1.3;}
+.versao-item.destaque .versao-sigla{color:var(--gold);}
+.versao-texto{padding:.85rem 1rem;font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--text2);line-height:1.7;flex:1;}
+.versao-item.destaque .versao-texto{color:var(--text);}
+.versao-nota{font-size:11px;color:var(--text3);font-style:normal;display:block;margin-top:4px;font-family:'DM Sans',sans-serif;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* BLOQUEIO */
+.tela-bloqueio{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;text-align:center;}
+.lock-big{font-size:48px;margin-bottom:1.25rem;opacity:.3;}
+.bloqueio-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:.5rem;}
+.bloqueio-sub{font-size:14px;color:var(--text3);line-height:1.7;max-width:320px;margin-bottom:1.5rem;}
+.plano-req{font-size:11px;font-weight:500;padding:4px 10px;border-radius:10px;background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;margin-bottom:1.5rem;display:inline-block;}
+.btn-solicitar{padding:10px 24px;background:var(--text);color:var(--bg);border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .15s;}
+.btn-solicitar:hover{opacity:.8;}
+.btn-solicitar:disabled{opacity:.5;cursor:not-allowed;}
+.msg-sol{font-size:13px;margin-top:.75rem;color:var(--gold);}
+
+/* SHARED COMPONENTS */
+.topic-main{display:flex;align-items:flex-start;gap:12px;margin:1.75rem 0 .75rem;}
+.topic-num{font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:var(--gold);line-height:1;flex-shrink:0;margin-top:2px;}
+.topic-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);line-height:1.3;}
+.body-text{font-size:14px;color:var(--text2);line-height:1.9;margin-bottom:.9rem;}
+.body-text em{color:var(--gold);font-style:normal;font-weight:500;}
+.topic-sub{display:flex;gap:8px;padding:4px 0 4px 34px;color:var(--text2);font-size:13px;line-height:1.65;}
+.topic-sub::before{content:"›";color:var(--text3);flex-shrink:0;}
+.xref{font-size:10px;color:var(--gold);background:var(--gold-light);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;margin-left:4px;cursor:pointer;}
+.accent-box{margin:.75rem 0;padding:.9rem 1.1rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.75;transition:background .25s;}
+.accent-box strong{color:var(--text);font-weight:500;}
+.tension-box{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:1rem 1.25rem;margin:.75rem 0;font-size:13.5px;color:var(--text2);line-height:1.8;transition:background .25s;}
+.tension-box strong{color:var(--text);}
+.resolution-box{background:var(--gold-light);border:1px solid var(--border2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:.75rem 0;font-size:13.5px;color:var(--text2);line-height:1.8;transition:background .25s;}
+.resolution-box strong{color:var(--text);}
+.call-out{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--text);line-height:1.6;margin:1.25rem 0 1.25rem 34px;padding-left:1rem;border-left:2px solid var(--gold);}
+.image-mental{margin:1rem 0 1rem 34px;padding:1rem 1.1rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);transition:background .25s;}
+.image-mental-label{font-size:10px;font-weight:500;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.image-mental-text{font-size:13.5px;color:var(--text2);line-height:1.8;font-style:italic;}
+.pregacao-close{font-size:14px;color:var(--text2);line-height:1.9;padding:1.25rem 1.5rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);margin-top:1.5rem;transition:background .25s;}
+.pregacao-close strong{color:var(--text);}
+.scene-open{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--text2);line-height:1.9;margin-bottom:1.5rem;padding:1.25rem 1.5rem;background:var(--bg2);border-radius:8px;border-left:3px solid var(--gold);transition:background .25s;}
+.hebrew{font-size:14px;color:var(--gold);display:inline;}
+.hebrew-term{display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;margin:.5rem 0 .5rem 34px;font-size:13px;color:var(--text2);transition:background .25s;}
+.hebrew-term .heb{font-size:18px;color:var(--gold);font-family:'Playfair Display',serif;}
+.hebrew-term .translat{color:var(--text3);font-style:italic;}
+.debate-box{margin:.75rem 0 .75rem 34px;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.debate-row{display:flex;border-bottom:1px solid var(--border);font-size:13px;}
+.debate-row:last-child{border-bottom:none;}
+.debate-label{background:var(--bg2);color:var(--text3);font-weight:500;padding:8px 12px;min-width:110px;border-right:1px solid var(--border);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;transition:background .25s;}
+.debate-val{padding:8px 12px;color:var(--text2);line-height:1.55;flex:1;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:.75rem 0 .75rem 34px;}
+.compare-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;font-size:13px;color:var(--text2);line-height:1.7;transition:background .25s;}
+.compare-card-title{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.compare-card.highlight{border-color:var(--gold);background:var(--gold-light);}
+.compare-card.highlight .compare-card-title{color:var(--gold);}
+.greek-block{margin:.75rem 0 .75rem 34px;padding:1rem 1.1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);transition:background .25s;}
+.greek-text{font-size:16px;color:var(--gold);font-family:'Playfair Display',serif;font-style:italic;margin-bottom:6px;}
+.greek-note{font-size:13px;color:var(--text2);line-height:1.7;}
+.greek-note strong{color:var(--text);font-weight:500;}
+.timeline{margin:.75rem 0 .75rem 34px;display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:12px;align-items:flex-start;}
+.tl-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
+.tl-connector{width:1px;background:var(--border2);flex:1;min-height:20px;}
+.tl-content{padding-bottom:14px;font-size:13px;color:var(--text2);line-height:1.65;}
+.tl-content strong{color:var(--text);font-weight:500;display:block;margin-bottom:2px;}
+.ebd-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;}
+.meta-pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text3);}
+.meta-pill strong{color:var(--text2);font-weight:500;}
+.ebd-section{margin:2rem 0 .75rem;}
+.ebd-section-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
+.ebd-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.label-abertura{color:#185FA5;}.label-desenvolvimento{color:var(--gold);}.label-dinamica{color:#3B6D11;}.label-atividade{color:#993556;}.label-fechamento{color:var(--text3);}
+.pergunta-box{background:var(--bg2);border:1px solid var(--border);border-left:3px solid #378ADD;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.75rem 0;transition:background .25s;}
+.pergunta-label{font-size:10px;font-weight:500;color:#185FA5;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.pergunta-text{font-size:13.5px;color:var(--text2);line-height:1.7;font-style:italic;}
+.pergunta-dica{font-size:12px;color:var(--text3);margin-top:5px;}
+.dinamica-box{background:var(--bg2);border:1px solid var(--border);border-left:3px solid #3B6D11;border-radius:0 8px 8px 0;padding:1rem 1.1rem;margin:.75rem 0;transition:background .25s;}
+.dinamica-label{font-size:10px;font-weight:500;color:#3B6D11;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.dinamica-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:6px;}
+.dinamica-text{font-size:13px;color:var(--text2);line-height:1.75;}
+.dinamica-step{display:flex;gap:8px;margin:6px 0;font-size:13px;color:var(--text2);line-height:1.6;}
+.dinamica-step-num{width:20px;height:20px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--text3);flex-shrink:0;margin-top:1px;}
+.atividade-box{background:var(--bg2);border:1px solid var(--border);border-left:3px solid #993556;border-radius:0 8px 8px 0;padding:1rem 1.1rem;margin:.75rem 0;transition:background .25s;}
+.atividade-label{font-size:10px;font-weight:500;color:#993556;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.atividade-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:6px;}
+.atividade-text{font-size:13px;color:var(--text2);line-height:1.75;}
+.insight-box{margin:.75rem 0;padding:.9rem 1.1rem;background:var(--gold-light);border-radius:8px;border:1px solid var(--border2);font-size:13px;color:var(--text2);line-height:1.75;transition:background .25s;}
+.insight-box strong{color:var(--text);font-weight:500;}
+.fechamento-box{font-size:14px;color:var(--text2);line-height:1.9;padding:1.25rem 1.5rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);margin-top:1rem;transition:background .25s;}
+.fechamento-box strong{color:var(--text);}
+.cons-tag{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:.75rem;}
+.cons-tag-diag{background:#f0f4ff;color:#185FA5;border:1px solid #b5d4f4;}
+.cons-tag-teol{background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;}
+.cons-tag-prat{background:#eaf3de;color:#3B6D11;border:1px solid #c0dd97;}
+.pergunta-cons{background:var(--bg2);border:1px solid var(--border);border-left:3px solid #993556;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.75rem 0;font-size:13px;color:var(--text2);line-height:1.7;font-style:italic;transition:background .25s;}
+.pergunta-cons-label{font-size:10px;font-weight:500;color:#993556;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;font-style:normal;}
+.devo-switch{display:flex;gap:0;margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.devo-btn{flex:1;padding:10px;font-size:13px;font-family:'DM Sans',sans-serif;background:none;border:none;color:var(--text3);cursor:pointer;transition:all .15s;}
+.devo-btn.active-m{background:#0f2744;color:#85B7EB;}
+.devo-btn.active-f{background:#3d1a2e;color:#ed93b1;}
+.devo-panel{display:none;}
+.devo-panel.active{display:block;}
+.devo-header-m{background:#0f2744;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
+.devo-header-m .devo-title{font-family:'Playfair Display',serif;font-size:20px;color:#85B7EB;margin-bottom:4px;}
+.devo-header-m .devo-sub{font-size:12px;color:#378ADD;letter-spacing:.05em;text-transform:uppercase;}
+.devo-header-f{background:#3d1a2e;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
+.devo-header-f .devo-title{font-family:'Playfair Display',serif;font-size:20px;color:#ed93b1;margin-bottom:4px;}
+.devo-header-f .devo-sub{font-size:12px;color:#D4537E;letter-spacing:.05em;text-transform:uppercase;}
+.devo-verse{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--text);line-height:1.75;padding:1rem 1.25rem;background:var(--gold-light);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;margin-bottom:1.25rem;transition:background .25s;}
+.devo-body{font-size:14px;color:var(--text2);line-height:1.95;margin-bottom:1rem;}
+.devo-body em{color:var(--gold);font-style:normal;font-weight:500;}
+.devo-call{font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.6;padding-left:1rem;border-left:2px solid var(--gold);margin:1.25rem 0;}
+.devo-section-title{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0 .6rem;display:flex;align-items:center;gap:8px;}
+.devo-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.devo-reflexao{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;margin:.75rem 0;transition:background .25s;}
+.devo-reflexao-label{font-size:10px;font-weight:500;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.devo-reflexao-item{font-size:13px;color:var(--text2);line-height:1.7;padding:4px 0;display:flex;gap:8px;}
+.devo-reflexao-item::before{content:"—";color:var(--text3);flex-shrink:0;}
+.devo-oracao{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-top:1rem;font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--text2);line-height:1.85;transition:background .25s;}
+.devo-oracao-label{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-style:normal;font-family:'DM Sans',sans-serif;}
+.devo-desafio{background:var(--gold-light);border:1px solid var(--border2);border-radius:8px;padding:1rem 1.1rem;margin-top:1rem;transition:background .25s;}
+.devo-desafio-label{font-size:10px;font-weight:500;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.devo-desafio-text{font-size:13px;color:var(--text2);line-height:1.7;}
+.divider{height:1px;background:var(--border);margin:2rem 0;}
+.aparato-title{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;}
+.aparato-item{margin-bottom:1rem;padding:1rem 1.1rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);transition:background .25s;}
+.aparato-label{font-size:10px;font-weight:500;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.aparato-text{font-size:13px;color:var(--text2);line-height:1.75;}
+.aparato-text strong{color:var(--text);font-weight:500;}
+.quote-pull{border-left:2px solid var(--gold);padding-left:10px;margin:8px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:var(--text);line-height:1.65;}
+.present-btn{display:inline-flex;align-items:center;gap:8px;margin-top:1.25rem;padding:9px 18px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.present-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-light);}
+.play-icon{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:8px solid currentColor;}
+.present-overlay{display:none;position:fixed;inset:0;background:#0a0908;z-index:999;flex-direction:column;align-items:center;justify-content:center;padding:3rem 4rem;}
+.present-overlay.active{display:flex;}
+.present-ref{font-size:11px;color:var(--gold2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem;}
+.present-verse{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:#666;text-align:center;max-width:580px;line-height:1.9;margin-bottom:2.5rem;}
+.present-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:600;color:#f0ece4;text-align:center;line-height:1.3;margin-bottom:1rem;}
+.present-subs{display:flex;flex-direction:column;gap:10px;max-width:620px;text-align:center;}
+.present-sub{font-size:1rem;color:#888;line-height:1.65;}
+.present-nav{display:flex;gap:12px;margin-top:2.5rem;}
+.present-nav button{padding:8px 20px;border-radius:6px;border:1px solid #2a2820;background:transparent;color:#888;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.present-nav button:hover{border-color:var(--gold2);color:var(--gold2);}
+.present-close{position:fixed;top:1.25rem;right:1.25rem;background:transparent;border:1px solid #2a2820;color:#555;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;}
+.present-counter{font-size:11px;color:#333;margin-top:1.25rem;}
+
+/* LOADING SCREEN */
+.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem;}
+.loading-logo{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);}
+.loading-spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-logo">א</div>
+  <div class="loading-spinner"></div>
+</div>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">א</div>
+    <div class="logo-text">Esboços <span>Bíblicos</span></div>
+  </div>
+  <div class="header-center" id="header-crumb">Gênesis · Criação</div>
+  <div class="header-right">
+    <span class="user-plano" id="badge-plano"></span>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema"></button>
+    <button class="btn-sair" onclick="sair()">Sair</button>
+    <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="tabs-bar" id="tabs-bar">
+  <button class="tab-btn active" data-tab="pregacao" data-plano="gratuito" onclick="switchTab('pregacao')">Pregação</button>
+  <button class="tab-btn" data-tab="ensino" data-plano="basico" onclick="switchTab('ensino')">Ensino</button>
+  <button class="tab-btn" data-tab="ebd" data-plano="basico" onclick="switchTab('ebd')">EBD</button>
+  <button class="tab-btn" data-tab="conselho" data-plano="premium" onclick="switchTab('conselho')">Aconselhamento</button>
+  <button class="tab-btn" data-tab="devocional" data-plano="premium" onclick="switchTab('devocional')">Devocional</button>
+</div>
+
+<div class="layout">
+  <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+  <div class="sidebar closed" id="sidebar">
+    <div class="sidebar-search"><input type="text" placeholder="Buscar esboço..." oninput="filterItems(this.value)"/></div>
+    <div class="sidebar-scroll">
+      <div class="book-header">Gênesis</div>
+      <div class="sidebar-item active" onclick="selectItem(this,'Gênesis · Criação')" data-search="genesis 1 principio criação">
+        <div class="sidebar-item-num">1:1</div><div class="sidebar-item-title">No princípio</div><div class="sidebar-item-badge">5 abas</div>
+      </div>
+      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Adão e Eva')" data-search="genesis 2 adao eva">
+        <div class="sidebar-item-num">2:7</div><div class="sidebar-item-title">Adão e Eva</div><div class="sidebar-item-badge">em breve</div>
+      </div>
+      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · A Queda')" data-search="genesis 3 queda">
+        <div class="sidebar-item-num">3:1</div><div class="sidebar-item-title">O afastamento de Adão</div><div class="sidebar-item-badge">em breve</div>
+      </div>
+      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Caim e Abel')" data-search="genesis 4 caim abel">
+        <div class="sidebar-item-num">4:1</div><div class="sidebar-item-title">Caim e Abel</div><div class="sidebar-item-badge">em breve</div>
+      </div>
+      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Noé')" data-search="genesis 6 noe arca">
+        <div class="sidebar-item-num">6:9</div><div class="sidebar-item-title">Noé e o dilúvio</div><div class="sidebar-item-badge">em breve</div>
+      </div>
+      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Abraão')" data-search="genesis 12 abraao chamado">
+        <div class="sidebar-item-num">12:1</div><div class="sidebar-item-title">O chamado de Abraão</div><div class="sidebar-item-badge">em breve</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="content">
+      <div class="content-header">
+        <div class="breadcrumb">Gênesis › Criação</div>
+        <div class="content-title">No princípio</div>
+        <div class="content-subtitle">Gênesis 1:1 — Esboço completo com aparato crítico</div>
+        <div class="badges"><span class="badge badge-tema">Criação</span><span class="badge badge-tipo">Pregação · Ensino · EBD · Aconselhamento · Devocional</span></div>
+      </div>
+
+      <!-- PREGAÇÃO -->
+      <div class="panel active" id="panel-pregacao">
+        <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+        <div class="versoes-title">Comparação de versões</div>
+        <div class="versoes-grid">
+          <div class="versao-item"><div class="versao-label"><div class="versao-sigla">ARA</div><div class="versao-nome">Almeida Revista e Atualizada</div></div><div class="versao-texto">"No princípio, criou Deus os céus e a terra."<span class="versao-nota">A inversão "criou Deus" segue a ordem hebraica: verbo-sujeito-objeto.</span></div></div>
+          <div class="versao-item"><div class="versao-label"><div class="versao-sigla">NVI</div><div class="versao-nome">Nova Versão Internacional</div></div><div class="versao-texto">"No princípio Deus criou os céus e a terra."<span class="versao-nota">Ordem natural ao português contemporâneo.</span></div></div>
+          <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">KJV</div><div class="versao-nome">King James Version (1611)</div></div><div class="versao-texto">"In the beginning God created the heaven and the earth."<span class="versao-nota">"heaven" no singular — shamayim como singular de majestade.</span></div></div>
+          <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">BJ</div><div class="versao-nome">Bíblia de Jerusalém</div></div><div class="versao-texto">"No princípio, Deus criou o céu e a terra."<span class="versao-nota">École Biblique de Jerusalém. "O céu" no singular — opção exegética.</span></div></div>
+          <div class="versao-item"><div class="versao-label"><div class="versao-sigla">NAA</div><div class="versao-nome">Nova Almeida Atualizada</div></div><div class="versao-texto">"No princípio, Deus criou os céus e a terra."<span class="versao-nota">Revisão moderna da Almeida.</span></div></div>
+          <div class="versao-item"><div class="versao-label"><div class="versao-sigla">LXX</div><div class="versao-nome">Septuaginta (Grego)</div></div><div class="versao-texto">ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν<span class="versao-nota">A Bíblia da Igreja primitiva. João 1:1 retoma ἐν ἀρχῇ deliberadamente.</span></div></div>
+        </div>
+        <div class="scene-open">Imagine o nada absoluto. Não a escuridão — porque a escuridão é alguma coisa. Não o silêncio — porque o silêncio pressupõe ouvidos. Agora imagine que, nesse nada, uma Voz fala. E tudo começa.</div>
+        <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Antes de tudo, havia Deus</div></div>
+        <div class="body-text">A palavra hebraica <span class="hebrew">בְּרֵאשִׁית</span> (<em>bereshit</em>) abre a narrativa sobre o início da criação — não sobre o início de Deus.</div>
+        <div class="accent-box"><strong>Conexão com João 1:1 —</strong> "No princípio era o Verbo." João usa o mesmo início deliberadamente. Cristo não foi criado no princípio — Ele <em>era</em> o princípio. <span class="xref">Jo 1:1</span></div>
+        <div class="tension-box"><strong>Tensão:</strong> Toda filosofia humana começa com a mesma pergunta — o que havia antes? Você também já acordou de madrugada com essa pergunta.</div>
+        <div class="resolution-box"><strong>Resolução:</strong> No princípio, Deus. Antes de você, havia Alguém que já pensava em você. <span class="xref">Sl 90:2</span></div>
+        <div class="image-mental"><div class="image-mental-label">Imagem mental</div><div class="image-mental-text">Peça à congregação para fechar os olhos e tentar imaginar o nada absoluto. Depois diga: "Você não consegue. Porque a mente humana foi criada por Alguém."</div></div>
+        <div class="call-out">"Você não foi jogado num universo sem sentido. Você foi colocado num universo que tem um Autor."</div>
+        <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">Um ato que ninguém mais pode fazer</div></div>
+        <div class="body-text">O verbo <span class="hebrew">בָּרָא</span> (<em>bara</em>) aparece exclusivamente com Deus como sujeito em todo o AT. Criar do absoluto nada é atributo exclusivamente divino. <span class="xref">Rm 4:17</span></div>
+        <div class="tension-box"><strong>Tensão:</strong> Já esteve numa situação onde todos os recursos acabaram — o dinheiro, a saúde, a esperança? Aquela sensação de que não há matéria-prima para reconstrução?</div>
+        <div class="resolution-box"><strong>Resolução:</strong> O Deus de Gênesis 1:1 não precisa de matéria-prima. Sua situação mais impossível está dentro da jurisdição criadora d'Ele. <span class="xref">Hb 11:3</span></div>
+        <div class="call-out">"Pare de dizer que Deus não pode agir porque não tem como. Ele criou o 'como' do nada."</div>
+        <div class="topic-main"><div class="topic-num">III.</div><div class="topic-title">Você também tem um "no princípio"</div></div>
+        <div class="body-text">Paulo usa o vocabulário da criação em 2 Coríntios 5:17: "nova criação". O mesmo <em>bara</em> que operou no caos primordial opera na alma humana pelo Espírito Santo. <span class="xref">2 Co 5:17</span></div>
+        <div class="pregacao-close"><strong>Fechamento:</strong> Antes do seu pecado, antes da sua queda — havia Deus. E Ele ainda está lá. A pergunta não é se Ele pode. É: você vai deixar?</div>
+        <button class="present-btn" onclick="startPresent('pregacao')"><span class="play-icon"></span> Modo apresentação</button>
+      </div>
+
+      <!-- ENSINO -->
+      <div class="panel" id="panel-ensino">
+        <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+        <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Análise gramatical e estrutural</div></div>
+        <div class="hebrew-term"><span class="heb">בְּרֵאשִׁית</span><span>bereshit</span><span class="translat">"no princípio"</span></div>
+        <div class="debate-box">
+          <div class="debate-row"><div class="debate-label">Estado absoluto</div><div class="debate-val">"No princípio, Deus criou..." → declaração soberana independente. Creatio ex nihilo em sentido pleno.</div></div>
+          <div class="debate-row"><div class="debate-label">Estado construto</div><div class="debate-val">"No princípio de [quando] Deus criou..." → v.1 seria cláusula temporal. Defendido por Rashi e Ehrlich.</div></div>
+          <div class="debate-row"><div class="debate-label">Consenso atual</div><div class="debate-val">Maioria dos hebraístas modernos (Wenham, Hamilton, Waltke) prefere o estado absoluto.</div></div>
+        </div>
+        <div class="hebrew-term"><span class="heb">בָּרָא</span><span>bara</span><span class="translat">"criar" — exclusivo de Deus</span></div>
+        <div class="body-text">Em toda a Bíblia Hebraica, <em>bara</em> nunca aparece com sujeito humano. Contrasta com <em>asah</em> (fazer) e <em>yatsar</em> (moldar). <em>Bara</em> aponta para criação sem matéria preexistente.</div>
+        <div class="accent-box"><strong>Nota:</strong> A expressão <em>creatio ex nihilo</em> foi formulada pelos Pais da Igreja (Teófilo de Antioquia, séc. II) a partir de Gn 1:1, Hb 11:3 e 2 Mc 7:28. O verbo <em>bara</em> implica a doutrina, mas não a formula explicitamente.</div>
+        <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">Contexto do Antigo Oriente Próximo</div></div>
+        <div class="compare-grid">
+          <div class="compare-card"><div class="compare-card-title">Enuma Elish (Babilônia)</div>Criação por conflito entre Marduk e Tiamat. Humanos criados do sangue de Kingu para servir aos deuses.</div>
+          <div class="compare-card highlight"><div class="compare-card-title">Gênesis 1 — resposta</div>Criação por palavra soberana, sem conflito. Homem criado à imagem de Deus — não como escravo. <span class="xref">Gn 1:26</span></div>
+          <div class="compare-card"><div class="compare-card-title">Cosmogonia egípcia</div>Sol, lua, Nilo e faraó são divindades. A natureza é sagrada e deve ser adorada.</div>
+          <div class="compare-card highlight"><div class="compare-card-title">Gênesis 1 — desmitificação</div>Sol e lua sequer são nomeados (v.16). Seus nomes hebraicos eram nomes de divindades cananéias. <span class="xref">Gn 1:16</span></div>
+        </div>
+        <div class="body-text">Max Weber chamou esse processo de <em>Entzauberung der Welt</em> — "desencantamento do mundo". Pré-condição cultural para o surgimento da ciência moderna.</div>
+        <div class="topic-main"><div class="topic-num">III.</div><div class="topic-title">Recepção na Septuaginta e no Novo Testamento</div></div>
+        <div class="greek-block">
+          <div class="greek-text">ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν</div>
+          <div class="greek-note">LXX usa <strong>ἐποίησεν</strong> (poieo = fazer). João 1:1 usa <strong>ἦν</strong> (imperfeito de eimi = ser) — o Logos sempre era, não surgiu.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Séc. III–I a.C. — LXX (Alexandria)</strong>Gênesis 1:1 traduzido para o grego. <em>Arche</em> entra no vocabulário teológico helenístico.</div></div>
+          <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Séc. I d.C. — João 1:1</strong>O apóstolo retoma <em>en arche</em>, identificando o Logos como agente criador eterno. <span class="xref">Jo 1:3</span></div></div>
+          <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Séc. II — Teófilo de Antioquia</strong>Primeiro uso explícito de <em>creatio ex nihilo</em> na tradição cristã.</div></div>
+          <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div></div><div class="tl-content"><strong>1927 — Georges Lemaître</strong>O padre católico propõe o Big Bang. Inicialmente rejeitado por ser "demasiado criacionista".</div></div>
+        </div>
+        <button class="present-btn" onclick="startPresent('ensino')"><span class="play-icon"></span> Modo apresentação</button>
+      </div>
+
+      <!-- EBD -->
+      <div class="panel" id="panel-ebd">
+        <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+        <div class="ebd-meta"><span class="meta-pill"><strong>Duração:</strong> 45–60 min</span><span class="meta-pill"><strong>Público:</strong> Adultos</span><span class="meta-pill"><strong>Material:</strong> Papel e caneta</span></div>
+        <div class="ebd-section"><div class="ebd-section-label label-abertura">Abertura provocativa — 5 min</div></div>
+        <div class="pergunta-box"><div class="pergunta-label">Pergunta de abertura</div><div class="pergunta-text">"O que você acha que existia antes do universo existir?"</div><div class="pergunta-dica">Deixe 2-3 pessoas responderem. Anote no quadro. Depois diga: "A Bíblia também responde — e a resposta muda tudo."</div></div>
+        <div class="ebd-section"><div class="ebd-section-label label-desenvolvimento">Ponto I — Deus existe antes do tempo — 10 min</div></div>
+        <div class="body-text">A palavra <em>bereshit</em> não fala sobre quando Deus começou — fala sobre quando a criação começou. Deus criou o próprio tempo.</div>
+        <div class="insight-box"><strong>Ilustração:</strong> "Quem já assistiu um filme querendo saber o que aconteceu antes da primeira cena?" Todos. "Gênesis 1:1 é a primeira cena do universo. Antes dela — havia Deus." <span class="xref">Sl 90:2</span></div>
+        <div class="pergunta-box"><div class="pergunta-label">Pergunta para a turma</div><div class="pergunta-text">"Se Deus existia antes do tempo, o que isso diz sobre a nossa ansiedade em relação ao futuro?"</div><div class="pergunta-dica">Conduza para Jr 29:11.</div></div>
+        <div class="ebd-section"><div class="ebd-section-label label-dinamica">Dinâmica central — 10 min</div></div>
+        <div class="dinamica-box">
+          <div class="dinamica-label">Dinâmica</div><div class="dinamica-title">A linha do tempo de Deus</div>
+          <div class="dinamica-text">Desenhe uma linha reta no quadro representando o tempo.</div>
+          <div class="dinamica-step"><div class="dinamica-step-num">1</div>Pergunte: "Onde Deus entra nessa linha?"</div>
+          <div class="dinamica-step"><div class="dinamica-step-num">2</div>Apague a linha toda e diga: "Errado. Deus não está na linha. Ele criou a linha." Desenhe Deus fora e acima.</div>
+          <div class="dinamica-step"><div class="dinamica-step-num">3</div>Pergunte: "Se Deus está fora do tempo, o que isso diz sobre oração? Sobre o seu passado?"</div>
+        </div>
+        <div class="ebd-section"><div class="ebd-section-label label-atividade">Atividade — 5 min</div></div>
+        <div class="atividade-box">
+          <div class="atividade-label">Atividade individual</div><div class="atividade-title">Meu "no princípio"</div>
+          <div class="atividade-text">Complete em silêncio:<br><br><strong>1.</strong> "Uma área da minha vida 'sem forma e vazia' é..."<br><strong>2.</strong> "O que Deus pode criar ali é..."<br><strong>3.</strong> "Meu 'no princípio' começa quando eu..."</div>
+        </div>
+        <div class="fechamento-box"><strong>Fechamento:</strong> "Gênesis 1:1 responde a maior pergunta da humanidade. Mas mais do que responder sobre o universo — ela responde sobre você. A questão é: você vai deixar?"</div>
+        <button class="present-btn" onclick="startPresent('ebd')"><span class="play-icon"></span> Modo apresentação</button>
+      </div>
+
+      <!-- ACONSELHAMENTO -->
+      <div class="panel" id="panel-conselho">
+        <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+        <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">O caos não é o fim — é o começo</div></div>
+        <div class="cons-tag cons-tag-diag">Diagnóstico</div>
+        <div class="body-text">Muitas pessoas chegam ao aconselhamento sentindo <em>tohu vavohu</em> — "sem forma e vazio". A vida perdeu contorno. O sentido evaporou.</div>
+        <div class="accent-box"><strong>Para o conselheiro:</strong> "Aquilo que você sente tem nome na Bíblia. Gênesis 1:2 chama de <em>tohu vavohu</em>. E é exatamente sobre esse estado que o Espírito de Deus pairava. Seu caos não assusta a Deus — ele é o material de trabalho d'Ele."</div>
+        <div class="cons-tag cons-tag-teol">Fundamento teológico</div>
+        <div class="resolution-box"><strong>Verdade que ancora:</strong> Deus não está esperando você se organizar para começar a agir. A presença do caos é evidência de que há material para criação. <span class="xref">Is 43:19</span></div>
+        <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">Sua identidade está no Criador</div></div>
+        <div class="cons-tag cons-tag-teol">Fundamento teológico</div>
+        <div class="body-text">Gênesis 1:1 declara que há um Criador antes de qualquer criatura. Sua identidade tem uma fonte que antecede qualquer experiência humana. <span class="xref">Sl 139:13</span></div>
+        <div class="pergunta-cons"><div class="pergunta-cons-label">Pergunta para a sessão</div>"Quando você se apresenta, o que diz depois do 'eu sou'? O que Deus disse depois do 'você é' — antes de você nascer?"</div>
+        <div class="topic-main"><div class="topic-num">III.</div><div class="topic-title">Novo começo é criação, não reforma</div></div>
+        <div class="cons-tag cons-tag-teol">Fundamento teológico</div>
+        <div class="body-text">Paulo usa o vocabulário exato da criação em 2 Co 5:17: "nova criação". Não é reforma — é <em>bara</em>. <span class="xref">2 Co 5:17</span></div>
+        <div class="pergunta-cons"><div class="pergunta-cons-label">Atividade para casa</div>Escreva uma carta para Deus começando com: "Aqui está meu caos, sem organizar, sem justificar..." — e entregue sem pedir nada específico.</div>
+        <button class="present-btn" onclick="startPresent('conselho')"><span class="play-icon"></span> Modo apresentação</button>
+      </div>
+
+      <!-- DEVOCIONAL -->
+      <div class="panel" id="panel-devocional">
+        <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+        <div class="devo-switch">
+          <button class="devo-btn active-m" id="btn-masc" onclick="switchDevo('masc')">Homens</button>
+          <button class="devo-btn" id="btn-fem" onclick="switchDevo('fem')">Mulheres</button>
+        </div>
+        <div class="devo-panel active" id="devo-masc">
+          <div class="devo-header-m"><div class="devo-title">Você foi feito para criar — não para sobreviver</div><div class="devo-sub">Devocional masculino · Gênesis 1:1</div></div>
+          <div class="devo-body">A primeira coisa que a Bíblia revela sobre Deus é que Ele é Criador. E a primeira coisa que revela sobre o homem é que ele foi feito à imagem desse Criador. <span class="xref">Gn 1:27</span></div>
+          <div class="devo-call">"O homem que não cria está vivendo abaixo da sua imagem."</div>
+          <div class="devo-body">Em Cristo somos "nova criação". O mesmo <em>bara</em> que operou no começo opera agora na alma do homem redimido — restaurando a vocação criadora que o pecado corrompeu. <span class="xref">2 Co 5:17</span></div>
+          <div class="devo-section-title">Reflexão</div>
+          <div class="devo-reflexao"><div class="devo-reflexao-label">Perguntas para o dia</div>
+            <div class="devo-reflexao-item">O que estou criando com minha vida — ou apenas reagindo ao que acontece?</div>
+            <div class="devo-reflexao-item">Em que área preciso de um ato criador de Deus — não de conserto, mas de criação?</div>
+            <div class="devo-reflexao-item">Como minha vocação criadora reflete ou contradiz a imagem do Criador?</div>
+          </div>
+          <div class="devo-section-title">Oração</div>
+          <div class="devo-oracao"><div class="devo-oracao-label">Ore com estas palavras ou com as suas</div>"Pai, restaura em mim a imagem do Criador. Que cada coisa que eu construa hoje seja eco do Teu caráter. Em nome de Cristo, que me recria. Amém."</div>
+          <div class="devo-section-title">Desafio do dia</div>
+          <div class="devo-desafio"><div class="devo-desafio-label">Ação concreta</div><div class="devo-desafio-text">Escolha uma área onde você tem sido passivo. Hoje, faça um movimento criador: inicie a conversa adiada, comece o projeto parado, tome a decisão postergada. Criadores agem. Sobreviventes esperam.</div></div>
+        </div>
+        <div class="devo-panel" id="devo-fem">
+          <div class="devo-header-f"><div class="devo-title">Você não é acidente — é obra intencional</div><div class="devo-sub">Devocional feminino · Gênesis 1:1</div></div>
+          <div class="devo-body">Antes de qualquer coisa existir, havia Deus. E quando Ele criou, não criou por acidente — criou com intenção, cuidado e propósito. Você está incluída nessa criação.</div>
+          <div class="devo-call">"Você não é produto do acaso. Você é obra de um Criador que nunca improvisa."</div>
+          <div class="devo-body">Quantas vezes você se sentiu "sem forma e vazia"? Gênesis 1:2 usa exatamente essas palavras — <em>tohu vavohu</em>. E o Espírito de Deus pairava sobre exatamente esse estado. Presente, ativo, prestes a criar. <span class="xref">Gn 1:2</span></div>
+          <div class="devo-section-title">Reflexão</div>
+          <div class="devo-reflexao"><div class="devo-reflexao-label">Perguntas para o dia</div>
+            <div class="devo-reflexao-item">Em que momento me sinto mais "sem forma e vazia"?</div>
+            <div class="devo-reflexao-item">Existe algo em mim que diminuo, que Deus colocou com intenção?</div>
+            <div class="devo-reflexao-item">Se o Espírito paira sobre meu caos hoje, o que Ele quer criar ali?</div>
+          </div>
+          <div class="devo-section-title">Oração</div>
+          <div class="devo-oracao"><div class="devo-oracao-label">Ore com estas palavras ou com as suas</div>"Senhor, obrigada por não me fazer por acidente. Nos dias em que me sinto vazia, lembra-me que o Teu Espírito paira sobre exatamente esse estado. Cria em mim o que ainda não existe. Amém."</div>
+          <div class="devo-section-title">Desafio do dia</div>
+          <div class="devo-desafio"><div class="devo-desafio-label">Ação concreta</div><div class="devo-desafio-text">Escreva três coisas em você que você tende a diminuir. Ao lado de cada uma: "Deus colocou isso em mim com intenção." Releia amanhã de manhã.</div></div>
+        </div>
+      </div>
+
+      <!-- APARATO -->
+      <div class="divider"></div>
+      <div class="aparato-title">Aparato crítico</div>
+      <div class="aparato-item"><div class="aparato-label">Hebraico</div><div class="aparato-text"><strong>בְּרֵאשִׁית (bereshit)</strong> — estado absoluto vs. construto. Maioria moderna: absoluto.<br><br><strong>בָּרָא (bara)</strong> — verbo exclusivo de Deus. Creatio ex nihilo.<br><br><strong>אֱלֹהִים (Elohim)</strong> — plural de majestade. Verbo singular demonstra unicidade.</div></div>
+      <div class="aparato-item"><div class="aparato-label">Grego — LXX</div><div class="aparato-text"><strong>ἐν ἀρχῇ ἐποίησεν ὁ θεὸς</strong> — João 1:1 usa ἦν (imperfeito): o Logos sempre era.</div></div>
+      <div class="aparato-item"><div class="aparato-label">Rashi (séc. XI)</div><div class="aparato-text"><div class="quote-pull">"Toda a terra pertence ao Santo — Ele a criou e a deu a quem quis."</div></div></div>
+      <div class="aparato-item"><div class="aparato-label">Agostinho (séc. IV–V)</div><div class="aparato-text"><div class="quote-pull">"Nosso coração está inquieto até que descanse em Ti." — Confissões I,1</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="present-overlay" id="present-overlay">
+  <button class="present-close" onclick="closePresent()">✕ Fechar</button>
+  <div class="present-ref" id="p-ref"></div>
+  <div class="present-verse" id="p-verse"></div>
+  <div class="present-title" id="p-title"></div>
+  <div class="present-subs" id="p-subs"></div>
+  <div class="present-nav"><button onclick="prevSlide()">← Anterior</button><button onclick="nextSlide()">Próximo →</button></div>
+  <div class="present-counter" id="p-counter"></div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ⚠️ SUBSTITUA PELAS SUAS CREDENCIAIS DO FIREBASE
+  const firebaseConfig = {
+    apiKey: "AIzaSyCUnfgLUuQfY6tTuUYUGkKceXTB1LDLf3M",
+    authDomain: "esbocos-biblicos.firebaseapp.com",
+    projectId: "esbocos-biblicos",
+    storageBucket: "esbocos-biblicos.firebasestorage.app",
+    messagingSenderId: "750572710955",
+    appId: "1:750572710955:web:a6cce3e11d178862a38e6e"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Níveis de acesso por plano
+  const niveis = { gratuito: 1, basico: 2, premium: 3 };
+  const planoRequerido = { pregacao: 1, ensino: 2, ebd: 2, conselho: 3, devocional: 3 };
+  const nomePlano = { 1: 'Gratuito', 2: 'Básico', 3: 'Premium' };
+
+  let planoAtual = 'gratuito';
+  let usuarioAtual = null;
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = 'index.html'; return; }
+    usuarioAtual = user;
+    const snap = await getDoc(doc(db, 'usuarios', user.uid));
+    if (snap.exists()) planoAtual = snap.data().plano || 'gratuito';
+    document.getElementById('loading-screen').style.display = 'none';
+    atualizarUI();
+  });
+
+  function atualizarUI() {
+    // Badge de plano
+    const badge = document.getElementById('badge-plano');
+    badge.textContent = planoAtual.charAt(0).toUpperCase() + planoAtual.slice(1);
+    badge.className = 'user-plano plano-' + planoAtual;
+
+    // Atualiza tabs — bloqueia as que o usuário não tem acesso
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const planoNec = btn.dataset.plano;
+      const temAcesso = niveis[planoAtual] >= niveis[planoNec];
+      if (!temAcesso) {
+        btn.classList.add('bloqueado');
+        btn.innerHTML = btn.innerHTML + ' <span class="lock-icon">🔒</span>';
+        btn.onclick = () => switchTab(btn.dataset.tab);
+      }
+    });
+  }
+
+  window.switchTab = (tab) => {
+    const planoNec = document.querySelector(`[data-tab="${tab}"]`)?.dataset.plano || 'gratuito';
+    const temAcesso = niveis[planoAtual] >= niveis[planoNec];
+
+    // Atualiza botões ativos
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
+
+    // Mostra painel ou tela de bloqueio
+    ['pregacao','ensino','ebd','conselho','devocional'].forEach(id => {
+      document.getElementById('panel-' + id).style.display = 'none';
+    });
+
+    if (temAcesso) {
+      document.getElementById('panel-' + tab).style.display = 'block';
+    } else {
+      // Injeta tela de bloqueio no painel
+      const panel = document.getElementById('panel-' + tab);
+      panel.style.display = 'block';
+      const nivelNec = nomePlano[niveis[planoNec]];
+      panel.innerHTML = `
+        <div class="tela-bloqueio">
+          <div class="lock-big">🔒</div>
+          <div class="bloqueio-title">Conteúdo bloqueado</div>
+          <div class="bloqueio-sub">Esta seção requer o plano <strong>${nivelNec}</strong>. Solicite o upgrade e aguarde a liberação.</div>
+          <div class="plano-req">Requer plano ${nivelNec}</div>
+          <button class="btn-solicitar" id="btn-sol-${tab}" onclick="solicitarUpgrade('${planoNec}','${tab}')">
+            Solicitar upgrade para ${nivelNec}
+          </button>
+          <div class="msg-sol" id="msg-sol-${tab}"></div>
+        </div>`;
+    }
+
+    document.querySelector('.main').scrollTop = 0;
+  };
+
+  window.solicitarUpgrade = async (planoNec, tab) => {
+    const btn = document.getElementById('btn-sol-' + tab);
+    const msg = document.getElementById('msg-sol-' + tab);
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      await addDoc(collection(db, 'solicitacoes'), {
+        usuarioId: usuarioAtual.uid,
+        nome: usuarioAtual.displayName || usuarioAtual.email,
+        email: usuarioAtual.email,
+        planoAtual,
+        planoSolicitado: planoNec,
+        status: 'pendente',
+        criadoEm: serverTimestamp()
+      });
+      btn.textContent = '✓ Solicitação enviada!';
+      msg.textContent = 'Aguarde a liberação pelo administrador.';
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = 'Tentar novamente';
+      msg.textContent = 'Erro ao enviar. Tente novamente.';
+    }
+  };
+
+  window.sair = async () => { await signOut(auth); window.location.href = 'index.html'; };
+
+  // Inicializa panels
+  ['ensino','ebd','conselho','devocional'].forEach(id => {
+    document.getElementById('panel-' + id).style.display = 'none';
+  });
+  document.getElementById('panel-pregacao').style.display = 'block';
+
+  // Slides de apresentação
+  const slidesData = {
+    pregacao:[
+      {title:"I. Antes de tudo, havia Deus",subs:["Bereshit — início da criação, não de Deus","O tempo é uma criatura (Sl 90:2)","Você nunca foi uma surpresa para Ele"]},
+      {title:"II. Um ato que ninguém mais pode fazer",subs:["Bara — verbo exclusivo de Deus (Rm 4:17)","Ele criou o 'como' do nada","Sua situação impossível está na jurisdição d'Ele (Hb 11:3)"]},
+      {title:"III. Você também tem um \"no princípio\"",subs:["Deus tinha o roteiro antes da sua história (Jr 29:11)","Em Cristo: não é reforma — é criação (2 Co 5:17)","A pergunta não é se Ele pode. É: você vai deixar?"]}
+    ],
+    ensino:[
+      {title:"I. Análise gramatical",subs:["Bereshit: estado absoluto → declaração soberana","Bara: verbo exclusivo de Deus — creatio ex nihilo","Elohim plural + bara singular: pluralis majestatis"]},
+      {title:"II. Contexto do AOP",subs:["Enuma Elish: criação por conflito vs. fiat soberano","Desmitificação da natureza — sol e lua sem nome","Weber: desencantamento do mundo"]},
+      {title:"III. Da LXX ao NT",subs:["ἐν ἀρχῇ — João 1:1 retoma e radicaliza","ἦν (imperfeito): o Logos sempre era","Agostinho: Deus não criou no tempo — criou o tempo"]}
+    ],
+    ebd:[
+      {title:"Abertura: antes do universo",subs:["O que existia antes do universo?","Bereshit: início da criação, não de Deus","Deus não está na linha do tempo — Ele criou a linha"]},
+      {title:"Bara: um verbo proibido pra humanos",subs:["Nós fazemos; Deus bara — cria do nada (Hb 11:3)","Dinâmica: o que você precisou pra criar algo?","Sua situação sem saída está na jurisdição d'Ele"]},
+      {title:"Nova criação: o mesmo poder em você",subs:["Tohu vavohu — o Espírito age sobre o vazio (Gn 1:2)","Em Cristo: não reforma — nova criação (2 Co 5:17)","Atividade: meu 'no princípio' começa quando eu..."]}
+    ],
+    conselho:[
+      {title:"I. O caos não é o fim — é o começo",subs:["Tohu vavohu: o caos é material de trabalho de Deus","O Espírito pairava sobre o vazio (Gn 1:2)","Deus não espera organização prévia (Is 43:19)"]},
+      {title:"II. Sua identidade está no Criador",subs:["Você foi bara — criado intencionalmente (Sl 139:13)","Identidade não ancorada em performance ou falha","'Sou obra admirável' — declaração ontológica (Sl 139:14)"]},
+      {title:"III. Novo começo é criação, não reforma",subs:["Nova criação em Cristo — não conserto, mas bara (2 Co 5:17)","Entregar o caos exatamente como está (Rm 8:26)","Carta para Deus: 'Aqui está meu caos...'"]}
+    ]
+  };
+
+  let slides=[], slideIndex=0;
+  window.startPresent = (tab) => {
+    if (!slidesData[tab]) return;
+    slides = [{type:'verse',ref:'Gênesis 1:1',verse:'"No princípio, Deus criou os céus e a terra."',title:'No princípio'},...slidesData[tab].map(t=>({type:'topic',...t}))];
+    slideIndex=0; renderSlide();
+    document.getElementById('present-overlay').classList.add('active');
+  };
+  window.closePresent = () => document.getElementById('present-overlay').classList.remove('active');
+  function renderSlide(){
+    const s=slides[slideIndex];
+    document.getElementById('p-counter').textContent=(slideIndex+1)+' / '+slides.length;
+    if(s.type==='verse'){document.getElementById('p-ref').textContent=s.ref;document.getElementById('p-verse').textContent=s.verse;document.getElementById('p-title').textContent=s.title;document.getElementById('p-subs').innerHTML='';}
+    else{document.getElementById('p-ref').textContent='';document.getElementById('p-verse').textContent='';document.getElementById('p-title').textContent=s.title;document.getElementById('p-subs').innerHTML=s.subs.map(s=>'<div class="present-sub">'+s+'</div>').join('');}
+  }
+  window.nextSlide = () => {if(slideIndex<slides.length-1){slideIndex++;renderSlide();}};
+  window.prevSlide = () => {if(slideIndex>0){slideIndex--;renderSlide();}};
+  document.addEventListener('keydown',e=>{if(document.getElementById('present-overlay').classList.contains('active')){if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();if(e.key==='Escape')closePresent();}});
+
+  // Sidebar e outros controles
+  let sidebarOpen=false, dark=false;
+  window.toggleTheme = () => {dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'');};
+  window.toggleSidebar = () => {sidebarOpen=!sidebarOpen;document.getElementById('sidebar').className='sidebar '+(sidebarOpen?'open':'closed');document.getElementById('overlay').className='sidebar-overlay '+(sidebarOpen?'active':'');document.getElementById('hamburger').className='hamburger '+(sidebarOpen?'open':'');};
+  window.closeSidebar = () => {sidebarOpen=false;document.getElementById('sidebar').className='sidebar closed';document.getElementById('overlay').className='sidebar-overlay';document.getElementById('hamburger').className='hamburger';};
+  window.selectItem = (el,crumb) => {document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');document.getElementById('header-crumb').textContent=crumb;};
+  window.filterItems = (v) => {document.querySelectorAll('.sidebar-item').forEach(i=>{i.style.display=i.dataset.search.includes(v.toLowerCase())?'flex':'none';});};
+  window.switchDevo = (g) => {document.querySelectorAll('.devo-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.devo-btn').forEach(b=>{b.classList.remove('active-m');b.classList.remove('active-f');});document.getElementById('devo-'+g).classList.add('active');if(g==='masc')document.getElementById('btn-masc').classList.add('active-m');else document.getElementById('btn-fem').classList.add('active-f');};
+</script>
+</body>
+</html>
