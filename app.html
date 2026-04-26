@@ -499,7 +499,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   // ⚠️ SUBSTITUA PELAS SUAS CREDENCIAIS DO FIREBASE
   const firebaseConfig = {
@@ -526,8 +526,19 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = 'index.html'; return; }
     usuarioAtual = user;
-    const snap = await getDoc(doc(db, 'usuarios', user.uid));
-    if (snap.exists()) planoAtual = snap.data().plano || 'gratuito';
+    const ref = doc(db, 'usuarios', user.uid);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      planoAtual = snap.data().plano || 'gratuito';
+    } else {
+      // Cria documento automaticamente se não existir
+      await setDoc(ref, {
+        nome: user.displayName || user.email,
+        email: user.email,
+        plano: 'gratuito'
+      });
+      planoAtual = 'gratuito';
+    }
     document.getElementById('loading-screen').style.display = 'none';
     atualizarUI();
   });
