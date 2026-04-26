@@ -154,7 +154,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
 <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, sendPasswordResetEmail, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   // ⚠️ SUBSTITUA PELAS SUAS CREDENCIAIS DO FIREBASE
@@ -171,12 +171,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // Redireciona se já logado
+  // Detecta mobile/iOS
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Redireciona se já logado + captura resultado do redirect Google
   onAuthStateChanged(auth, async (user) => {
     if (user) {
+      await garantirUsuario(user);
       window.location.href = 'app.html';
     }
   });
+
+  // Captura resultado do redirect (iOS/Android)
+  try {
+    const result = await getRedirectResult(auth);
+    if (result?.user) {
+      await garantirUsuario(result.user);
+      window.location.href = 'app.html';
+    }
+  } catch (e) {
+    console.log('redirect result:', e);
+  }
 
   // Garante que usuário existe no Firestore com plano gratuito
   async function garantirUsuario(user, nome) {
@@ -247,10 +262,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
   window.loginGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      const cred = await signInWithPopup(auth, provider);
-      await garantirUsuario(cred.user);
+      if (isMobile) {
+        // iOS/Android: usa redirect (não bloqueia popup)
+        await signInWithRedirect(auth, provider);
+      } else {
+        // Desktop: usa popup
+        const cred = await signInWithPopup(auth, provider);
+        await garantirUsuario(cred.user);
+      }
     } catch (e) {
-      mostrarMsg('Erro ao entrar com Google.', 'error');
+      mostrarMsg('Erro ao entrar com Google. Tente e-mail e senha.', 'error');
     }
   };
 
