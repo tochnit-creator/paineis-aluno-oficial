@@ -7,16 +7,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--gold:#b8860b;--gold2:#d4a017;--gold-light:#fdf6e3;--text:#1a1a1a;--text2:#4a4a4a;--text3:#8a8a8a;--border:#e5e0d8;--border2:#d4cfc6;--bg:#fff;--bg2:#f9f8f6;--bg3:#f2f0ec;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;}
+:root{
+  --gold:#c8960c;--gold2:#e8b800;--gold-light:#fdf5dc;
+  --wine:#7B1535;--wine2:#9b1f45;
+  --navy:#1A1F3C;--navy2:#242a4a;
+  --text:#1A1F3C;--text2:#3d3550;--text3:#8a7a8a;
+  --border:#d8c8d0;--border2:#c8b0bc;
+  --bg:#fff;--bg2:#f8f4f0;--bg3:#f0e8e0;
+}
+body{font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;position:relative;background:linear-gradient(135deg,#1A1F3C 0%,#7B1535 100%);}
 
+
+body::before{content:'';position:fixed;inset:0;z-index:0;
+background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=1400&q=80');
+background-size:cover;background-position:center;opacity:.12;pointer-events:none;}
+.card{position:relative;z-index:1;}
 .card{background:var(--bg);border:1px solid var(--border);border-radius:14px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 4px 32px rgba(0,0,0,0.06);}
 
 .card-header{padding:2rem 2rem 1.5rem;text-align:center;border-bottom:1px solid var(--border);}
 .logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
 .logo-icon{width:36px;height:36px;background:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--gold2);font-family:'Playfair Display',serif;font-weight:600;}
-.logo-text{font-family:'Playfair Display',serif;font-size:18px;color:var(--text);}
-.logo-text span{color:var(--gold);}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;color:#fff;}
+.logo-text span{color:var(--gold2);}
 .card-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:4px;}
 .card-sub{font-size:13px;color:var(--text3);font-weight:300;}
 
@@ -25,16 +37,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
 /* TABS LOGIN/CADASTRO */
 .auth-tabs{display:flex;background:var(--bg2);border-radius:8px;padding:3px;border:1px solid var(--border);margin-bottom:1.5rem;gap:3px;}
 .auth-tab{flex:1;padding:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:none;border:none;color:var(--text3);cursor:pointer;border-radius:6px;transition:all .15s;}
-.auth-tab.active{background:var(--bg);color:var(--text);border:1px solid var(--border2);font-weight:500;}
+.auth-tab.active{background:var(--wine);color:#fff;border:1px solid var(--wine);font-weight:500;}
 
 /* FORM */
 .form-group{margin-bottom:1rem;}
 .form-label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;letter-spacing:.02em;}
 .form-input{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s;}
-.form-input:focus{border-color:var(--gold);}
+.form-input:focus{border-color:var(--wine);}
 .form-input::placeholder{color:var(--text3);}
 
-.btn-primary{width:100%;padding:11px;background:var(--text);color:var(--bg);border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:.25rem;}
+.btn-primary{width:100%;padding:11px;background:var(--wine);color:#fff;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:.25rem;}
 .btn-primary:hover{opacity:.85;}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;}
 
@@ -49,7 +61,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
 .msg{font-size:13px;padding:10px 12px;border-radius:7px;margin-top:1rem;display:none;}
 .msg.error{background:#fef0f0;color:#c0392b;border:1px solid #f5c6c6;display:block;}
 .msg.success{background:#f0fef4;color:#1a7a3a;border:1px solid #c6e8d1;display:block;}
-.msg.info{background:var(--gold-light);color:var(--gold);border:1px solid #e8d5a0;display:block;}
+.msg.info{background:#faf0f3;color:var(--wine);border:1px solid #e0b0bc;display:block;}
 
 /* PLANOS */
 .planos{margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1.25rem;}
@@ -58,8 +70,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
 .plano-card{flex:1;padding:8px;border:1px solid var(--border);border-radius:8px;text-align:center;}
 .plano-nome{font-size:11px;font-weight:500;color:var(--text2);margin-bottom:3px;}
 .plano-acesso{font-size:10px;color:var(--text3);line-height:1.4;}
-.plano-card.destaque{border-color:var(--gold);background:var(--gold-light);}
-.plano-card.destaque .plano-nome{color:var(--gold);}
+.plano-card.destaque{border-color:var(--wine);background:#faf0f3;}
+.plano-card.destaque .plano-nome{color:var(--wine);}
 
 /* FORGOT */
 .forgot{font-size:12px;color:var(--text3);text-align:right;margin-top:.4rem;cursor:pointer;text-decoration:underline;}
@@ -78,7 +90,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg2);min-height:100vh;dis
 <div class="card">
   <div class="card-header">
     <div class="logo">
-      <div class="logo-icon">א</div>
+      <div class="logo-icon">🤲</div>
       <div class="logo-text">Esboços <span>Bíblicos</span></div>
     </div>
     <div class="card-title">Bem-vindo</div>
