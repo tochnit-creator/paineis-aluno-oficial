@@ -103,44 +103,41 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .main::-webkit-scrollbar{width:4px;}
 .main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
 
-/* FUNDO POR ABA */
+/* FUNDO POR ABA — gradientes neutros */
 .main::before{
   content:'';
   position:fixed;
   inset:0;
   z-index:0;
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  opacity:0;
-  transition:opacity .6s ease, background-image .3s;
+  opacity:1;
+  transition:background .5s ease;
   pointer-events:none;
 }
 .main.bg-pregacao::before{
-  background-image:url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1400&q=80');
-  opacity:.12;
+  background: radial-gradient(ellipse at 70% 20%, rgba(123,21,53,0.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(26,31,60,0.05) 0%, transparent 60%);
 }
 .main.bg-ensino::before{
-  background-image:url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1400&q=80');
-  opacity:.12;
+  background: radial-gradient(ellipse at 30% 30%, rgba(26,31,60,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 70%, rgba(200,150,12,0.05) 0%, transparent 60%);
 }
 .main.bg-ebd::before{
-  background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80');
-  opacity:.12;
+  background: radial-gradient(ellipse at 60% 40%, rgba(26,31,60,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 70%, rgba(123,21,53,0.05) 0%, transparent 60%);
 }
 .main.bg-conselho::before{
-  background-image:url('https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=1400&q=80');
-  opacity:.12;
+  background: radial-gradient(ellipse at 40% 20%, rgba(123,21,53,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(200,150,12,0.04) 0%, transparent 60%);
 }
 .main.bg-devocional::before{
-  background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80');
-  opacity:.12;
+  background: radial-gradient(ellipse at 50% 30%, rgba(200,150,12,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 70%, rgba(26,31,60,0.05) 0%, transparent 60%);
 }
-[data-theme="dark"] .main.bg-pregacao::before,
-[data-theme="dark"] .main.bg-ensino::before,
-[data-theme="dark"] .main.bg-ebd::before,
-[data-theme="dark"] .main.bg-conselho::before,
-[data-theme="dark"] .main.bg-devocional::before{ opacity:.08; }
+[data-theme="dark"] .main.bg-pregacao::before{background: radial-gradient(ellipse at 70% 20%, rgba(155,31,69,0.12) 0%, transparent 60%);}
+[data-theme="dark"] .main.bg-ensino::before{background: radial-gradient(ellipse at 30% 30%, rgba(36,42,74,0.15) 0%, transparent 60%);}
+[data-theme="dark"] .main.bg-ebd::before{background: radial-gradient(ellipse at 60% 40%, rgba(36,42,74,0.12) 0%, transparent 60%);}
+[data-theme="dark"] .main.bg-conselho::before{background: radial-gradient(ellipse at 40% 20%, rgba(155,31,69,0.10) 0%, transparent 60%);}
+[data-theme="dark"] .main.bg-devocional::before{background: radial-gradient(ellipse at 50% 30%, rgba(232,184,0,0.08) 0%, transparent 60%);}
 
 .content{max-width:700px;margin:0 auto;padding:2rem 1.5rem;position:relative;z-index:1;}
 
