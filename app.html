@@ -859,24 +859,49 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
 <!-- STRONG DICTIONARY ENGINE -->
 <script>
-// Dicionário Strong — carregado sob demanda via CDN (domínio público)
+// Dicionário Strong — verbetes embutidos (principais termos de Gênesis 1)
+// Fonte: Strong's Exhaustive Concordance, 1890 — domínio público
+const STRONG_LOCAL = {
+  'H7225': { lemma:'רֵאשִׁית', xlit:'rêʼshîyth', pron:'ray-sheeth', strongs_def:'the first, in place, time, order or rank; beginning, chief, first fruits, principal thing.', kjv_def:'beginning, chiefest, first(-fruits, part, time), principal thing.', derivation:'from H7218 (rôʼsh, cabeça/topo)' },
+  'H1254': { lemma:'בָּרָא', xlit:'bârâʼ', pron:'baw-raw', strongs_def:'to create; absolutely to create; qualified to cut down (a wood), select, feed (as formative processes). Used exclusively of divine creation.', kjv_def:'choose, create (creator), cut down, dispatch, do, make (fat).', derivation:'raiz primitiva' },
+  'H430':  { lemma:'אֱלֹהִים', xlit:'ʼĕlôhîym', pron:'el-o-heem', strongs_def:'plural of H433 (ʼĕlôahh); gods in the ordinary sense; but specifically used in the plural thus, especially with the article, of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.', kjv_def:'angels, exceeding, God (gods)(-dess, -ly), (very) great, judges, mighty.', derivation:'plural de H433 (ʼĕlôahh)' },
+  'H8064': { lemma:'שָׁמַיִם', xlit:'shâmayim', pron:'shaw-mah-yim', strongs_def:'the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve): air, heaven(-s).', kjv_def:'air, astrologer, heaven(-s).', derivation:'dual de uma raiz semítica antiga' },
+  'H776':  { lemma:'אֶרֶץ', xlit:'ʼerets', pron:'eh-rets', strongs_def:'the earth (at large, or partitively a land): common, country, earth, field, ground, land, nations, way, wilderness, world.', kjv_def:'common, country, earth, field, ground, land, natins, way, wilderness, world.', derivation:'raiz primitiva' },
+  'H8414': { lemma:'תֹּהוּ', xlit:'tôhûw', pron:'to-hoo', strongs_def:'a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially in vain: confusion, empty place, without form, nothing, (thing of) nought, vain, vanity, waste, wilderness.', kjv_def:'confusion, empty place, without form, nothing, vain, wilderness.', derivation:'raiz primitiva' },
+  'H922':  { lemma:'בֹּהוּ', xlit:'bôhûw', pron:'bo-hoo', strongs_def:'a vacuity, i.e. (superficially) an undistinguishable ruin: emptiness, void.', kjv_def:'emptiness, void.', derivation:'raiz primitiva — par com H8414 (tohu)' },
+  'H7307': { lemma:'רוּחַ', xlit:'rûwach', pron:'roo-akh', strongs_def:'wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively life, anger, insubstantiality; by extension a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions): air, anger, blast, breath, cool, courage, mind, quarter, side, spirit(-ual), tempest, vain, whirlwind(-y).', kjv_def:'air, anger, blast, breath, cool, courage, mind, spirit, wind.', derivation:'raiz primitiva' },
+  'H6213': { lemma:'עָשָׂה', xlit:'ʻâsâh', pron:'aw-saw', strongs_def:'to do or make, in the broadest sense and widest application. A common verb, contrasting with bara (H1254) in that it refers to making with pre-existing materials.', kjv_def:'accomplish, advance, appoint, apt, be at, become, bear, bestow, bring forth, bruise, be busy, certify, come, be committed, deal, deck, + displease, do, (ready) dress(-ed), execute, exercise, fashion, feast, fetch, fight, finish, fit, follow, fulfil, gather, make, observe, perform, work.', derivation:'raiz primitiva' },
+  'H3335': { lemma:'יָצַר', xlit:'yâtsar', pron:'yaw-tsar', strongs_def:'to mould into a form; especially as a potter; figuratively, to determine (i.e. form a resolution): earthen, fashion, form, frame, make(-r), potter, purpose.', kjv_def:'earthen, fashion, form, frame, make(-r), potter, purpose.', derivation:'raiz primitiva; comparar com H3334 (yatsar, apertar)' },
+  'H216':  { lemma:'אוֹר', xlit:'ʼôwr', pron:'ore', strongs_def:'illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.): bright, clear, + day, light (-ning), morning, sun.', kjv_def:'bright, clear, day, light, morning, sun.', derivation:'de H215 (ʼôwr, brilhar)' },
+  'H2416': { lemma:'חַי', xlit:'chay', pron:'khah-ee', strongs_def:'alive; hence raw (flesh); fresh (plant, water, year), strong; also (as noun, especially in the feminine singular and masculine plural) life (or living thing), whether literally or figuratively.', kjv_def:'age, alive, appetite, (wild) beast, company, congregation, life(-time), live(-ly), living (creature, thing), maintenance, merry, multitude, old, quick, raw, running, springing, troop.', derivation:'de H2421 (châyâh, viver)' },
+  // Grego
+  'G746':  { lemma:'ἀρχή', xlit:'archē', pron:'ar-khay', strongs_def:'from the beginning, commencement; in various senses (of order, time, place, or rank): beginning, corner, (at the, the) first (estate), magistrate, power, principality, principle, rule.', kjv_def:'beginning, corner, first (estate), magistrate, power, principality, principle, rule.', derivation:'de G756 (archomai, começar)' },
+  'G2316': { lemma:'θεός', xlit:'theos', pron:'theh-os', strongs_def:'a deity, especially the supreme Divinity; figuratively, a magistrate; by Hebraism, very: God, god-ward.', kjv_def:'X exceeding, God, god(-ly, -ward).', derivation:'de G2316; provavelmente afim com H410 (ʼêl)' },
+  'G3056': { lemma:'λόγος', xlit:'logos', pron:'log-os', strongs_def:'something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially (with the article in John) the Divine Expression (i.e. Christ): account, cause, communication, concerning, doctrine, fame, have to do, intent, matter, mouth, preaching, question, reason, + reckon, remove, say(-ing), shew, X speaker, speech, talk, thing, + none of these things move me, tidings, treatise, utterance, word, work.', kjv_def:'account, cause, communication, doctrine, fame, intent, matter, mouth, preaching, reason, saying, speech, tidings, treatise, utterance, word, work.', derivation:'de G3004 (legō, dizer)' },
+  'G2258': { lemma:'ἦν', xlit:'ēn', pron:'ayn', strongs_def:'was (imperfect of eimi): was, were. The imperfect tense indicating continuous or incomplete action in the past — "was being" or "continued to be". Used in John 1:1 to indicate the eternal pre-existence of the Logos.', kjv_def:'was, were.', derivation:'imperfeito de G1510 (eimi, ser/estar)' },
+  'G4160': { lemma:'ποιέω', xlit:'poieō', pron:'poy-eh-o', strongs_def:'to make or do (in a very wide application, more or less direct): abide, + agree, appoint, X avenge, + band together, be, bear, + bewray, bring (forth), cast out, cause, commit, + content, continue, deal, + without any delay, (would) do(-ing), execute, exercise, fulfil, gain, give, have, hold, X journeying, keep, + lay wait, + lighten the ship, make, X mean, + none of these things move me, observe, ordain, perform, provide, + have purged, purpose, put, + raising up, X secure, shew, X shoot out, spend, take, tarry, + transgress the law, work, yield.', kjv_def:'abide, do, make, observe, perform, work.', derivation:'raiz primitiva aparente' }
+};
+
 const STRONG_CACHE = {};
 
 async function carregarStrong(tipo) {
+  // Primeiro verifica cache
   if (STRONG_CACHE[tipo]) return STRONG_CACHE[tipo];
+  // Tenta carregar do raw.githubusercontent
   const url = tipo === 'H'
-    ? 'https://cdn.jsdelivr.net/gh/openscriptures/strongs@master/hebrew/strongs-hebrew-dictionary.js'
-    : 'https://cdn.jsdelivr.net/gh/openscriptures/strongs@master/greek/strongs-greek-dictionary.js';
+    ? 'https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js'
+    : 'https://raw.githubusercontent.com/openscriptures/strongs/master/greek/strongs-greek-dictionary.js';
   try {
     const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP '+res.status);
     const text = await res.text();
-    // O arquivo é um objeto JS: var strongs_hebrew_dictionary = {...}
-    const jsonStr = text.replace(/^var \w+ = /, '').replace(/;?\s*$/, '');
+    const jsonStr = text.replace(/^var \w[\w_]* = /, '').replace(/;\s*$/, '').trim();
     const dict = JSON.parse(jsonStr);
     STRONG_CACHE[tipo] = dict;
     return dict;
   } catch(e) {
-    return null;
+    console.warn('CDN falhou, usando dicionário local');
+    return null; // fallback para STRONG_LOCAL
   }
 }
 
@@ -892,15 +917,15 @@ async function abrirStrong(numero, palavra) {
 
   const dict = await carregarStrong(tipo);
 
-  if (!dict) {
-    body.innerHTML = `<div class="strong-error">Não foi possível carregar o dicionário.<br>Verifique sua conexão.</div>`;
-    return;
+  // Busca: primeiro no CDN, depois no dicionário local embutido
+  let entry = null;
+  if (dict) {
+    entry = dict[numero] || dict[num] ||
+      dict[tipo+num.padStart(4,'0')] ||
+      Object.values(dict).find(e => e.strongs === numero || e.strongs === num);
   }
-
-  // Busca no dicionário — as chaves podem ser H1, H0001 etc
-  const entry = dict[numero] || dict[num] ||
-    dict['H'+num.padStart(4,'0')] || dict['G'+num.padStart(4,'0')] ||
-    Object.values(dict).find(e => e.strongs === numero || e.strongs === num);
+  // Fallback para dicionário local
+  if (!entry) entry = STRONG_LOCAL[numero];
 
   if (!entry) {
     body.innerHTML = `<div class="strong-error">Verbete <strong>${numero}</strong> não encontrado no dicionário.</div>`;
