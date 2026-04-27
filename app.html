@@ -932,32 +932,30 @@ async function abrirStrong(numero, palavra) {
     return;
   }
 
-  // Monta o HTML do verbete
+  // Extrai campos do verbete
   const lemma = entry.lemma || entry.word || '';
   const translit = entry.xlit || entry.translit || '';
   const pron = entry.pron || '';
-  const strNum = entry.strongs || numero;
   const def = entry.strongs_def || entry.derivation || '';
   const kjvDef = entry.kjv_def || '';
   const derivation = entry.derivation || '';
 
-  // Tradução contextual via Claude API integrada
+  // Traduz definição e usos via Claude
   body.innerHTML = `
     <div class="strong-num">${tipo === 'H' ? 'Hebraico' : 'Grego'} · ${numero}</div>
     <div class="strong-word">${lemma}</div>
     ${translit ? `<div class="strong-translit">${translit}${pron ? ' · "'+pron+'"' : ''}</div>` : ''}
     <div class="strong-divider"></div>
-    <div class="strong-section-label">Definição (Strong, 1890)</div>
-    <div class="strong-def">${def || 'Definição não disponível.'}</div>
-    ${kjvDef ? `<div class="strong-section-label" style="margin-top:.5rem;">Usos na KJV</div><div class="strong-def" style="font-size:12px;">${kjvDef}</div>` : ''}
-    ${derivation && derivation !== def ? `<div class="strong-section-label" style="margin-top:.5rem;">Derivação</div><div class="strong-def" style="font-size:12px;">${derivation}</div>` : ''}
+    <div class="strong-section-label">Definição original (Strong, 1890)</div>
+    <div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">${def || 'Definição não disponível.'}</div>
+    ${kjvDef ? `<div class="strong-section-label" style="margin-top:.75rem;">Usos na KJV</div><div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">${kjvDef}</div>` : ''}
     <div class="strong-divider"></div>
     <div class="strong-claude" id="strong-claude-box">
-      <div class="strong-claude-label">✦ Comentário teológico</div>
+      <div class="strong-claude-label">✦ Em português — definição e comentário teológico</div>
       <div class="strong-claude-text" id="strong-claude-text">
         <div class="strong-loading" style="padding:.5rem 0;text-align:left;">
-          <div class="strong-spinner" style="width:14px;height:14px;"></div>
-          Gerando comentário contextual...
+          <div class="strong-spinner" style="width:14px;height:14px;display:inline-block;"></div>
+          <span style="margin-left:6px;">Traduzindo e comentando...</span>
         </div>
       </div>
     </div>`;
@@ -969,19 +967,19 @@ async function abrirStrong(numero, palavra) {
 async function gerarComentarioStrong(numero, lemma, translit, def, kjvDef, palavra) {
   try {
     const prompt = `Você é um teólogo bíblico especialista em hebraico e grego bíblico. 
-Explique em português brasileiro, de forma clara e útil para um pastor ou professor:
+Responda APENAS em português brasileiro, de forma direta e estruturada para um pastor ou professor.
 
 Palavra: ${lemma} (${translit}) — Strong ${numero}
-Definição original de Strong: ${def}
+Definição original de Strong (em inglês): ${def}
 ${kjvDef ? 'Usos na KJV: ' + kjvDef : ''}
-Contexto: esta palavra aparece em Gênesis 1:1, no estudo bíblico sobre a criação.
 
-Escreva um parágrafo curto (4-6 linhas) com:
-1. O significado mais preciso da palavra no contexto bíblico
-2. Uma nuance teológica importante que o pregador deve saber
-3. Como isso enriquece a compreensão de Gênesis 1:1
+Responda EXATAMENTE neste formato (sem markdown, sem asteriscos):
 
-Seja direto e prático. Sem formatação markdown.`;
+DEFINIÇÃO: [tradução clara e precisa do significado da palavra em português, 1-2 frases]
+
+USOS PRINCIPAIS: [os 5-8 principais usos/traduções em português, separados por vírgula]
+
+NOTA TEOLÓGICA: [1 parágrafo de 3-4 linhas explicando a importância teológica desta palavra, especialmente em Gênesis 1:1 e no contexto bíblico mais amplo]`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -994,13 +992,32 @@ Seja direto e prático. Sem formatação markdown.`;
     });
 
     const data = await response.json();
-    const texto = data.content?.[0]?.text || 'Comentário não disponível.';
+    const texto = data.content?.[0]?.text || '';
     const el = document.getElementById('strong-claude-text');
-    if (el) el.textContent = texto;
+    if (!el) return;
+
+    if (!texto) {
+      el.textContent = 'Comentário não disponível.';
+      return;
+    }
+
+    // Formata a resposta estruturada em HTML
+    const linhas = texto.split('\n').filter(l => l.trim());
+    let html = '';
+    for (const linha of linhas) {
+      if (linha.startsWith('DEFINIÇÃO:')) {
+        html += `<div style="margin-bottom:.75rem;"><span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px;">Definição em português</span><span style="font-size:13.5px;color:var(--text);line-height:1.7;">${linha.replace('DEFINIÇÃO:', '').trim()}</span></div>`;
+      } else if (linha.startsWith('USOS PRINCIPAIS:')) {
+        html += `<div style="margin-bottom:.75rem;"><span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px;">Usos em português</span><span style="font-size:12px;color:var(--text2);line-height:1.7;">${linha.replace('USOS PRINCIPAIS:', '').trim()}</span></div>`;
+      } else if (linha.startsWith('NOTA TEOLÓGICA:')) {
+        html += `<div style="margin-top:.5rem;padding-top:.75rem;border-top:1px solid var(--border);"><span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Nota teológica</span><span style="font-size:13px;color:var(--text2);line-height:1.8;">${linha.replace('NOTA TEOLÓGICA:', '').trim()}</span></div>`;
+      }
+    }
+    el.innerHTML = html || texto;
 
   } catch(e) {
     const el = document.getElementById('strong-claude-text');
-    if (el) el.textContent = 'Comentário teológico não disponível no momento.';
+    if (el) el.innerHTML = `<span style="color:var(--text3);font-size:12px;">Tradução automática indisponível. Consulte a definição original acima.</span>`;
   }
 }
 
