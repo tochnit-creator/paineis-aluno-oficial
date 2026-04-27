@@ -328,6 +328,39 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .present-close{position:fixed;top:1.25rem;right:1.25rem;background:transparent;border:1px solid #2a2820;color:#555;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;}
 .present-counter{font-size:11px;color:#333;margin-top:1.25rem;}
 
+/* STRONG PANEL */
+.strong-overlay{display:none;position:fixed;inset:0;background:rgba(26,31,60,0.45);z-index:500;backdrop-filter:blur(2px);}
+.strong-overlay.active{display:block;}
+.strong-panel{position:fixed;top:0;right:-420px;width:400px;max-width:95vw;height:100vh;background:var(--bg);border-left:3px solid var(--wine);z-index:501;display:flex;flex-direction:column;transition:right .3s cubic-bezier(.4,0,.2,1);overflow:hidden;box-shadow:-4px 0 24px rgba(0,0,0,0.15);}
+.strong-panel.open{right:0;}
+.strong-header{padding:1rem 1.25rem;background:var(--wine);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.strong-header-title{font-family:'Playfair Display',serif;font-size:16px;color:#fff;font-style:italic;}
+.strong-close{background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.strong-close:hover{background:rgba(255,255,255,0.25);}
+.strong-body{flex:1;overflow-y:auto;padding:1.25rem;}
+.strong-body::-webkit-scrollbar{width:4px;}
+.strong-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+.strong-num{font-size:11px;font-weight:500;color:var(--wine);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.strong-word{font-size:28px;color:var(--navy);font-family:'Playfair Display',serif;margin-bottom:.25rem;line-height:1.2;}
+.strong-translit{font-size:14px;color:var(--text3);font-style:italic;margin-bottom:1rem;}
+.strong-divider{height:1px;background:var(--border);margin:1rem 0;}
+.strong-section-label{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.strong-def{font-size:13.5px;color:var(--text2);line-height:1.8;margin-bottom:1rem;}
+.strong-claude{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--wine);border-radius:0 8px 8px 0;padding:1rem;margin-top:.5rem;}
+.strong-claude-label{font-size:10px;font-weight:500;color:var(--wine);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.strong-claude-text{font-size:13px;color:var(--text2);line-height:1.8;}
+.strong-loading{text-align:center;padding:2rem;color:var(--text3);font-size:13px;}
+.strong-spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--wine);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;margin-bottom:.5rem;}
+.strong-error{color:#e74c3c;font-size:13px;text-align:center;padding:1rem;}
+.strong-link{color:var(--wine);font-weight:500;cursor:pointer;border-bottom:1px dashed rgba(123,21,53,0.4);transition:all .15s;display:inline;}
+.strong-link:hover{background:rgba(123,21,53,0.07);border-radius:3px;padding:0 2px;}
+.strong-tag{font-size:9px;color:var(--wine);opacity:.6;margin-left:2px;font-style:normal;vertical-align:super;}
+.strong-toolbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:.6rem 1.25rem;display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.strong-toolbar-label{font-size:11px;color:var(--text3);}
+.strong-search-input{flex:1;padding:5px 8px;border:1px solid var(--border2);border-radius:6px;font-size:12px;color:var(--text);background:var(--bg);outline:none;font-family:'DM Sans',sans-serif;}
+.strong-search-input:focus{border-color:var(--wine);}
+.strong-search-btn{padding:5px 12px;background:var(--wine);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
 /* LOADING SCREEN */
 .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem;}
 .loading-logo{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);}
@@ -437,6 +470,19 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
       <!-- ENSINO -->
       <div class="panel" id="panel-ensino">
         <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+
+        <!-- BARRA STRONG -->
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:11px;color:var(--text3);font-weight:500;">📖 Consultar no Strong:</span>
+          <span class="strong-link" onclick="abrirStrong('H7225','bereshit')">בְּרֵאשִׁית <span class="strong-tag">H7225</span></span>
+          <span class="strong-link" onclick="abrirStrong('H1254','bara')">בָּרָא <span class="strong-tag">H1254</span></span>
+          <span class="strong-link" onclick="abrirStrong('H430','elohim')">אֱלֹהִים <span class="strong-tag">H430</span></span>
+          <span class="strong-link" onclick="abrirStrong('H8064','shamayim')">שָׁמַיִם <span class="strong-tag">H8064</span></span>
+          <span class="strong-link" onclick="abrirStrong('H776','erets')">אֶרֶץ <span class="strong-tag">H776</span></span>
+          <span class="strong-link" onclick="abrirStrong('G746','arche')">ἀρχῇ <span class="strong-tag">G746</span></span>
+          <span class="strong-link" onclick="abrirStrong('G2316','theos')">θεὸς <span class="strong-tag">G2316</span></span>
+        </div>
+
         <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Análise gramatical e estrutural</div></div>
         <div class="hebrew-term"><span class="heb">בְּרֵאשִׁית</span><span>bereshit</span><span class="translat">"no princípio"</span></div>
         <div class="debate-box">
@@ -445,7 +491,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
           <div class="debate-row"><div class="debate-label">Consenso atual</div><div class="debate-val">Maioria dos hebraístas modernos (Wenham, Hamilton, Waltke) prefere o estado absoluto.</div></div>
         </div>
         <div class="hebrew-term"><span class="heb">בָּרָא</span><span>bara</span><span class="translat">"criar" — exclusivo de Deus</span></div>
-        <div class="body-text">Em toda a Bíblia Hebraica, <em>bara</em> nunca aparece com sujeito humano. Contrasta com <em>asah</em> (fazer) e <em>yatsar</em> (moldar). <em>Bara</em> aponta para criação sem matéria preexistente.</div>
+        <div class="body-text">Em toda a Bíblia Hebraica, <span class="strong-link" onclick="abrirStrong('H1254','bara')"><em>bara</em> <span class="strong-tag">H1254</span></span> nunca aparece com sujeito humano. Contrasta com <span class="strong-link" onclick="abrirStrong('H6213','asah')"><em>asah</em> <span class="strong-tag">H6213</span></span> (fazer) e <span class="strong-link" onclick="abrirStrong('H3335','yatsar')"><em>yatsar</em> <span class="strong-tag">H3335</span></span> (moldar). <em>Bara</em> aponta para criação sem matéria preexistente.</div>
         <div class="accent-box"><strong>Nota:</strong> A expressão <em>creatio ex nihilo</em> foi formulada pelos Pais da Igreja (Teófilo de Antioquia, séc. II) a partir de Gn 1:1, Hb 11:3 e 2 Mc 7:28. O verbo <em>bara</em> implica a doutrina, mas não a formula explicitamente.</div>
         <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">Contexto do Antigo Oriente Próximo</div></div>
         <div class="compare-grid">
@@ -478,11 +524,23 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
       <!-- EBD -->
       <div class="panel" id="panel-ebd">
         <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
+
+        <!-- BARRA STRONG EBD -->
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:11px;color:var(--text3);font-weight:500;">📖 Palavras-chave da aula:</span>
+          <span class="strong-link" onclick="abrirStrong('H7225','bereshit')">bereshit <span class="strong-tag">H7225</span></span>
+          <span class="strong-link" onclick="abrirStrong('H1254','bara')">bara <span class="strong-tag">H1254</span></span>
+          <span class="strong-link" onclick="abrirStrong('H430','elohim')">elohim <span class="strong-tag">H430</span></span>
+          <span class="strong-link" onclick="abrirStrong('H8414','tohu')">tohu <span class="strong-tag">H8414</span></span>
+          <span class="strong-link" onclick="abrirStrong('H922','vohu')">vohu <span class="strong-tag">H922</span></span>
+          <span class="strong-link" onclick="abrirStrong('H7307','ruach')">ruach <span class="strong-tag">H7307</span></span>
+        </div>
+
         <div class="ebd-meta"><span class="meta-pill"><strong>Duração:</strong> 45–60 min</span><span class="meta-pill"><strong>Público:</strong> Adultos</span><span class="meta-pill"><strong>Material:</strong> Papel e caneta</span></div>
         <div class="ebd-section"><div class="ebd-section-label label-abertura">Abertura provocativa — 5 min</div></div>
         <div class="pergunta-box"><div class="pergunta-label">Pergunta de abertura</div><div class="pergunta-text">"O que você acha que existia antes do universo existir?"</div><div class="pergunta-dica">Deixe 2-3 pessoas responderem. Anote no quadro. Depois diga: "A Bíblia também responde — e a resposta muda tudo."</div></div>
         <div class="ebd-section"><div class="ebd-section-label label-desenvolvimento">Ponto I — Deus existe antes do tempo — 10 min</div></div>
-        <div class="body-text">A palavra <em>bereshit</em> não fala sobre quando Deus começou — fala sobre quando a criação começou. Deus criou o próprio tempo.</div>
+        <div class="body-text">A palavra <span class="strong-link" onclick="abrirStrong('H7225','bereshit')"><em>bereshit</em> <span class="strong-tag">H7225</span></span> não fala sobre quando Deus começou — fala sobre quando a criação começou. Deus criou o próprio tempo.</div>
         <div class="insight-box"><strong>Ilustração:</strong> "Quem já assistiu um filme querendo saber o que aconteceu antes da primeira cena?" Todos. "Gênesis 1:1 é a primeira cena do universo. Antes dela — havia Deus." <span class="xref">Sl 90:2</span></div>
         <div class="pergunta-box"><div class="pergunta-label">Pergunta para a turma</div><div class="pergunta-text">"Se Deus existia antes do tempo, o que isso diz sobre a nossa ansiedade em relação ao futuro?"</div><div class="pergunta-dica">Conduza para Jr 29:11.</div></div>
         <div class="ebd-section"><div class="ebd-section-label label-dinamica">Dinâmica central — 10 min</div></div>
@@ -496,7 +554,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
         <div class="ebd-section"><div class="ebd-section-label label-atividade">Atividade — 5 min</div></div>
         <div class="atividade-box">
           <div class="atividade-label">Atividade individual</div><div class="atividade-title">Meu "no princípio"</div>
-          <div class="atividade-text">Complete em silêncio:<br><br><strong>1.</strong> "Uma área da minha vida 'sem forma e vazia' é..."<br><strong>2.</strong> "O que Deus pode criar ali é..."<br><strong>3.</strong> "Meu 'no princípio' começa quando eu..."</div>
+          <div class="atividade-text">Complete em silêncio:<br><br><strong>1.</strong> "Uma área da minha vida '<span class="strong-link" onclick="abrirStrong('H8414','tohu')">tohu</span> vavohu' é..."<br><strong>2.</strong> "O que Deus pode criar ali é..."<br><strong>3.</strong> "Meu 'no princípio' começa quando eu..."</div>
         </div>
         <div class="fechamento-box"><strong>Fechamento:</strong> "Gênesis 1:1 responde a maior pergunta da humanidade. Mas mais do que responder sobre o universo — ela responde sobre você. A questão é: você vai deixar?"</div>
         <button class="present-btn" onclick="startPresent('ebd')"><span class="play-icon"></span> Modo apresentação</button>
@@ -575,6 +633,23 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   <div class="present-subs" id="p-subs"></div>
   <div class="present-nav"><button onclick="prevSlide()">← Anterior</button><button onclick="nextSlide()">Próximo →</button></div>
   <div class="present-counter" id="p-counter"></div>
+</div>
+
+<!-- STRONG PANEL -->
+<div class="strong-overlay" id="strong-overlay" onclick="closeStrong()"></div>
+<div class="strong-panel" id="strong-panel">
+  <div class="strong-header">
+    <div class="strong-header-title">📖 Dicionário Strong</div>
+    <button class="strong-close" onclick="closeStrong()">✕</button>
+  </div>
+  <div class="strong-toolbar">
+    <span class="strong-toolbar-label">Buscar número:</span>
+    <input class="strong-search-input" type="text" id="strong-search-input" placeholder="Ex: H1254 ou G746" onkeydown="if(event.key==='Enter')buscarStrong()"/>
+    <button class="strong-search-btn" onclick="buscarStrong()">Buscar</button>
+  </div>
+  <div class="strong-body" id="strong-body">
+    <div class="strong-loading">Clique em uma palavra destacada<br>ou busque um número Strong acima.</div>
+  </div>
 </div>
 
 <!-- Firebase SDK -->
@@ -780,6 +855,153 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   window.selectItem = (el,crumb) => {document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');document.getElementById('header-crumb').textContent=crumb;};
   window.filterItems = (v) => {document.querySelectorAll('.sidebar-item').forEach(i=>{i.style.display=i.dataset.search.includes(v.toLowerCase())?'flex':'none';});};
   window.switchDevo = (g) => {document.querySelectorAll('.devo-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.devo-btn').forEach(b=>{b.classList.remove('active-m');b.classList.remove('active-f');});document.getElementById('devo-'+g).classList.add('active');if(g==='masc')document.getElementById('btn-masc').classList.add('active-m');else document.getElementById('btn-fem').classList.add('active-f');};
+</script>
+
+<!-- STRONG DICTIONARY ENGINE -->
+<script>
+// Dicionário Strong — carregado sob demanda via CDN (domínio público)
+const STRONG_CACHE = {};
+
+async function carregarStrong(tipo) {
+  if (STRONG_CACHE[tipo]) return STRONG_CACHE[tipo];
+  const url = tipo === 'H'
+    ? 'https://cdn.jsdelivr.net/gh/openscriptures/strongs@master/hebrew/strongs-hebrew-dictionary.js'
+    : 'https://cdn.jsdelivr.net/gh/openscriptures/strongs@master/greek/strongs-greek-dictionary.js';
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    // O arquivo é um objeto JS: var strongs_hebrew_dictionary = {...}
+    const jsonStr = text.replace(/^var \w+ = /, '').replace(/;?\s*$/, '');
+    const dict = JSON.parse(jsonStr);
+    STRONG_CACHE[tipo] = dict;
+    return dict;
+  } catch(e) {
+    return null;
+  }
+}
+
+async function abrirStrong(numero, palavra) {
+  // Abre painel
+  document.getElementById('strong-overlay').classList.add('active');
+  document.getElementById('strong-panel').classList.add('open');
+  const body = document.getElementById('strong-body');
+  body.innerHTML = `<div class="strong-loading"><div class="strong-spinner"></div><br>Carregando Strong ${numero}...</div>`;
+
+  const tipo = numero.charAt(0); // H ou G
+  const num = numero.slice(1);   // número sem prefixo
+
+  const dict = await carregarStrong(tipo);
+
+  if (!dict) {
+    body.innerHTML = `<div class="strong-error">Não foi possível carregar o dicionário.<br>Verifique sua conexão.</div>`;
+    return;
+  }
+
+  // Busca no dicionário — as chaves podem ser H1, H0001 etc
+  const entry = dict[numero] || dict[num] ||
+    dict['H'+num.padStart(4,'0')] || dict['G'+num.padStart(4,'0')] ||
+    Object.values(dict).find(e => e.strongs === numero || e.strongs === num);
+
+  if (!entry) {
+    body.innerHTML = `<div class="strong-error">Verbete <strong>${numero}</strong> não encontrado no dicionário.</div>`;
+    return;
+  }
+
+  // Monta o HTML do verbete
+  const lemma = entry.lemma || entry.word || '';
+  const translit = entry.xlit || entry.translit || '';
+  const pron = entry.pron || '';
+  const strNum = entry.strongs || numero;
+  const def = entry.strongs_def || entry.derivation || '';
+  const kjvDef = entry.kjv_def || '';
+  const derivation = entry.derivation || '';
+
+  // Tradução contextual via Claude API integrada
+  body.innerHTML = `
+    <div class="strong-num">${tipo === 'H' ? 'Hebraico' : 'Grego'} · ${numero}</div>
+    <div class="strong-word">${lemma}</div>
+    ${translit ? `<div class="strong-translit">${translit}${pron ? ' · "'+pron+'"' : ''}</div>` : ''}
+    <div class="strong-divider"></div>
+    <div class="strong-section-label">Definição (Strong, 1890)</div>
+    <div class="strong-def">${def || 'Definição não disponível.'}</div>
+    ${kjvDef ? `<div class="strong-section-label" style="margin-top:.5rem;">Usos na KJV</div><div class="strong-def" style="font-size:12px;">${kjvDef}</div>` : ''}
+    ${derivation && derivation !== def ? `<div class="strong-section-label" style="margin-top:.5rem;">Derivação</div><div class="strong-def" style="font-size:12px;">${derivation}</div>` : ''}
+    <div class="strong-divider"></div>
+    <div class="strong-claude" id="strong-claude-box">
+      <div class="strong-claude-label">✦ Comentário teológico</div>
+      <div class="strong-claude-text" id="strong-claude-text">
+        <div class="strong-loading" style="padding:.5rem 0;text-align:left;">
+          <div class="strong-spinner" style="width:14px;height:14px;"></div>
+          Gerando comentário contextual...
+        </div>
+      </div>
+    </div>`;
+
+  // Gera comentário via Claude
+  gerarComentarioStrong(numero, lemma, translit, def, kjvDef, palavra);
+}
+
+async function gerarComentarioStrong(numero, lemma, translit, def, kjvDef, palavra) {
+  try {
+    const prompt = `Você é um teólogo bíblico especialista em hebraico e grego bíblico. 
+Explique em português brasileiro, de forma clara e útil para um pastor ou professor:
+
+Palavra: ${lemma} (${translit}) — Strong ${numero}
+Definição original de Strong: ${def}
+${kjvDef ? 'Usos na KJV: ' + kjvDef : ''}
+Contexto: esta palavra aparece em Gênesis 1:1, no estudo bíblico sobre a criação.
+
+Escreva um parágrafo curto (4-6 linhas) com:
+1. O significado mais preciso da palavra no contexto bíblico
+2. Uma nuance teológica importante que o pregador deve saber
+3. Como isso enriquece a compreensão de Gênesis 1:1
+
+Seja direto e prático. Sem formatação markdown.`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const texto = data.content?.[0]?.text || 'Comentário não disponível.';
+    const el = document.getElementById('strong-claude-text');
+    if (el) el.textContent = texto;
+
+  } catch(e) {
+    const el = document.getElementById('strong-claude-text');
+    if (el) el.textContent = 'Comentário teológico não disponível no momento.';
+  }
+}
+
+function closeStrong() {
+  document.getElementById('strong-overlay').classList.remove('active');
+  document.getElementById('strong-panel').classList.remove('open');
+}
+
+function buscarStrong() {
+  const val = document.getElementById('strong-search-input').value.trim().toUpperCase();
+  if (!val) return;
+  const match = val.match(/^([HG])(\d+)$/);
+  if (match) {
+    abrirStrong(val, val);
+    document.getElementById('strong-search-input').value = '';
+  } else {
+    document.getElementById('strong-body').innerHTML = `<div class="strong-error">Formato inválido.<br>Use H seguido de número (ex: <strong>H1254</strong>)<br>ou G seguido de número (ex: <strong>G746</strong>).</div>`;
+    document.getElementById('strong-overlay').classList.add('active');
+    document.getElementById('strong-panel').classList.add('open');
+  }
+}
+
+// Fecha com Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeStrong();
+});
 </script>
 </body>
 </html>
