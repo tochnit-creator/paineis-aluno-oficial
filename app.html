@@ -171,6 +171,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .versao-texto{padding:.85rem 1rem;font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--text2);line-height:1.7;flex:1;}
 .versao-item.destaque .versao-texto{color:var(--text);}
 .versao-nota{font-size:11px;color:var(--text3);font-style:normal;display:block;margin-top:4px;font-family:'DM Sans',sans-serif;}
+.versao-literal{font-size:11px;color:var(--wine);font-style:normal;display:block;margin-top:5px;font-family:'DM Sans',sans-serif;padding:4px 8px;background:rgba(123,21,53,0.05);border-left:2px solid var(--wine);border-radius:0 4px 4px 0;}
+.versao-literal::before{content:"Lit: ";font-weight:600;}
 
 /* PANELS */
 .panel{display:none;}
@@ -408,10 +410,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
         <div class="versoes-grid">
           <div class="versao-item"><div class="versao-label"><div class="versao-sigla">ARA</div><div class="versao-nome">Almeida Revista e Atualizada</div></div><div class="versao-texto">"No princípio, criou Deus os céus e a terra."<span class="versao-nota">A inversão "criou Deus" segue a ordem hebraica: verbo-sujeito-objeto.</span></div></div>
           <div class="versao-item"><div class="versao-label"><div class="versao-sigla">NVI</div><div class="versao-nome">Nova Versão Internacional</div></div><div class="versao-texto">"No princípio Deus criou os céus e a terra."<span class="versao-nota">Ordem natural ao português contemporâneo.</span></div></div>
-          <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">KJV</div><div class="versao-nome">King James Version (1611)</div></div><div class="versao-texto">"In the beginning God created the heaven and the earth."<span class="versao-nota">"heaven" no singular — shamayim como singular de majestade.</span></div></div>
+          <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">KJV</div><div class="versao-nome">King James Version (1611)</div></div><div class="versao-texto">"In the beginning God created the heaven and the earth."<span class="versao-nota">"heaven" no singular — shamayim como singular de majestade.</span><span class="versao-literal">"No / princípio / Deus / criou / o céu / e / a terra."</span></div></div>
           <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">BJ</div><div class="versao-nome">Bíblia de Jerusalém</div></div><div class="versao-texto">"No princípio, Deus criou o céu e a terra."<span class="versao-nota">École Biblique de Jerusalém. "O céu" no singular — opção exegética.</span></div></div>
           <div class="versao-item"><div class="versao-label"><div class="versao-sigla">NAA</div><div class="versao-nome">Nova Almeida Atualizada</div></div><div class="versao-texto">"No princípio, Deus criou os céus e a terra."<span class="versao-nota">Revisão moderna da Almeida.</span></div></div>
-          <div class="versao-item"><div class="versao-label"><div class="versao-sigla">LXX</div><div class="versao-nome">Septuaginta (Grego)</div></div><div class="versao-texto">ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν<span class="versao-nota">A Bíblia da Igreja primitiva. João 1:1 retoma ἐν ἀρχῇ deliberadamente.</span></div></div>
+          <div class="versao-item"><div class="versao-label"><div class="versao-sigla">LXX</div><div class="versao-nome">Septuaginta (Grego)</div></div><div class="versao-texto">ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν<span class="versao-nota">A Bíblia da Igreja primitiva. João 1:1 retoma ἐν ἀρχῇ deliberadamente.</span><span class="versao-literal">ἐν (em/no) · ἀρχῇ (princípio) · ἐποίησεν (fez/criou) · ὁ θεὸς (o Deus) · τὸν οὐρανὸν (o céu) · καὶ (e) · τὴν γῆν (a terra)</span></div></div>
         </div>
         <div class="scene-open">Imagine o nada absoluto. Não a escuridão — porque a escuridão é alguma coisa. Não o silêncio — porque o silêncio pressupõe ouvidos. Agora imagine que, nesse nada, uma Voz fala. E tudo começa.</div>
         <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Antes de tudo, havia Deus</div></div>
