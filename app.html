@@ -859,190 +859,237 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
 <!-- STRONG DICTIONARY ENGINE -->
 <script>
-// Dicionário Strong — verbetes embutidos (principais termos de Gênesis 1)
-// Fonte: Strong's Exhaustive Concordance, 1890 — domínio público
+// Strong's Exhaustive Concordance — termos principais de Genesis 1
+// Fonte: dominio publico (1890). Traducoes e notas teologicas em portugues.
 const STRONG_LOCAL = {
-  'H7225': { lemma:'רֵאשִׁית', xlit:'rêʼshîyth', pron:'ray-sheeth', strongs_def:'the first, in place, time, order or rank; beginning, chief, first fruits, principal thing.', kjv_def:'beginning, chiefest, first(-fruits, part, time), principal thing.', derivation:'from H7218 (rôʼsh, cabeça/topo)' },
-  'H1254': { lemma:'בָּרָא', xlit:'bârâʼ', pron:'baw-raw', strongs_def:'to create; absolutely to create; qualified to cut down (a wood), select, feed (as formative processes). Used exclusively of divine creation.', kjv_def:'choose, create (creator), cut down, dispatch, do, make (fat).', derivation:'raiz primitiva' },
-  'H430':  { lemma:'אֱלֹהִים', xlit:'ʼĕlôhîym', pron:'el-o-heem', strongs_def:'plural of H433 (ʼĕlôahh); gods in the ordinary sense; but specifically used in the plural thus, especially with the article, of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.', kjv_def:'angels, exceeding, God (gods)(-dess, -ly), (very) great, judges, mighty.', derivation:'plural de H433 (ʼĕlôahh)' },
-  'H8064': { lemma:'שָׁמַיִם', xlit:'shâmayim', pron:'shaw-mah-yim', strongs_def:'the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve): air, heaven(-s).', kjv_def:'air, astrologer, heaven(-s).', derivation:'dual de uma raiz semítica antiga' },
-  'H776':  { lemma:'אֶרֶץ', xlit:'ʼerets', pron:'eh-rets', strongs_def:'the earth (at large, or partitively a land): common, country, earth, field, ground, land, nations, way, wilderness, world.', kjv_def:'common, country, earth, field, ground, land, natins, way, wilderness, world.', derivation:'raiz primitiva' },
-  'H8414': { lemma:'תֹּהוּ', xlit:'tôhûw', pron:'to-hoo', strongs_def:'a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially in vain: confusion, empty place, without form, nothing, (thing of) nought, vain, vanity, waste, wilderness.', kjv_def:'confusion, empty place, without form, nothing, vain, wilderness.', derivation:'raiz primitiva' },
-  'H922':  { lemma:'בֹּהוּ', xlit:'bôhûw', pron:'bo-hoo', strongs_def:'a vacuity, i.e. (superficially) an undistinguishable ruin: emptiness, void.', kjv_def:'emptiness, void.', derivation:'raiz primitiva — par com H8414 (tohu)' },
-  'H7307': { lemma:'רוּחַ', xlit:'rûwach', pron:'roo-akh', strongs_def:'wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively life, anger, insubstantiality; by extension a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions): air, anger, blast, breath, cool, courage, mind, quarter, side, spirit(-ual), tempest, vain, whirlwind(-y).', kjv_def:'air, anger, blast, breath, cool, courage, mind, spirit, wind.', derivation:'raiz primitiva' },
-  'H6213': { lemma:'עָשָׂה', xlit:'ʻâsâh', pron:'aw-saw', strongs_def:'to do or make, in the broadest sense and widest application. A common verb, contrasting with bara (H1254) in that it refers to making with pre-existing materials.', kjv_def:'accomplish, advance, appoint, apt, be at, become, bear, bestow, bring forth, bruise, be busy, certify, come, be committed, deal, deck, + displease, do, (ready) dress(-ed), execute, exercise, fashion, feast, fetch, fight, finish, fit, follow, fulfil, gather, make, observe, perform, work.', derivation:'raiz primitiva' },
-  'H3335': { lemma:'יָצַר', xlit:'yâtsar', pron:'yaw-tsar', strongs_def:'to mould into a form; especially as a potter; figuratively, to determine (i.e. form a resolution): earthen, fashion, form, frame, make(-r), potter, purpose.', kjv_def:'earthen, fashion, form, frame, make(-r), potter, purpose.', derivation:'raiz primitiva; comparar com H3334 (yatsar, apertar)' },
-  'H216':  { lemma:'אוֹר', xlit:'ʼôwr', pron:'ore', strongs_def:'illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.): bright, clear, + day, light (-ning), morning, sun.', kjv_def:'bright, clear, day, light, morning, sun.', derivation:'de H215 (ʼôwr, brilhar)' },
-  'H2416': { lemma:'חַי', xlit:'chay', pron:'khah-ee', strongs_def:'alive; hence raw (flesh); fresh (plant, water, year), strong; also (as noun, especially in the feminine singular and masculine plural) life (or living thing), whether literally or figuratively.', kjv_def:'age, alive, appetite, (wild) beast, company, congregation, life(-time), live(-ly), living (creature, thing), maintenance, merry, multitude, old, quick, raw, running, springing, troop.', derivation:'de H2421 (châyâh, viver)' },
-  // Grego
-  'G746':  { lemma:'ἀρχή', xlit:'archē', pron:'ar-khay', strongs_def:'from the beginning, commencement; in various senses (of order, time, place, or rank): beginning, corner, (at the, the) first (estate), magistrate, power, principality, principle, rule.', kjv_def:'beginning, corner, first (estate), magistrate, power, principality, principle, rule.', derivation:'de G756 (archomai, começar)' },
-  'G2316': { lemma:'θεός', xlit:'theos', pron:'theh-os', strongs_def:'a deity, especially the supreme Divinity; figuratively, a magistrate; by Hebraism, very: God, god-ward.', kjv_def:'X exceeding, God, god(-ly, -ward).', derivation:'de G2316; provavelmente afim com H410 (ʼêl)' },
-  'G3056': { lemma:'λόγος', xlit:'logos', pron:'log-os', strongs_def:'something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially (with the article in John) the Divine Expression (i.e. Christ): account, cause, communication, concerning, doctrine, fame, have to do, intent, matter, mouth, preaching, question, reason, + reckon, remove, say(-ing), shew, X speaker, speech, talk, thing, + none of these things move me, tidings, treatise, utterance, word, work.', kjv_def:'account, cause, communication, doctrine, fame, intent, matter, mouth, preaching, reason, saying, speech, tidings, treatise, utterance, word, work.', derivation:'de G3004 (legō, dizer)' },
-  'G2258': { lemma:'ἦν', xlit:'ēn', pron:'ayn', strongs_def:'was (imperfect of eimi): was, were. The imperfect tense indicating continuous or incomplete action in the past — "was being" or "continued to be". Used in John 1:1 to indicate the eternal pre-existence of the Logos.', kjv_def:'was, were.', derivation:'imperfeito de G1510 (eimi, ser/estar)' },
-  'G4160': { lemma:'ποιέω', xlit:'poieō', pron:'poy-eh-o', strongs_def:'to make or do (in a very wide application, more or less direct): abide, + agree, appoint, X avenge, + band together, be, bear, + bewray, bring (forth), cast out, cause, commit, + content, continue, deal, + without any delay, (would) do(-ing), execute, exercise, fulfil, gain, give, have, hold, X journeying, keep, + lay wait, + lighten the ship, make, X mean, + none of these things move me, observe, ordain, perform, provide, + have purged, purpose, put, + raising up, X secure, shew, X shoot out, spend, take, tarry, + transgress the law, work, yield.', kjv_def:'abide, do, make, observe, perform, work.', derivation:'raiz primitiva aparente' }
+  "H7225": {
+    lemma:"ראשית", xlit:"reshiyth", pron:"ray-sheeth",
+    strongs_def:"the first, in place, time, order or rank; beginning, chief, first fruits, principal thing.",
+    kjv_def:"beginning, chiefest, first(-fruits, part, time), principal thing.",
+    pt_definicao:"O primeiro em lugar, tempo, ordem ou posicao; o comeco, a primicia, o principal. Denota o ponto de partida absoluto de algo.",
+    pt_usos:"principio, comeco, primicias, primeiro, principal, melhor, primogenito",
+    pt_teologia:"Bereshit abre toda a narrativa biblica com uma declaracao sobre o inicio da criacao — nao sobre o inicio de Deus. O substantivo deriva de rosh (cabeca, topo), sugerindo nao apenas um inicio cronologico, mas uma posicao de primazia e autoridade. Joao 1:1 retoma deliberadamente essa abertura para declarar que o Logos preexistia a esse principio — Ele nao surgiu no inicio, Ele era o inicio."
+  },
+  "H1254": {
+    lemma:"ברא", xlit:"bara", pron:"baw-raw",
+    strongs_def:"to create; absolutely to create; used exclusively of divine creation — to create out of nothing.",
+    kjv_def:"choose, create (creator), cut down, dispatch, do, make (fat).",
+    pt_definicao:"Criar; exclusivamente usado com Deus como sujeito em toda a Biblia Hebraica. Implica criacao a partir do nada (creatio ex nihilo) — acao que pertence unicamente a Deus.",
+    pt_usos:"criar, Criador, fazer surgir, produzir",
+    pt_teologia:"Bara e o verbo mais teologicamente carregado de Genesis 1. Ao contrario de asah (H6213, fazer com materiais existentes) e yatsar (H3335, moldar/plasmar), bara nunca aparece com sujeito humano em todo o Antigo Testamento. Ha uma categoria de acao que pertence exclusivamente a Deus. Paulo usa essa teologia em Romanos 4:17 ao descrever Deus como Aquele que chama as coisas que nao sao como se fossem."
+  },
+  "H430": {
+    lemma:"אלהים", xlit:"Elohim", pron:"el-o-heem",
+    strongs_def:"plural of H433; gods in the ordinary sense; specifically the supreme God.",
+    kjv_def:"angels, exceeding, God, gods, judges, mighty.",
+    pt_definicao:"Deus; plural de majestade referindo-se ao Deus supremo. Tambem usado para divindades, juizes e anjos. Com verbo no singular, refere-se exclusivamente ao Deus de Israel.",
+    pt_usos:"Deus, deuses, anjos, juizes, divindades, poderosos",
+    pt_teologia:"Elohim e morfologicamente plural, mas o verbo bara neste versiculo esta no singular — combinacao chamada pluralis majestatis (plural de majestade). O singular do verbo demonstra unicidade do sujeito. A tradicao crista enxerga nessa tensao gramatical uma abertura para a doutrina trinitaria — nao uma prova, mas uma abertura."
+  },
+  "H8064": {
+    lemma:"שמים", xlit:"shamayim", pron:"shaw-mah-yim",
+    strongs_def:"the sky; the dual alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve.",
+    kjv_def:"air, astrologer, heaven(-s).",
+    pt_definicao:"Os ceus; o firmamento; o espaco acima da terra. O plural dual indica as duas esferas: o ceu atmosferico (onde as nuvens se movem) e o ceu astronomico (onde os astros giram).",
+    pt_usos:"ceu, ceus, firmamento, ar, espaco",
+    pt_teologia:"Em Genesis 1:1, shamayim aparece como um dos dois grandes ambitos da criacao. Significativamente, o sol, a lua e as estrelas (vv.14-16) nao sao nomeados com seus termos hebraicos habituais, pois shemesh (sol) e yareach (lua) eram nomes de divindades cananeias. Israel, ao nao os nomear, os desmitifica: sao apenas criaturas, nao criadores."
+  },
+  "H776": {
+    lemma:"ארץ", xlit:"erets", pron:"eh-rets",
+    strongs_def:"the earth at large, or partitively a land.",
+    kjv_def:"common, country, earth, field, ground, land, nations, way, world.",
+    pt_definicao:"A terra; o solo; um pais ou territorio especifico; o mundo habitado. Pode indicar tanto o planeta como um todo quanto uma regiao geografica especifica.",
+    pt_usos:"terra, chao, pais, nacao, solo, mundo, regiao",
+    pt_teologia:"Junto com shamayim (ceus), erets forma o par que descreve a totalidade da criacao — figura de linguagem chamada merismo: ao nomear dois extremos opostos, abrange tudo que existe entre eles. Ceus e terra e a maneira hebraica de dizer universo completo. A afirmacao de que Deus criou ambos e, portanto, uma declaracao de soberania absoluta sobre toda a realidade."
+  },
+  "H8414": {
+    lemma:"תהו", xlit:"tohu", pron:"to-hoo",
+    strongs_def:"a desolation of surface, i.e. desert; figuratively, a worthless thing; adverbially in vain.",
+    kjv_def:"confusion, empty place, without form, nothing, vain, waste, wilderness.",
+    pt_definicao:"Desolacao, vazio, sem forma; deserto; aquilo que nao tem proposito ou substancia. Em Genesis 1:2 descreve o estado da terra antes da criacao ordenada.",
+    pt_usos:"sem forma, vazio, confusao, nada, vaidade, deserto, inutilidade",
+    pt_teologia:"Tohu e metade do famoso par tohu vavohu (Gn 1:2) — sem forma e vazio. Essa expressao descreve nao o caos absoluto, mas a ausencia de forma e habitacao. A acao criadora de Deus nos dias 1-3 resolve o tohu (da forma), e nos dias 4-6 resolve o vohu (preenche de habitantes). Isaias usa tohu para descrever o que a desobediencia produz (Is 34:11)."
+  },
+  "H922": {
+    lemma:"בהו", xlit:"vohu", pron:"bo-hoo",
+    strongs_def:"a vacuity, i.e. an undistinguishable ruin: emptiness, void.",
+    kjv_def:"emptiness, void.",
+    pt_definicao:"Vazio; espaco sem conteudo; ausencia de habitantes ou proposito. Aparece sempre junto com tohu (H8414), formando o par tohu vavohu.",
+    pt_usos:"vazio, nada, esvaziado",
+    pt_teologia:"Vohu aparece apenas 3 vezes no AT (Gn 1:2; Is 34:11; Jr 4:23), sempre em par com tohu. O par tohu vavohu e uma expressao idiomatica hebraica para descrever um estado de pre-organizacao ou destruicao. Em Genesis 1:2, nao indica caos maligno, mas ausencia de forma e vida — a tela em branco sobre a qual Deus agiria criativamente."
+  },
+  "H7307": {
+    lemma:"רוח", xlit:"ruach", pron:"roo-akh",
+    strongs_def:"wind; by resemblance breath; figuratively life, anger; by resemblance spirit, but only of a rational being.",
+    kjv_def:"air, anger, blast, breath, cool, courage, mind, spirit, tempest, wind.",
+    pt_definicao:"Vento; sopro; espirito; alento de vida. Uma das palavras mais ricas da Biblia Hebraica, conectando a dimensao fisica (vento, sopro) com a espiritual (espirito, mente, vida).",
+    pt_usos:"espirito, vento, sopro, alento, animo, mente, lado",
+    pt_teologia:"Em Genesis 1:2, ruach Elohim (o Espirito de Deus) pairava sobre as aguas — o verbo merachefet (planar/chocar) e usado apenas aqui e em Deuteronomio 32:11 para descrever uma aguia planando sobre seus filhotes. O Espirito nao esta ausente do caos — esta presente, ativo, prestes a agir. Essa cena e invocada no NT em multiplos contextos: no batismo de Jesus, em Pentecostes e na nova criacao (Jo 3:5-8)."
+  },
+  "H6213": {
+    lemma:"עשה", xlit:"asah", pron:"aw-saw",
+    strongs_def:"to do or make, in the broadest sense — contrasting with bara in that it refers to making with pre-existing materials.",
+    kjv_def:"accomplish, do, execute, fashion, make, observe, perform, work.",
+    pt_definicao:"Fazer; executar; produzir; realizar. Ao contrario de bara (criar do nada), asah implica trabalhar com materiais ja existentes. E o verbo generico para toda acao criativa ou produtiva.",
+    pt_usos:"fazer, executar, realizar, produzir, praticar, fabricar, agir",
+    pt_teologia:"A distincao entre bara e asah e teologicamente crucial. Bara e reservado para Deus; asah pode ter qualquer agente como sujeito. Em Genesis 1, Deus usa bara para as grandes categorias da criacao (materia, vida animal, ser humano) e asah para atos especificos de configuracao. Isso sugere que a criacao opera em dois niveis: a existencia do nada (bara) e a organizacao do que existe (asah)."
+  },
+  "H3335": {
+    lemma:"יצר", xlit:"yatsar", pron:"yaw-tsar",
+    strongs_def:"to mould into a form; especially as a potter; figuratively, to determine.",
+    kjv_def:"earthen, fashion, form, frame, make(-r), potter, purpose.",
+    pt_definicao:"Moldar; dar forma; plasmar. O verbo do oleiro que trabalha o barro. Usado para descrever a criacao do homem (Gn 2:7) e o trabalho de Deus como artesao divino.",
+    pt_usos:"formar, moldar, plasmar, criar (como oleiro), determinar, imaginar",
+    pt_teologia:"Yatsar introduz a imagem mais intima da criacao: Deus como oleiro. Em Genesis 2:7, Deus formou (yatsar) o homem do po da terra — diferente do uso de bara em Genesis 1:27. A imagem do oleiro e o barro torna-se uma das metaforas teologicas mais recorrentes do AT (Is 29:16; 45:9; Jr 18:1-6; Rm 9:21), comunicando tanto a soberania absoluta do Criador quanto a intimidade do ato criador."
+  },
+  "G746": {
+    lemma:"αρχη", xlit:"arche", pron:"ar-khay",
+    strongs_def:"beginning, commencement; in various senses of order, time, place, or rank.",
+    kjv_def:"beginning, corner, first estate, magistrate, power, principality, rule.",
+    pt_definicao:"Principio; comeco; origem; autoridade; governo. Em Joao 1:1 identifica o ponto antes do qual o Logos ja existia — nao simplesmente o inicio do tempo, mas a origem de tudo.",
+    pt_usos:"principio, comeco, origem, autoridade, governo, poder, magistrado",
+    pt_teologia:"Joao 1:1 abre com as mesmas palavras de Genesis 1:1 na LXX (en arche) — um eco deliberado. Mas enquanto Genesis diz no principio, Deus criou (acao que comecou), Joao diz no principio era o Verbo (existencia continua — verbo eimi no imperfeito). O Logos nao surgiu no principio; Ele ja era quando o principio comecou. Essa sutileza gramatical sustenta a doutrina da eternidade do Filho."
+  },
+  "G2316": {
+    lemma:"θεος", xlit:"theos", pron:"theh-os",
+    strongs_def:"a deity, especially the supreme Divinity; by Hebraism, very great.",
+    kjv_def:"exceeding, God, god(-ly, -ward).",
+    pt_definicao:"Deus; divindade; o Ser supremo. Em Joao 1:1, aparece duas vezes: junto a Deus (ton theon, com artigo) e era Deus (theos, sem artigo) — distincao gramatical com profundas implicacoes teologicas.",
+    pt_usos:"Deus, deus, divino, divindade",
+    pt_teologia:"Em Joao 1:1c, theos aparece sem artigo definido — nao indicando que o Logos e menor que Deus, mas qualificando sua natureza divina sem identifica-lo exclusivamente como o Pai. A gramatica grega usa o artigo para identificacao e o anartrous para qualificacao. A traducao correta sustenta a distincao trinitaria: o Verbo tinha natureza divina."
+  },
+  "G3056": {
+    lemma:"λογος", xlit:"logos", pron:"log-os",
+    strongs_def:"something said; a topic of discourse; reasoning; the Divine Expression, i.e. Christ.",
+    kjv_def:"account, cause, communication, doctrine, intent, matter, reason, saying, speech, word, work.",
+    pt_definicao:"Palavra; razao; discurso; o sentido expresso. Em Joao 1:1, o Logos e o titulo cristologico que identifica Jesus como a Palavra/Razao divina preexistente.",
+    pt_usos:"palavra, razao, discurso, mensagem, ensino, relato, motivo",
+    pt_teologia:"Joao escolhe logos para identificar Jesus. Logos tinha ressonancia tanto no mundo judaico (a Palavra criadora de Deus no AT; o memra aramaico dos Targuns) quanto no helenistico (a Razao universal dos estoicos). Joao diz a judeus e gregos: aquilo que voces intuiam como a razao por tras do universo — ele se fez carne e habitou entre nos (Jo 1:14)."
+  },
+  "G2258": {
+    lemma:"ην", xlit:"en", pron:"ayn",
+    strongs_def:"was (imperfect of eimi) — indicating continuous existence in the past.",
+    kjv_def:"was, were.",
+    pt_definicao:"Era; estava sendo; existia continuamente. Imperfeito do verbo ser — indica existencia continua e incompleta no passado, nao uma acao pontual.",
+    pt_usos:"era, estava, existia",
+    pt_teologia:"O uso do imperfeito en em Joao 1:1 (tres vezes) em contraste com o aoristo egeneto (aconteceu/tornou-se) em 1:3 e 1:14 e gramaticalmente preciso e teologicamente decisivo. Enquanto a criacao aconteceu (acao pontual), o Logos era (existencia continua sem inicio). Joao usa a gramatica grega para declarar a eternidade do Filho."
+  }
 };
 
 const STRONG_CACHE = {};
 
 async function carregarStrong(tipo) {
-  // Primeiro verifica cache
   if (STRONG_CACHE[tipo]) return STRONG_CACHE[tipo];
-  // Tenta carregar do raw.githubusercontent
-  const url = tipo === 'H'
-    ? 'https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js'
-    : 'https://raw.githubusercontent.com/openscriptures/strongs/master/greek/strongs-greek-dictionary.js';
+  const url = tipo === "H"
+    ? "https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js"
+    : "https://raw.githubusercontent.com/openscriptures/strongs/master/greek/strongs-greek-dictionary.js";
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP '+res.status);
+    if (!res.ok) throw new Error("HTTP " + res.status);
     const text = await res.text();
-    const jsonStr = text.replace(/^var \w[\w_]* = /, '').replace(/;\s*$/, '').trim();
+    const jsonStr = text.replace(/^var \w[\w_]* = /, "").replace(/;\s*$/, "").trim();
     const dict = JSON.parse(jsonStr);
     STRONG_CACHE[tipo] = dict;
     return dict;
   } catch(e) {
-    console.warn('CDN falhou, usando dicionário local');
-    return null; // fallback para STRONG_LOCAL
+    return null;
   }
 }
 
 async function abrirStrong(numero, palavra) {
-  // Abre painel
-  document.getElementById('strong-overlay').classList.add('active');
-  document.getElementById('strong-panel').classList.add('open');
-  const body = document.getElementById('strong-body');
-  body.innerHTML = `<div class="strong-loading"><div class="strong-spinner"></div><br>Carregando Strong ${numero}...</div>`;
+  document.getElementById("strong-overlay").classList.add("active");
+  document.getElementById("strong-panel").classList.add("open");
+  const body = document.getElementById("strong-body");
+  body.innerHTML = '<div class="strong-loading"><div class="strong-spinner"></div><br>Carregando Strong ' + numero + '...</div>';
 
-  const tipo = numero.charAt(0); // H ou G
-  const num = numero.slice(1);   // número sem prefixo
+  const tipo = numero.charAt(0);
+  const num = numero.slice(1);
 
   const dict = await carregarStrong(tipo);
-
-  // Busca: primeiro no CDN, depois no dicionário local embutido
   let entry = null;
   if (dict) {
     entry = dict[numero] || dict[num] ||
-      dict[tipo+num.padStart(4,'0')] ||
-      Object.values(dict).find(e => e.strongs === numero || e.strongs === num);
+      dict[tipo + num.padStart(4,"0")] ||
+      Object.values(dict).find(function(e) { return e.strongs === numero || e.strongs === num; });
   }
-  // Fallback para dicionário local
   if (!entry) entry = STRONG_LOCAL[numero];
 
   if (!entry) {
-    body.innerHTML = `<div class="strong-error">Verbete <strong>${numero}</strong> não encontrado no dicionário.</div>`;
+    body.innerHTML = '<div class="strong-error">Verbete <strong>' + numero + '</strong> nao encontrado.</div>';
     return;
   }
 
-  // Extrai campos do verbete
-  const lemma = entry.lemma || entry.word || '';
-  const translit = entry.xlit || entry.translit || '';
-  const pron = entry.pron || '';
-  const def = entry.strongs_def || entry.derivation || '';
-  const kjvDef = entry.kjv_def || '';
-  const derivation = entry.derivation || '';
+  const lemma    = entry.lemma || entry.word || "";
+  const translit = entry.xlit || entry.translit || "";
+  const pron     = entry.pron || "";
+  const def      = entry.strongs_def || entry.derivation || "";
+  const kjvDef   = entry.kjv_def || "";
 
-  // Traduz definição e usos via Claude
-  body.innerHTML = `
-    <div class="strong-num">${tipo === 'H' ? 'Hebraico' : 'Grego'} · ${numero}</div>
-    <div class="strong-word">${lemma}</div>
-    ${translit ? `<div class="strong-translit">${translit}${pron ? ' · "'+pron+'"' : ''}</div>` : ''}
-    <div class="strong-divider"></div>
-    <div class="strong-section-label">Definição original (Strong, 1890)</div>
-    <div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">${def || 'Definição não disponível.'}</div>
-    ${kjvDef ? `<div class="strong-section-label" style="margin-top:.75rem;">Usos na KJV</div><div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">${kjvDef}</div>` : ''}
-    <div class="strong-divider"></div>
-    <div class="strong-claude" id="strong-claude-box">
-      <div class="strong-claude-label">✦ Em português — definição e comentário teológico</div>
-      <div class="strong-claude-text" id="strong-claude-text">
-        <div class="strong-loading" style="padding:.5rem 0;text-align:left;">
-          <div class="strong-spinner" style="width:14px;height:14px;display:inline-block;"></div>
-          <span style="margin-left:6px;">Traduzindo e comentando...</span>
-        </div>
-      </div>
-    </div>`;
+  body.innerHTML =
+    '<div class="strong-num">' + (tipo === "H" ? "Hebraico" : "Grego") + " \u00b7 " + numero + "</div>" +
+    '<div class="strong-word">' + lemma + "</div>" +
+    (translit ? '<div class="strong-translit">' + translit + (pron ? ' \u00b7 "' + pron + '"' : "") + "</div>" : "") +
+    '<div class="strong-divider"></div>' +
+    '<div class="strong-section-label">Defini\u00e7\u00e3o original (Strong, 1890)</div>' +
+    '<div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">' + (def || "—") + "</div>" +
+    (kjvDef ? '<div class="strong-section-label" style="margin-top:.75rem;">Usos na KJV</div><div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">' + kjvDef + "</div>" : "") +
+    '<div class="strong-divider"></div>' +
+    '<div class="strong-claude">' +
+      '<div class="strong-claude-label">\u2726 Em portugu\u00eas \u2014 defini\u00e7\u00e3o e coment\u00e1rio teol\u00f3gico</div>' +
+      '<div class="strong-claude-text" id="strong-claude-text"><div class="strong-loading" style="padding:.5rem 0;text-align:left;"><div class="strong-spinner" style="width:14px;height:14px;display:inline-block;"></div></div></div>' +
+    "</div>";
 
-  // Gera comentário via Claude
-  gerarComentarioStrong(numero, lemma, translit, def, kjvDef, palavra);
-}
-
-async function gerarComentarioStrong(numero, lemma, translit, def, kjvDef, palavra) {
-  try {
-    const prompt = `Você é um teólogo bíblico especialista em hebraico e grego bíblico. 
-Responda APENAS em português brasileiro, de forma direta e estruturada para um pastor ou professor.
-
-Palavra: ${lemma} (${translit}) — Strong ${numero}
-Definição original de Strong (em inglês): ${def}
-${kjvDef ? 'Usos na KJV: ' + kjvDef : ''}
-
-Responda EXATAMENTE neste formato (sem markdown, sem asteriscos):
-
-DEFINIÇÃO: [tradução clara e precisa do significado da palavra em português, 1-2 frases]
-
-USOS PRINCIPAIS: [os 5-8 principais usos/traduções em português, separados por vírgula]
-
-NOTA TEOLÓGICA: [1 parágrafo de 3-4 linhas explicando a importância teológica desta palavra, especialmente em Gênesis 1:1 e no contexto bíblico mais amplo]`;
-
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await response.json();
-    const texto = data.content?.[0]?.text || '';
-    const el = document.getElementById('strong-claude-text');
-    if (!el) return;
-
-    if (!texto) {
-      el.textContent = 'Comentário não disponível.';
-      return;
-    }
-
-    // Formata a resposta estruturada em HTML
-    const linhas = texto.split('\n').filter(l => l.trim());
-    let html = '';
-    for (const linha of linhas) {
-      if (linha.startsWith('DEFINIÇÃO:')) {
-        html += `<div style="margin-bottom:.75rem;"><span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px;">Definição em português</span><span style="font-size:13.5px;color:var(--text);line-height:1.7;">${linha.replace('DEFINIÇÃO:', '').trim()}</span></div>`;
-      } else if (linha.startsWith('USOS PRINCIPAIS:')) {
-        html += `<div style="margin-bottom:.75rem;"><span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px;">Usos em português</span><span style="font-size:12px;color:var(--text2);line-height:1.7;">${linha.replace('USOS PRINCIPAIS:', '').trim()}</span></div>`;
-      } else if (linha.startsWith('NOTA TEOLÓGICA:')) {
-        html += `<div style="margin-top:.5rem;padding-top:.75rem;border-top:1px solid var(--border);"><span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Nota teológica</span><span style="font-size:13px;color:var(--text2);line-height:1.8;">${linha.replace('NOTA TEOLÓGICA:', '').trim()}</span></div>`;
-      }
-    }
-    el.innerHTML = html || texto;
-
-  } catch(e) {
-    const el = document.getElementById('strong-claude-text');
-    if (el) el.innerHTML = `<span style="color:var(--text3);font-size:12px;">Tradução automática indisponível. Consulte a definição original acima.</span>`;
+  const local = STRONG_LOCAL[numero];
+  if (local && local.pt_definicao) {
+    renderComentarioPT(local.pt_definicao, local.pt_usos, local.pt_teologia);
+  } else {
+    const el = document.getElementById("strong-claude-text");
+    if (el) el.innerHTML = '<span style="font-size:12px;color:var(--text3);">Consulte a defini\u00e7\u00e3o original acima.</span>';
   }
 }
 
+function renderComentarioPT(definicao, usos, teologia) {
+  const el = document.getElementById("strong-claude-text");
+  if (!el) return;
+  el.innerHTML =
+    '<div style="margin-bottom:.85rem;">' +
+      '<span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Defini\u00e7\u00e3o em portugu\u00eas</span>' +
+      '<span style="font-size:13.5px;color:var(--text);line-height:1.75;">' + definicao + "</span>" +
+    "</div>" +
+    (usos ?
+      '<div style="margin-bottom:.85rem;">' +
+        '<span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Usos em portugu\u00eas</span>' +
+        '<span style="font-size:12.5px;color:var(--text2);line-height:1.7;">' + usos + "</span>" +
+      "</div>" : "") +
+    (teologia ?
+      '<div style="padding-top:.75rem;border-top:1px solid var(--border);">' +
+        '<span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Nota teol\u00f3gica</span>' +
+        '<span style="font-size:13px;color:var(--text2);line-height:1.85;">' + teologia + "</span>" +
+      "</div>" : "");
+}
+
 function closeStrong() {
-  document.getElementById('strong-overlay').classList.remove('active');
-  document.getElementById('strong-panel').classList.remove('open');
+  document.getElementById("strong-overlay").classList.remove("active");
+  document.getElementById("strong-panel").classList.remove("open");
 }
 
 function buscarStrong() {
-  const val = document.getElementById('strong-search-input').value.trim().toUpperCase();
+  const val = document.getElementById("strong-search-input").value.trim().toUpperCase();
   if (!val) return;
   const match = val.match(/^([HG])(\d+)$/);
   if (match) {
     abrirStrong(val, val);
-    document.getElementById('strong-search-input').value = '';
+    document.getElementById("strong-search-input").value = "";
   } else {
-    document.getElementById('strong-body').innerHTML = `<div class="strong-error">Formato inválido.<br>Use H seguido de número (ex: <strong>H1254</strong>)<br>ou G seguido de número (ex: <strong>G746</strong>).</div>`;
-    document.getElementById('strong-overlay').classList.add('active');
-    document.getElementById('strong-panel').classList.add('open');
+    document.getElementById("strong-body").innerHTML =
+      '<div class="strong-error">Formato inv\u00e1lido.<br>Use H seguido de n\u00famero (ex: <strong>H1254</strong>)<br>ou G seguido de n\u00famero (ex: <strong>G746</strong>).</div>';
+    document.getElementById("strong-overlay").classList.add("active");
+    document.getElementById("strong-panel").classList.add("open");
   }
 }
 
-// Fecha com Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeStrong();
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeStrong();
 });
 </script>
 </body>
