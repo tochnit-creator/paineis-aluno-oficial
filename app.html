@@ -406,11 +406,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     <div class="sidebar-search"><input type="text" placeholder="Buscar esboço..." oninput="filterItems(this.value)"/></div>
     <div class="sidebar-scroll">
       <div class="book-header">Gênesis</div>
-      <div class="sidebar-item active" onclick="selectItem(this,'Gênesis · Criação')" data-search="genesis 1 principio criação">
+      <div class="sidebar-item active" onclick="trocarEsboco('genesis-1',this)" data-search="genesis 1 principio criacao">
         <div class="sidebar-item-num">1:1</div><div class="sidebar-item-title">No princípio</div><div class="sidebar-item-badge">5 abas</div>
       </div>
-      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Adão e Eva')" data-search="genesis 2 adao eva">
-        <div class="sidebar-item-num">2:7</div><div class="sidebar-item-title">Adão e Eva</div><div class="sidebar-item-badge">em breve</div>
+      <div class="sidebar-item" onclick="trocarEsboco('adao-eva',this)" data-search="genesis 2 adao eva">
+        <div class="sidebar-item-num">2:7</div><div class="sidebar-item-title">Adão e Eva</div><div class="sidebar-item-badge">5 abas</div>
       </div>
       <div class="sidebar-item" onclick="selectItem(this,'Gênesis · A Queda')" data-search="genesis 3 queda">
         <div class="sidebar-item-num">3:1</div><div class="sidebar-item-title">O afastamento de Adão</div><div class="sidebar-item-badge">em breve</div>
@@ -621,11 +621,232 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
         </div>
       </div>
 
+          <div class="devo-desafio"><div class="devo-desafio-label">Ação concreta</div><div class="devo-desafio-text">Escreva três coisas em você que você tende a diminuir. Ao lado de cada uma: "Deus colocou isso em mim com intenção." Releia amanhã de manhã.</div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div class="present-overlay" id="present-overlay">
+<!-- ESBOÇO: ADÃO E EVA — Gênesis 2:7-25 (oculto por padrão) -->
+<div id="esboco-adao-eva" style="display:none;">
+<div style="max-width:700px;margin:0 auto;padding:2rem 1.5rem;position:relative;z-index:1;">
+
+  <!-- HEADER DO ESBOÇO -->
+  <div class="content-header">
+    <div class="breadcrumb">Gênesis › Adão e Eva</div>
+    <div class="content-title">Adão e Eva</div>
+    <div class="content-subtitle">Gênesis 2:7-25 — Esboço completo com aparato crítico</div>
+    <div class="badges"><span class="badge badge-tema">Identidade</span><span class="badge badge-tipo">Criação · Casamento · Complementaridade</span></div>
+  </div>
+
+  <!-- PREGAÇÃO -->
+  <div id="panel-adao-pregacao" class="panel active">
+    <div class="verse-block"><div class="verse-ref">Gênesis 2:7</div><div class="verse-text">"Então o Senhor Deus formou o homem do pó da terra, e soprou em suas narinas o fôlego da vida; e o homem se tornou alma vivente."</div></div>
+    <div class="versoes-title">Comparação de versões</div>
+    <div class="versoes-grid">
+      <div class="versao-item"><div class="versao-label"><div class="versao-sigla">ARA</div><div class="versao-nome">Almeida Rev. e Atual.</div></div><div class="versao-texto">"Então o Senhor Deus formou o homem do pó da terra, e soprou em suas narinas o fôlego da vida; e o homem se tornou alma vivente."</div></div>
+      <div class="versao-item"><div class="versao-label"><div class="versao-sigla">NVI</div><div class="versao-nome">Nova Versão Internacional</div></div><div class="versao-texto">"E o Senhor Deus formou o homem do pó da terra e soprou nas suas narinas o fôlego de vida, e o homem se tornou um ser vivente."</div></div>
+      <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">KJV</div><div class="versao-nome">King James Version (1611)</div></div><div class="versao-texto">"And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."<span class="versao-nota">"living soul" — nephesh chayyah; unidade indissolúvel de matéria e sopro.</span><span class="versao-literal">Lit: "E o SENHOR Deus / formou / o homem / do pó / do solo / e soprou / nas narinas / o sopro / da vida / e o homem tornou-se / alma / vivente."</span></div></div>
+      <div class="versao-item destaque"><div class="versao-label"><div class="versao-sigla">LXX</div><div class="versao-nome">Septuaginta (Grego)</div></div><div class="versao-texto">καὶ ἔπλασεν ὁ θεὸς τὸν ἄνθρωπον χοῦν ἀπὸ τῆς γῆς<span class="versao-nota">eplassen (modelou) — mesma raiz de plasma; o ser humano é o "modelado" de Deus.</span><span class="versao-literal">καὶ (e) · ἔπλασεν (modelou) · ὁ θεὸς (o Deus) · τὸν ἄνθρωπον (o homem) · χοῦν (pó) · ἀπὸ τῆς γῆς (do solo) · ἐνεφύσησεν (soprou dentro) · πνοὴν ζωῆς (sopro de vida)</span></div></div>
+      <div class="versao-item"><div class="versao-label"><div class="versao-sigla">BJ</div><div class="versao-nome">Bíblia de Jerusalém</div></div><div class="versao-texto">"O SENHOR Deus modelou o homem com argila do solo, insuflou em suas narinas um hálito de vida e o homem se tornou um ser vivente."<span class="versao-nota">"argila" — tradução mais próxima de aphar para públicos contemporâneos.</span></div></div>
+    </div>
+
+    <div class="scene-open">Você já segurou um punhado de terra e percebeu que é exatamente disso que é feito? Não metaforicamente. Literalmente. O mesmo carbono, nitrogênio, cálcio. E ao mesmo tempo — há algo em você que nenhum punhado de terra jamais teve.</div>
+
+    <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Você foi formado, não fabricado</div></div>
+    <div class="body-text">O verbo hebraico <em>yatsar</em> (<em>formou</em>) é a palavra do oleiro. Deus não pressionou um botão — Ele trabalhou. Colocou as mãos. Demorou. Você não é produto de uma linha de montagem cósmica.</div>
+    <div class="tension-box"><strong>Tensão:</strong> Vivemos num mundo que nos diz que somos resultado de processos cegos — que não há mão por trás da nossa existência, que somos acidente.</div>
+    <div class="resolution-box"><strong>Resolução:</strong> O texto diz que Deus "formou" — no hebraico, o gesto presente do artesão. Você é obra de arte, não ruído de fundo. <span class="xref">Sl 139:13-14</span></div>
+    <div class="call-out">"Antes de você existir como pensamento seu — você já era pensamento d'Ele."</div>
+    <div class="image-mental"><div class="image-mental-label">Imagem mental</div><div class="image-mental-text">Um oleiro que trabalha em silêncio, curvado sobre a argila. Não está com pressa. Cada detalhe importa. Agora imagine que o oleiro é Deus — e a argila é você.</div></div>
+
+    <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">O sopro que nenhuma ciência explica</div></div>
+    <div class="body-text">Depois de formar, Deus <em>soprou</em>. O hebraico <em>nishmat chayyim</em> é o sopro direto, boca a boca, de Deus ao homem. É o único lugar na Bíblia onde Deus faz isso com uma criatura.</div>
+    <div class="accent-box"><strong>Conexão NT:</strong> João 20:22 — Jesus sopra sobre os discípulos e diz "Recebei o Espírito Santo." O mesmo gesto de Gênesis 2:7, agora para a nova criação. <span class="xref">Jo 20:22</span></div>
+    <div class="tension-box"><strong>Tensão:</strong> A ciência explica o carbono, os neurônios, os genes. Não explica por que há alguém em casa — por que há um "eu" que pensa, ama, se arrepende, ora.</div>
+    <div class="resolution-box"><strong>Resolução:</strong> Porque você não é apenas matéria animada. Você é matéria com sopro divino. Há algo em você que veio diretamente de Deus. <span class="xref">Ec 12:7</span></div>
+    <div class="call-out">"A ciência lê os ingredientes. Só a Bíblia explica quem colocou o fogo."</div>
+
+    <div class="topic-main"><div class="topic-num">III.</div><div class="topic-title">Você não foi feito para estar só</div></div>
+    <div class="body-text">Em Gênesis 2:18, pela primeira vez, Deus diz "não é bom." O que não era bom? A solidão. Antes do pecado — a solidão já era um problema que precisava ser resolvido.</div>
+    <div class="accent-box"><strong>Ezer kenegdo</strong> — "auxiliadora que lhe corresponde" (Gn 2:18). <em>Ezer</em> não é subordinada — é a mesma palavra usada para Deus ser "ajuda" de Israel nos Salmos. <span class="xref">Sl 121:2</span></div>
+    <div class="tension-box"><strong>Tensão:</strong> Nossa cultura vende independência total como ideal. "Não preciso de ninguém" virou virtude. Mas foi Deus que disse: não é bom estar só.</div>
+    <div class="resolution-box"><strong>Resolução:</strong> Precisar de alguém não é fraqueza — é como Deus te fez. A necessidade de comunhão em você reflete a comunhão trinitária. <span class="xref">Jo 17:21</span></div>
+    <div class="call-out">"A solidão de Adão antes da queda prova que precisar de alguém não é pecado — é design."</div>
+
+    <div class="pregacao-close"><strong>Fechamento:</strong> Você foi formado com cuidado artesanal, animado com sopro divino e criado para relação. Isso é o que você é. A questão não é de onde você veio — é se você vai viver à altura de quem te fez.</div>
+    <button class="present-btn" onclick="startPresentAdao('pregacao')"><span class="play-icon"></span> Modo apresentação</button>
+  </div>
+
+  <!-- ENSINO -->
+  <div id="panel-adao-ensino" class="panel" style="display:none;">
+    <div class="verse-block"><div class="verse-ref">Gênesis 2:7, 18, 21-23</div><div class="verse-text">"Então o Senhor Deus formou o homem do pó da terra... não é bom que o homem esteja só... e a costela que tirara do homem tornou em mulher."</div></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--text3);font-weight:500;">📖 Consultar no Strong:</span>
+      <span class="strong-link" onclick="abrirStrong('H120','adam')">אָדָם <span class="strong-tag">H120</span></span>
+      <span class="strong-link" onclick="abrirStrong('H6083','aphar')">עָפָר <span class="strong-tag">H6083</span></span>
+      <span class="strong-link" onclick="abrirStrong('H3335','yatsar')">יָצַר <span class="strong-tag">H3335</span></span>
+      <span class="strong-link" onclick="abrirStrong('H5397','neshamah')">נְשָׁמָה <span class="strong-tag">H5397</span></span>
+      <span class="strong-link" onclick="abrirStrong('H5315','nephesh')">נֶפֶשׁ <span class="strong-tag">H5315</span></span>
+      <span class="strong-link" onclick="abrirStrong('H5828','ezer')">עֵזֶר <span class="strong-tag">H5828</span></span>
+      <span class="strong-link" onclick="abrirStrong('H6763','tsela')">צֵלָע <span class="strong-tag">H6763</span></span>
+      <span class="strong-link" onclick="abrirStrong('H1320','basar')">בָּשָׂר <span class="strong-tag">H1320</span></span>
+    </div>
+
+    <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Gênesis 2:7 — o homem formado</div></div>
+    <div class="hebrew-term"><span class="heb">הָאָדָם</span><span>ha-adam</span><span class="translat">"o homem" / "a humanidade"</span></div>
+    <div class="body-text"><span class="strong-link" onclick="abrirStrong('H120','adam')"><em>Adam</em> <span class="strong-tag">H120</span></span> vem de <em>adamah</em> (H127, solo). O nome do homem está enraizado no material de que foi feito — jogo de palavras intencional. O ser humano pertence à terra que deve cultivar.</div>
+    <div class="hebrew-term"><span class="heb">נִשְׁמַת חַיִּים</span><span>nishmat chayyim</span><span class="translat">"sopro/alento de vida"</span></div>
+    <div class="body-text"><span class="strong-link" onclick="abrirStrong('H5397','neshamah')"><em>Neshamah</em> <span class="strong-tag">H5397</span></span> difere de <em>ruach</em> (H7307). Ruach é o espírito/vento geral; neshamah é o hálito íntimo e direto de Deus — ato de proximidade sem paralelo na criação dos animais.</div>
+    <div class="accent-box"><strong>Resultado:</strong> <span class="strong-link" onclick="abrirStrong('H5315','nephesh')"><em>Nephesh chayyah</em> <span class="strong-tag">H5315</span></span> — "alma vivente." O ser humano não <em>tem</em> uma alma; o ser humano <em>é</em> uma alma. Dicotomia platônica (corpo/alma separáveis) vs. unidade hebraica (nephesh = pessoa inteira).</div>
+    <div class="debate-box">
+      <div class="debate-row"><div class="debate-label">Aphar vs Adamah</div><div class="debate-val">Aphar (H6083) é pó seco, cinza — não argila moldável. Destaca fragilidade e mortalidade. Adamah (H127) é o solo fértil. A tensão revela a dupla natureza humana: frágil e fértil.</div></div>
+      <div class="debate-row"><div class="debate-label">Eco em Gn 3:19</div><div class="debate-val">"Pois tu és pó e ao pó tornarás." O mesmo aphar de Gn 2:7 aparece como sentença em 3:19 — inclusão literária deliberada.</div></div>
+      <div class="debate-row"><div class="debate-label">LXX: ἔπλασεν</div><div class="debate-val">Septuaginta usa eplassen (modelou) — mesma raiz de plasma. O ser humano é o "plasma", o modelado de Deus. Base da doutrina patrística do homem como imagem formada.</div></div>
+    </div>
+
+    <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">Gênesis 2:18-23 — a mulher</div></div>
+    <div class="hebrew-term"><span class="heb">עֵזֶר כְּנֶגְדּוֹ</span><span>ezer kenegdo</span><span class="translat">"auxiliadora que lhe corresponde"</span></div>
+    <div class="debate-box">
+      <div class="debate-row"><div class="debate-label">Ezer H5828</div><div class="debate-val">Das 21 ocorrências de ezer no AT, 16 referem-se a Deus como ajudador de Israel (Sl 121:2; 124:8). Ezer não implica subordinação — implica força que salva onde há deficiência.</div></div>
+      <div class="debate-row"><div class="debate-label">Kenegdo</div><div class="debate-val">"Como diante dele" — implica espelho, par equivalente, contrapartida. Nem superior nem inferior: correspondente.</div></div>
+      <div class="debate-row"><div class="debate-label">Debate teológico</div><div class="debate-val">Igualitários: ezer kenegdo implica igualdade ontológica plena. Complementaristas: a ordem da criação estabelece distinção funcional sem hierarquia de valor.</div></div>
+    </div>
+    <div class="hebrew-term"><span class="heb">צֵלָע</span><span>tsela</span><span class="translat">"costela / lado / câmara"</span></div>
+    <div class="body-text"><span class="strong-link" onclick="abrirStrong('H6763','tsela')"><em>Tsela</em> <span class="strong-tag">H6763</span></span> ocorre 41 vezes no AT — na maioria significa "lado" (de edifício, da arca da aliança). Apenas aqui é traduzida "costela". Matthew Henry: "não da cabeça para dominá-lo, nem dos pés para ser pisada — mas do lado, para ser igual a ele."</div>
+    <div class="compare-grid">
+      <div class="compare-card"><div class="compare-card-title">Adão nomeando os animais</div>Os animais desfilam — nenhum é kenegdo. A solidão é aprofundada antes de ser resolvida. Deus não resolve imediatamente — aprofunda a necessidade primeiro.</div>
+      <div class="compare-card highlight"><div class="compare-card-title">Reação de Adão (2:23)</div>"Esta, sim, é osso dos meus ossos e carne da minha carne." Primeiro poema da Bíblia. Primeiro discurso humano registrado — e é de admiração pela mulher.</div>
+    </div>
+
+    <div class="topic-main"><div class="topic-num">III.</div><div class="topic-title">Contexto do AOP e recepção no NT</div></div>
+    <div class="compare-grid">
+      <div class="compare-card"><div class="compare-card-title">Atrahasis (Babilônia)</div>Humanos criados do sangue de um deus menor morto + argila. Propósito: trabalho escravo para os deuses. Sem sopro divino, sem relacionamento íntimo.</div>
+      <div class="compare-card highlight"><div class="compare-card-title">Gênesis 2 — resposta</div>Criado por sopro íntimo. Colocado no jardim sagrado. Recebe domínio, não escravidão. Tem par correspondente — não está só.</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Gn 2:7 — Formação do homem</strong>Yatsar + aphar + neshamah → nephesh chayyah. Unidade psicossomática.</div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Gn 2:18 — Diagnóstico divino</strong>"Não é bom" — primeira coisa que Deus declara não boa. Antes do pecado.</div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Gn 2:21-23 — Criação da mulher</strong>Tsela → ishah. Primeiro poema, primeiro discurso humano.</div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div class="tl-content"><strong>Gn 2:24 — Paradigma do casamento</strong>"Por isso o homem deixará pai e mãe..." — Mt 19:5; Ef 5:31-32.</div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div></div><div class="tl-content"><strong>Jo 20:22 — Nova neshamah</strong>Jesus sopra sobre os discípulos — eco direto de Gn 2:7. Nova criação, novo sopro.</div></div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="aparato-title">Aparato crítico</div>
+    <div class="aparato-item"><div class="aparato-label">Hebraico</div><div class="aparato-text"><strong>Adam (H120)</strong> — jogo de palavras com adamah (solo).<br><br><strong>Aphar (H6083)</strong> — pó seco, não argila. Destaca mortalidade.<br><br><strong>Neshamah (H5397)</strong> — distinto de ruach; sopro íntimo de Deus.<br><br><strong>Ezer (H5828)</strong> — 16/21 referem-se a Deus. Força que socorre.<br><br><strong>Tsela (H6763)</strong> — primariamente "lado". 40 de 41 ocorrências = lado/câmara.</div></div>
+    <div class="aparato-item"><div class="aparato-label">Rashi (séc. XI)</div><div class="aparato-text"><div class="quote-pull">"Tsela — o lado; como em Ex 26:20. A mulher foi tirada do lado do homem, para que caminhassem lado a lado."</div></div></div>
+    <div class="aparato-item"><div class="aparato-label">Agostinho</div><div class="aparato-text"><div class="quote-pull">"Não das costas para criar um seguidor, nem da cabeça para criar um superior, mas do lado — para criar uma companheira."</div></div></div>
+    <button class="present-btn" onclick="startPresentAdao('ensino')"><span class="play-icon"></span> Modo apresentação</button>
+  </div>
+
+  <!-- EBD -->
+  <div id="panel-adao-ebd" class="panel" style="display:none;">
+    <div class="verse-block"><div class="verse-ref">Gênesis 2:7, 18</div><div class="verse-text">"Então o Senhor Deus formou o homem... não é bom que o homem esteja só."</div></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--text3);font-weight:500;">📖 Palavras-chave:</span>
+      <span class="strong-link" onclick="abrirStrong('H3335','yatsar')">yatsar <span class="strong-tag">H3335</span></span>
+      <span class="strong-link" onclick="abrirStrong('H5397','neshamah')">neshamah <span class="strong-tag">H5397</span></span>
+      <span class="strong-link" onclick="abrirStrong('H5315','nephesh')">nephesh <span class="strong-tag">H5315</span></span>
+      <span class="strong-link" onclick="abrirStrong('H5828','ezer')">ezer <span class="strong-tag">H5828</span></span>
+      <span class="strong-link" onclick="abrirStrong('H6763','tsela')">tsela <span class="strong-tag">H6763</span></span>
+    </div>
+    <div class="ebd-meta"><span class="meta-pill"><strong>Duração:</strong> 45–60 min</span><span class="meta-pill"><strong>Público:</strong> Adultos</span><span class="meta-pill"><strong>Material:</strong> Papel e caneta</span></div>
+    <div class="ebd-section"><div class="ebd-section-label label-abertura">Abertura — 5 min</div></div>
+    <div class="pergunta-box"><div class="pergunta-label">Pergunta de abertura</div><div class="pergunta-text">"Se Deus pudesse te descrever em três palavras, quais seriam? E quais três palavras você usaria para se descrever?"</div><div class="pergunta-dica">Deixe 2-3 responderem. Depois: "Hoje vamos ver como Deus descreveu o ser humano — antes de qualquer pecado, antes de qualquer conquista."</div></div>
+    <div class="ebd-section"><div class="ebd-section-label label-desenvolvimento">Ponto I — Feito com cuidado — 12 min</div></div>
+    <div class="body-text">O verbo <span class="strong-link" onclick="abrirStrong('H3335','yatsar')"><em>yatsar</em> <span class="strong-tag">H3335</span></span> é o verbo do oleiro. Deus não fabricou o homem em série — trabalhou como artesão. E o material? Pó. Não ouro, não pedra — pó.</div>
+    <div class="insight-box"><strong>Tensão criativa:</strong> Feito de pó (fragilidade) + sopro divino (dignidade). Você não é apenas pó nem apenas espírito. É os dois — e Deus quis assim.</div>
+    <div class="pergunta-box"><div class="pergunta-label">Pergunta para a turma</div><div class="pergunta-text">"Quando você se olha, qual dos dois você tende a ver mais — a fragilidade do pó ou a dignidade do sopro?"</div><div class="pergunta-dica">Ambos são verdade. O erro é enfatizar só um lado.</div></div>
+    <div class="ebd-section"><div class="ebd-section-label label-dinamica">Dinâmica — 10 min</div></div>
+    <div class="dinamica-box">
+      <div class="dinamica-label">Dinâmica</div><div class="dinamica-title">O que te define?</div>
+      <div class="dinamica-step"><div class="dinamica-step-num">1</div>Distribua papel. Peça que escrevam 5 palavras que os definem.</div>
+      <div class="dinamica-step"><div class="dinamica-step-num">2</div>Pergunte: "Quantas são sobre o que você FAZ? Quantas são sobre o que você É?"</div>
+      <div class="dinamica-step"><div class="dinamica-step-num">3</div>Revele: em Gênesis 2, antes de qualquer ação de Adão, Deus já o tinha definido. Identidade vem antes de performance.</div>
+    </div>
+    <div class="ebd-section"><div class="ebd-section-label label-desenvolvimento">Ponto II — Feito para relação — 12 min</div></div>
+    <div class="body-text">Gênesis 2:18 traz o primeiro "não é bom" da Bíblia. Antes do pecado — a solidão já era um problema. <span class="strong-link" onclick="abrirStrong('H5828','ezer')"><em>Ezer</em> <span class="strong-tag">H5828</span></span> é a mesma palavra de Deus como socorro de Israel.</div>
+    <div class="pergunta-box"><div class="pergunta-label">Pergunta para a turma</div><div class="pergunta-text">"Que tipo de solidão você sente mais: falta de presença física, ou falta de alguém que te conheça de verdade?"</div><div class="pergunta-dica">Deus viu os dois tipos e criou solução para os dois — comunidade e intimidade.</div></div>
+    <div class="ebd-section"><div class="ebd-section-label label-atividade">Atividade — 5 min</div></div>
+    <div class="atividade-box">
+      <div class="atividade-label">Atividade individual</div><div class="atividade-title">Carta de identidade</div>
+      <div class="atividade-text">Complete em silêncio:<br><br><strong>1.</strong> "Uma fraqueza que reconheço (meu pó) é..."<br><strong>2.</strong> "Uma dignidade que preciso honrar (meu sopro) é..."<br><strong>3.</strong> "Uma solidão que ainda não trouxe para Deus é..."</div>
+    </div>
+    <div class="fechamento-box"><strong>Fechamento:</strong> "Você foi feito de pó — com humildade. Recebeu sopro divino — com dignidade. E foi criado para relação — com abertura. Isso é sua identidade antes de qualquer coisa que você já fez."</div>
+    <button class="present-btn" onclick="startPresentAdao('ebd')"><span class="play-icon"></span> Modo apresentação</button>
+  </div>
+
+  <!-- ACONSELHAMENTO -->
+  <div id="panel-adao-conselho" class="panel" style="display:none;">
+    <div class="verse-block"><div class="verse-ref">Gênesis 2:7, 18, 25</div><div class="verse-text">"...soprou em suas narinas o fôlego da vida... não é bom que o homem esteja só... estavam nus e não se envergonhavam."</div></div>
+    <div class="topic-main"><div class="topic-num">I.</div><div class="topic-title">Identidade antes da performance</div></div>
+    <div class="cons-tag cons-tag-diag">Diagnóstico</div>
+    <div class="body-text">Grande parte dos problemas emocionais que chegam ao aconselhamento têm raiz na mesma confusão: identidade fundada em performance, aparência ou aprovação — não em origem.</div>
+    <div class="accent-box"><strong>Para o conselheiro:</strong> "Antes de você fazer qualquer coisa, Deus já te formou, soprou, nomeou e colocou. Sua identidade não começa com sua história — começa com quem te criou."</div>
+    <div class="cons-tag cons-tag-teol">Fundamento teológico</div>
+    <div class="resolution-box"><strong>Verdade que ancora:</strong> O nephesh foi criado por ato direto de Deus. Sua existência tem peso ontológico — você não é acidente, subproduto nem erro. <span class="xref">Sl 139:13-16</span></div>
+    <div class="pergunta-cons"><div class="pergunta-cons-label">Pergunta para a sessão</div>"Quando você se apresenta para si mesmo, o que vem primeiro — o que você faz, o que sente, ou quem te criou?"</div>
+    <div class="topic-main"><div class="topic-num">II.</div><div class="topic-title">A solidão que Deus reconhece</div></div>
+    <div class="cons-tag cons-tag-diag">Diagnóstico</div>
+    <div class="body-text"><em>Deus</em> disse que não é bom — não o homem. Deus diagnosticou a solidão antes que Adão a sentisse conscientemente. Isso valida a solidão como experiência legítima — não fraqueza, não pecado.</div>
+    <div class="tension-box"><strong>Cuidado pastoral:</strong> Muitas pessoas se envergonham de sentir solidão em contextos religiosos onde "Deus basta" invalida necessidades humanas reais. Gênesis 2:18 diz o contrário.</div>
+    <div class="resolution-box"><strong>Reencadramento:</strong> Sentir falta de alguém não é falta de fé — é como você foi criado. A necessidade de comunhão reflete a comunhão trinitária. <span class="xref">Jo 17:20-23</span></div>
+    <div class="pergunta-cons"><div class="pergunta-cons-label">Pergunta para a sessão</div>"Que tipo de solidão você carrega? E o que te impediu de trazê-la a Deus — ou a pessoas de confiança?"</div>
+    <div class="topic-main"><div class="topic-num">III.</div><div class="topic-title">Nudez sem vergonha</div></div>
+    <div class="cons-tag cons-tag-teol">Fundamento teológico</div>
+    <div class="body-text">Gênesis 2:25: "estavam nus e não se envergonhavam." Antes da queda, havia intimidade plena sem exposição ameaçadora. A vergonha é produto do pecado — não do design original. <span class="xref">Gn 3:7</span></div>
+    <div class="accent-box"><strong>Aplicação pastoral:</strong> A meta do aconselhamento não é eliminar a vulnerabilidade — é restaurar a capacidade de ser visto sem se destruir. "Nus sem vergonha" é o estado para o qual Cristo nos move gradualmente.</div>
+    <div class="pergunta-cons"><div class="pergunta-cons-label">Atividade para casa</div>Esta semana, escolha uma área que você tem escondido. Trague à luz — não para ser julgado, mas porque o design original é "nus sem vergonha".</div>
+    <button class="present-btn" onclick="startPresentAdao('conselho')"><span class="play-icon"></span> Modo apresentação</button>
+  </div>
+
+  <!-- DEVOCIONAL -->
+  <div id="panel-adao-devocional" class="panel" style="display:none;">
+    <div class="verse-block"><div class="verse-ref">Gênesis 2:7</div><div class="verse-text">"...soprou em suas narinas o fôlego da vida; e o homem se tornou alma vivente."</div></div>
+    <div class="devo-switch">
+      <button class="devo-btn active-m" id="btn-adao-masc" onclick="switchDevoAdao('masc')">Homens</button>
+      <button class="devo-btn" id="btn-adao-fem" onclick="switchDevoAdao('fem')">Mulheres</button>
+    </div>
+    <div class="devo-panel active" id="devo-adao-masc">
+      <div class="devo-header-m"><div class="devo-title">Você foi formado para cultivar, não apenas ocupar</div><div class="devo-sub">Devocional masculino · Gênesis 2:7-15</div></div>
+      <div class="devo-body">Adão foi formado (<em>yatsar</em>) com intenção artesanal e colocado no jardim para <em>cultivar e guardar</em> (Gn 2:15). Antes da queda, o trabalho era vocação, não maldição. O homem foi criado para ser <em>oved</em> (lavrador) e <em>shomer</em> (guardião).</div>
+      <div class="devo-call">"O homem que não cultiva está vivendo abaixo da sua vocação original."</div>
+      <div class="devo-body">E a solidão de Adão foi resolvida não com uma conquista, mas com uma revelação: havia alguém criada para corresponder a ele. O poder sem relação é insuficiente.</div>
+      <div class="devo-section-title">Reflexão</div>
+      <div class="devo-reflexao"><div class="devo-reflexao-label">Perguntas para o dia</div>
+        <div class="devo-reflexao-item">O que estou cultivando — ou apenas ocupando sem semear?</div>
+        <div class="devo-reflexao-item">Estou guardando (shomer) o que Deus colocou sob minha responsabilidade?</div>
+        <div class="devo-reflexao-item">Que relacionamento estou negligenciando enquanto busco conquistas?</div>
+      </div>
+      <div class="devo-section-title">Oração</div>
+      <div class="devo-oracao"><div class="devo-oracao-label">Ore com estas palavras ou com as suas</div>"Senhor, Tu me formaste com intenção e sopraste vida em mim. Que eu viva cultivando — não apenas acumulando. Que eu guarde o que colocaste sob minha responsabilidade. Amém."</div>
+      <div class="devo-section-title">Desafio do dia</div>
+      <div class="devo-desafio"><div class="devo-desafio-label">Ação concreta</div><div class="devo-desafio-text">Identifique uma pessoa ou área da sua vida que você está "ocupando" sem cultivar. Hoje, faça um ato intencional de investimento — uma conversa real, uma ação concreta de cuidado.</div></div>
+    </div>
+    <div class="devo-panel" id="devo-adao-fem">
+      <div class="devo-header-f"><div class="devo-title">Você é ezer — força que salva, não fraqueza que serve</div><div class="devo-sub">Devocional feminino · Gênesis 2:18-23</div></div>
+      <div class="devo-body">A palavra que Deus usou para te criar foi <em>ezer</em> — a mesma que descreve Deus como socorro de Israel. Dezesseis das vinte e uma vezes que <em>ezer</em> aparece no AT, o sujeito é Deus mesmo. Você foi chamada pelo nome que normalmente descreve Deus.</div>
+      <div class="devo-call">"Você não foi criada para ser menos — foi criada para ser ezer. E ezer é o nome de Deus em ação."</div>
+      <div class="devo-body">E o primeiro poema da Bíblia foi escrito por um homem admirando uma mulher: "Esta, sim, é osso dos meus ossos." Antes de qualquer conquista sua — você foi reconhecida como correspondente, como par, como pertencente.</div>
+      <div class="devo-section-title">Reflexão</div>
+      <div class="devo-reflexao"><div class="devo-reflexao-label">Perguntas para o dia</div>
+        <div class="devo-reflexao-item">Onde você tem reduzido seu ezer a mera servidão — servindo por medo em vez de força?</div>
+        <div class="devo-reflexao-item">Existe algo em você que tem escondido porque foi ensinada que era demais?</div>
+        <div class="devo-reflexao-item">Como você se sentiria começando o dia sabendo que Deus te chama pelo mesmo nome que usa para si mesmo?</div>
+      </div>
+      <div class="devo-section-title">Oração</div>
+      <div class="devo-oracao"><div class="devo-oracao-label">Ore com estas palavras ou com as suas</div>"Senhor, obrigada por me criar como ezer — não como apêndice, mas como correspondente. Que eu exerça com coragem a força que Tu depositaste em mim. Amém."</div>
+      <div class="devo-section-title">Desafio do dia</div>
+      <div class="devo-desafio"><div class="devo-desafio-label">Ação concreta</div><div class="devo-desafio-text">Escreva três formas em que você é ezer para alguém — situações em que sua presença ou força fez diferença real. Releia amanhã como lembrete de quem você foi criada para ser.</div></div>
+    </div>
+  </div>
+
+</div><!-- fim inner div -->
+</div><!-- fim #esboco-adao-eva -->
+
   <button class="present-close" onclick="closePresent()">✕ Fechar</button>
   <div class="present-ref" id="p-ref"></div>
   <div class="present-verse" id="p-verse"></div>
@@ -836,6 +1057,38 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     slideIndex=0; renderSlide();
     document.getElementById('present-overlay').classList.add('active');
   };
+
+  const slidesAdao = {
+    pregacao:[
+      {title:"I. Você foi formado, não fabricado",subs:["Yatsar — o verbo do oleiro (Sl 139:13-14)","Feito de pó — frágil e intencional","Você é obra de arte, não ruído de fundo"]},
+      {title:"II. O sopro que nenhuma ciência explica",subs:["Neshamah — sopro íntimo, direto, boca a boca","Único na criação — só o homem recebe assim","Eco em Jo 20:22 — Jesus sopra nova neshamah"]},
+      {title:"III. Você não foi feito para estar só",subs:["Primeiro 'não é bom' da Bíblia — antes do pecado","Ezer — força que salva, não subordinação","Precisar de alguém não é pecado — é design (Jo 17:21)"]}
+    ],
+    ensino:[
+      {title:"I. Adam e Aphar — nome e material",subs:["Adam de adamah — pertença ao solo que cultiva","Aphar: pó seco, não argila — destaca mortalidade","Nephesh chayyah — não TEM alma; É alma"]},
+      {title:"II. Ezer Kenegdo — força correspondente",subs:["Ezer: 16/21 ocorrências = Deus como socorro de Israel","Kenegdo: par equivalente, espelho, correspondente","Tsela: lado (40/41 ocorrências) — não apenas costela"]},
+      {title:"III. Contexto AOP e recepção no NT",subs:["Atrahasis: escravidão vs. Gênesis: dignidade e vocação","Jo 20:22 — novo sopro = nova criação","Ef 5:31-32 — Adão/Eva → Cristo/Igreja"]}
+    ],
+    ebd:[
+      {title:"Abertura: como você se define?",subs:["Quantas palavras são sobre o que você FAZ?","Quantas são sobre o que você É?","Identidade vem antes de performance — Gênesis 2"]},
+      {title:"Feito com cuidado — pó + sopro",subs:["Yatsar: verbo do oleiro, não da fábrica","Aphar (fragilidade) + Neshamah (dignidade)","Você não é só um nem só outro — é os dois"]},
+      {title:"Feito para relação",subs:["Primeiro 'não é bom' — antes do pecado","Ezer: força que socorre, não subordinação","Solidão reconhecida por Deus antes de você sentir"]}
+    ],
+    conselho:[
+      {title:"I. Identidade antes da performance",subs:["Formado, soprado, nomeado — antes de qualquer ação","Nephesh: você não tem alma — você É alma","Sua origem define você — não sua história"]},
+      {title:"II. A solidão que Deus reconhece",subs:["Deus diagnosticou antes que Adão sentisse","Solidão não é fraqueza de fé — é design","'Deus basta' não anula necessidades humanas reais"]},
+      {title:"III. Nudez sem vergonha",subs:["Gn 2:25 — intimidade sem exposição ameaçadora","Vergonha é produto do pecado, não do design","Meta pastoral: ser visto sem se destruir"]}
+    ]
+  };
+
+  window.startPresentAdao = (tab) => {
+    if (!slidesAdao[tab]) return;
+    const refs = {pregacao:'Gênesis 2:7', ensino:'Gênesis 2:7-25', ebd:'Gênesis 2:7,18', conselho:'Gênesis 2:7,18,25'};
+    const verses = {pregacao:'"Então o Senhor Deus formou o homem do pó da terra, e soprou em suas narinas o fôlego da vida."', ensino:'"...formou o homem do pó da terra... não é bom que o homem esteja só..."', ebd:'"Então o Senhor Deus formou o homem... não é bom que o homem esteja só."', conselho:'"...soprou... o fôlego da vida... não é bom... estavam nus e não se envergonhavam."'};
+    slides = [{type:'verse',ref:refs[tab]||'Gênesis 2:7',verse:verses[tab]||'',title:'Adão e Eva'},...slidesAdao[tab].map(t=>({type:'topic',...t}))];
+    slideIndex=0; renderSlide();
+    document.getElementById('present-overlay').classList.add('active');
+  };
   window.closePresent = () => document.getElementById('present-overlay').classList.remove('active');
   function renderSlide(){
     const s=slides[slideIndex];
@@ -855,6 +1108,108 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   window.selectItem = (el,crumb) => {document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');document.getElementById('header-crumb').textContent=crumb;};
   window.filterItems = (v) => {document.querySelectorAll('.sidebar-item').forEach(i=>{i.style.display=i.dataset.search.includes(v.toLowerCase())?'flex':'none';});};
   window.switchDevo = (g) => {document.querySelectorAll('.devo-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.devo-btn').forEach(b=>{b.classList.remove('active-m');b.classList.remove('active-f');});document.getElementById('devo-'+g).classList.add('active');if(g==='masc')document.getElementById('btn-masc').classList.add('active-m');else document.getElementById('btn-fem').classList.add('active-f');};
+
+  window.switchDevoAdao = (g) => {
+    ['devo-adao-masc','devo-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});
+    ['btn-adao-masc','btn-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('active-m');el.classList.remove('active-f');}});
+    const panel=document.getElementById('devo-adao-'+g);
+    const btn=document.getElementById('btn-adao-'+g);
+    if(panel)panel.classList.add('active');
+    if(btn)btn.classList.add(g==='masc'?'active-m':'active-f');
+  };
+
+  // NAVEGAÇÃO ENTRE ESBOÇOS
+  let esbocoAtual = 'genesis-1';
+
+  window.trocarEsboco = (id, el) => {
+    // Atualiza sidebar
+    document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+    if(el) el.classList.add('active');
+
+    // Oculta todos os esboços
+    const mainContent = document.querySelector('.content');
+    const esbocoAdao = document.getElementById('esboco-adao-eva');
+
+    if(id === 'genesis-1') {
+      if(mainContent) mainContent.style.display = 'block';
+      if(esbocoAdao) esbocoAdao.style.display = 'none';
+      document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
+      // Volta para a aba ativa do Gn 1:1
+      switchTab(tabAtiva || 'pregacao');
+    } else if(id === 'adao-eva') {
+      if(mainContent) mainContent.style.display = 'none';
+      if(esbocoAdao) esbocoAdao.style.display = 'block';
+      document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
+      esbocoAtual = 'adao-eva';
+      // Mostra a aba correta de Adão e Eva
+      switchTabAdao(tabAtivaAdao || 'pregacao');
+    }
+    closeSidebar();
+  };
+
+  let tabAtiva = 'pregacao';
+  let tabAtivaAdao = 'pregacao';
+
+  // Override do switchTab para salvar aba ativa do Gn 1:1
+  const origSwitchTab = window.switchTab;
+  window.switchTab = (tab) => {
+    tabAtiva = tab;
+    origSwitchTab(tab);
+  };
+
+  window.switchTabAdao = (tab) => {
+    tabAtivaAdao = tab;
+    const planoNec = tab === 'conselho' || tab === 'devocional' ? 'premium' : tab === 'ensino' || tab === 'ebd' ? 'basico' : 'gratuito';
+    const temAcesso = niveis[planoAtual] >= niveis[planoNec];
+
+    // Atualiza tabs
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    const btn = document.querySelector(`[data-tab="${tab}"]`);
+    if(btn) btn.classList.add('active');
+
+    // Oculta todos panels adão
+    ['pregacao','ensino','ebd','conselho','devocional'].forEach(id=>{
+      const el = document.getElementById('panel-adao-'+id);
+      if(el) el.style.display='none';
+    });
+
+    if(temAcesso) {
+      const panel = document.getElementById('panel-adao-'+tab);
+      if(panel) panel.style.display='block';
+    } else {
+      const panel = document.getElementById('panel-adao-'+tab);
+      if(!panel) return;
+      panel.style.display='block';
+      const nivelNec = nomePlano[niveis[planoNec]];
+      const preco = precos[planoNec] || {valor:'—',features:[]};
+      const featuresHTML = preco.features.map(f=>`<div class="preco-feature">${f}</div>`).join('');
+      panel.innerHTML=`<div class="tela-bloqueio">
+        <div class="lock-big">🔒</div>
+        <div class="bloqueio-title">Plano ${nivelNec}</div>
+        <div class="bloqueio-sub">Desbloqueie este conteúdo assinando o plano ${nivelNec}.</div>
+        <div class="preco-card">
+          <div class="preco-plano">Plano ${nivelNec}</div>
+          <div class="preco-valor"><sup>R$</sup>${preco.valor}<sub>/mês</sub></div>
+          <div class="preco-periodo">Cobrado mensalmente</div>
+          <div class="preco-features">${featuresHTML}</div>
+        </div>
+        <button class="btn-solicitar" id="btn-sol-adao-${tab}" onclick="solicitarUpgrade('${planoNec}','adao-${tab}')">Assinar por R$ ${preco.valor}/mês</button>
+        <div class="msg-sol" id="msg-sol-adao-${tab}"></div>
+      </div>`;
+    }
+    document.querySelector('.main').scrollTop=0;
+  };
+
+  // Conecta tabs ao sistema de Adão e Eva quando estiver ativo
+  const origTabBtns = document.querySelectorAll('.tab-btn');
+  origTabBtns.forEach(btn=>{
+    const originalOnclick = btn.getAttribute('onclick');
+    btn.addEventListener('click',()=>{
+      if(esbocoAtual==='adao-eva'){
+        switchTabAdao(btn.dataset.tab);
+      }
+    });
+  });
 </script>
 
 <!-- STRONG DICTIONARY ENGINE -->
@@ -973,6 +1328,62 @@ const STRONG_LOCAL = {
     pt_definicao:"Era; estava sendo; existia continuamente. Imperfeito do verbo ser — indica existencia continua e incompleta no passado, nao uma acao pontual.",
     pt_usos:"era, estava, existia",
     pt_teologia:"O uso do imperfeito en em Joao 1:1 (tres vezes) em contraste com o aoristo egeneto (aconteceu/tornou-se) em 1:3 e 1:14 e gramaticalmente preciso e teologicamente decisivo. Enquanto a criacao aconteceu (acao pontual), o Logos era (existencia continua sem inicio). Joao usa a gramatica grega para declarar a eternidade do Filho."
+  },
+  "H120": {
+    lemma:"אדם", xlit:"adam", pron:"aw-dawm",
+    strongs_def:"ruddy, a human being (an individual or the species, mankind, etc.); from H119 (to show blood in the face, i.e. flush or turn rosy).",
+    kjv_def:"another, + hypocrite, + common sort, X low, man (mean, of low degree), person.",
+    pt_definicao:"Homem; ser humano; a humanidade. Provavelmente relacionado com adamah (solo vermelho) e adom (vermelho/rosado). O nome do primeiro homem revela sua origem terrena.",
+    pt_usos:"homem, ser humano, humanidade, pessoa, alguem, Adao",
+    pt_teologia:"O jogo de palavras adam/adamah (homem/solo) e intencional e teologicamente denso. O ser humano pertence a terra de onde veio — sua mortalidade esta inscrita no proprio nome. Ao mesmo tempo, e o unico ser que recebeu neshamah diretamente de Deus. O NT retoma esse jogo: Paulo contrasta o primeiro Adao (de terra, terreno) com o segundo Adao, Cristo (do ceu, celestial) em 1 Corintios 15:45-49."
+  },
+  "H6083": {
+    lemma:"עפר", xlit:"aphar", pron:"aw-fawr",
+    strongs_def:"dust (as powdered or gray); hence, clay, earth, mud: ashes, dust, earth, ground, morter, powder, rubbish.",
+    kjv_def:"ashes, dust, earth, ground, morter, powder, rubbish.",
+    pt_definicao:"Po; poeira; terra seca e fina; cinzas. Indica fragilidade e mortalidade — contrasta com adamah (solo fertil). O material de que o homem foi formado.",
+    pt_usos:"po, poeira, terra, cinzas, chao, barro, lama",
+    pt_teologia:"A escolha de aphar (po seco) em vez de adamah (solo fertil) ou chomer (argila moldavel) e significativa. Destaca a extrema fragilidade e mortalidade do ser humano — antes mesmo do pecado, o homem ja e po. Genesis 3:19 retoma o mesmo termo como sentenca: ao po voltaras. Jó 34:15 e Eclesiastes 3:20 usam aphar para a igualdade de todos na morte. A grandeza humana nao esta no material — esta no sopro que o anima."
+  },
+  "H5397": {
+    lemma:"נשמה", xlit:"neshamah", pron:"nesh-aw-maw",
+    strongs_def:"a puff, i.e. wind, angry or vital breath, divine inspiration, intellect or (concretely) an animal: blast, (that) breath(-eth), inspiration, soul, spirit.",
+    kjv_def:"blast, breath, inspiration, soul, spirit.",
+    pt_definicao:"Sopro; halito; alento vital. Distinto de ruach (espirito/vento geral), neshamah e o sopro intimo e direto — o halito de vida dado exclusivamente por Deus ao ser humano em Genesis 2:7.",
+    pt_usos:"sopro, halito, alento, inspiracao, espirito, alma",
+    pt_teologia:"Neshamah aparece 24 vezes no AT e e distinta de ruach. Em Genesis 2:7 marca o ato mais intimo da criacao: Deus se inclina e sopra diretamente nas narinas do homem. Nenhum animal recebe neshamah — so o ser humano. Isso fundamenta a dignidade ontologica humana acima dos demais seres. Joo 33:4 liga neshamah ao poder criador do Espirito. Joao 20:22 e o eco direto no NT: Jesus sopra sobre os discipulos — nova neshamah para a nova criacao."
+  },
+  "H5315": {
+    lemma:"נפש", xlit:"nephesh", pron:"neh-fesh",
+    strongs_def:"a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense: any, appetite, beast, body, breath, creature, X dead(-ly), desire, X (dis-)contented, X fish, ghost, + greedy, he, heart(-y), (hath, X jeopardy of) life (X in jeopardy), lust, man, me, mind, mortally, one, own, person, pleasure, (her-, him-, my-, thy-)self, them (your)-selves, + smitten, soul, + tablet, they, thing, (X she) will, X would have it.",
+    kjv_def:"any, appetite, beast, body, breath, creature, desire, ghost, heart, life, lust, man, mind, mortally, one, person, pleasure, soul, will.",
+    pt_definicao:"Alma; ser vivente; pessoa inteira; desejo; vida. Nao e apenas a parte espiritual do homem — e a pessoa completa em sua vitalidade. O ser humano nao TEM nephesh; o ser humano E nephesh.",
+    pt_usos:"alma, vida, pessoa, ser, desejo, mente, coracoo, criatura vivente",
+    pt_teologia:"Nephesh e um dos termos mais ricos e complexos do hebraico biblico, com mais de 750 ocorrencias no AT. A concepcao hebraica e holistica: o ser humano nao e uma alma presa em um corpo (visao platonico-dualista), mas uma unidade psicossomatica. Nephesh chayyah (alma vivente, Gn 2:7) descreve a pessoa inteira animada pelo sopro divino. Essa concepcao hebraica fundamenta a doutrina da ressurreicao corporal — nao apenas da imortalidade da alma — no NT."
+  },
+  "H5828": {
+    lemma:"עזר", xlit:"ezer", pron:"ay-zer",
+    strongs_def:"aid: help. From H5826 (to surround, i.e. protect or aid).",
+    kjv_def:"help.",
+    pt_definicao:"Ajuda; socorro; auxilio; forca que salva onde ha deficiencia. Das 21 ocorrencias no AT, 16 referem-se a Deus como socorro/ajudador de Israel — nao a uma posicao de subordinacao, mas de forca salvadora.",
+    pt_usos:"ajuda, socorro, auxilio, protecao, amparo",
+    pt_teologia:"Ezer e a palavra que Deus escolhe para descrever a mulher em Genesis 2:18 — ezer kenegdo (auxiliadora que lhe corresponde). O fato de que 16 das 21 ocorrencias do AT usam ezer para descrever Deus como socorro de Israel (Sl 121:2; 124:8; Ex 18:4; Dt 33:7) e teologicamente decisivo: ezer nao implica inferioridade ou subordinacao — implica forca que supre onde ha carencia. A mulher nao e criada como servente, mas como portadora de forca divina para suprir a solidade e deficiencia de Adao."
+  },
+  "H6763": {
+    lemma:"צלע", xlit:"tsela", pron:"tsay-law",
+    strongs_def:"a rib (as curved), literally (of the body) or figuratively (of a door, i.e. leaf); hence, a side, literally (of a person) or figuratively (of an object or the sky, i.e. quarter); architectural term for lateral rooms: beam, board, chamber, corner, door, side, rib.",
+    kjv_def:"beam, board, chamber, corner, door, rib, side.",
+    pt_definicao:"Costela; lado; camara lateral; flanco. Das 41 ocorrencias no AT, 40 significam lado ou camara (especialmente do tabernaculo e do templo) — apenas em Genesis 2:21-22 e traduzida costela.",
+    pt_usos:"lado, camara, costela, flancos, parede lateral, asa (de edificio)",
+    pt_teologia:"A traducao tsela como costela (em vez de lado) e exegetica, nao apenas linguistica. Se traduzido lado, Adao perderia metade de si mesmo — e da metade dele seria construida a mulher. Matthew Henry: nao da cabeca para domina-lo, nem dos pes para ser pisada — mas do lado, para ser igual a ele. A construcao do mesmo termo para o lado do tabernaculo (Ex 26:20-27) e o lado da arca da alianca (Ex 25:12-14) sugere que a criacao da mulher tem dimensao sagrada — ela emerge do lado do homem como o lugar mais santo emerge do lado da arca."
+  },
+  "H1320": {
+    lemma:"בשר", xlit:"basar", pron:"baw-sawr",
+    strongs_def:"flesh (from its freshness); by extension, body, person; also (by euphemism) the pudenda of a man: body, fat, flesh(-ly), kin, (man-)kind, nakedness, self, skin.",
+    kjv_def:"body, fat, flesh, kin, man, nakedness, self, skin.",
+    pt_definicao:"Carne; corpo; ser humano em sua dimensao fisica; parentesco de sangue. Em Genesis 2:23-24, basar expressa a unidade mais profunda possivel entre duas pessoas.",
+    pt_usos:"carne, corpo, parentesco, carne e sangue, ser humano, pele, nudez",
+    pt_teologia:"Quando Adao declara que Eva e osso dos meus ossos e carne da minha carne (Gn 2:23), basar expressa a maxima unidade ontologica possivel — identidade compartilhada no nivel mais fundamental. Genesis 2:24 usa basar para a uniao conjugal: os dois serao uma so carne. Paulo cita esse verso em Efesios 5:31-32 aplicando-o ao misterio de Cristo e a Igreja. Joao 1:14 usa o equivalente grego (sarx, carne) para a Encarnacao — o Logos se fez basar — ecoando Genesis 2 para declarar a maxima solidariedade de Deus com a humanidade."
   }
 };
 
