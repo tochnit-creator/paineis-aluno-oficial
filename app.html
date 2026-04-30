@@ -442,7 +442,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   </div>
 
   <div class="main bg-pregacao" id="main-area">
-    <div class="content">
+    <div class="content" id="gn1-content">
       <div class="content-header">
         <div class="breadcrumb">Gênesis › Criação</div>
         <div class="content-title">No princípio</div>
@@ -696,7 +696,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
     <!-- ESBOÇO: ADÃO E EVA — dentro do main-area -->
     <div id="esboco-adao-eva" style="display:none;">
-    <div class="content">
+    <div class="content" id="adao-content">
 
   <!-- HEADER DO ESBOÇO -->
   <div class="content-header">
@@ -1277,21 +1277,21 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
     if (el) el.classList.add('active');
 
-    const gn1    = document.querySelector('.content');
+    const gn1     = document.getElementById('gn1-content');
     const adaoEva = document.getElementById('esboco-adao-eva');
     const mainEl  = document.getElementById('main-area');
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
-      if (gn1)    gn1.style.display    = 'block';
-      if (adaoEva) adaoEva.style.display = 'none';
+      if (gn1)     gn1.style.display     = 'block';
+      if (adaoEva) adaoEva.style.display  = 'none';
       document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
       if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
     } else if (id === 'adao-eva') {
       esbocoAtual = 'adao-eva';
-      if (gn1)    gn1.style.display    = 'none';
-      if (adaoEva) adaoEva.style.display = 'block';
-      if (mainEl)  mainEl.className     = 'main bg-pregacao';
+      if (gn1)     gn1.style.display     = 'none';
+      if (adaoEva) adaoEva.style.display  = 'block';
+      if (mainEl)  mainEl.className       = 'main bg-pregacao';
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
