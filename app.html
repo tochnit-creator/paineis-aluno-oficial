@@ -1105,111 +1105,122 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   window.toggleTheme = () => {dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'');};
   window.toggleSidebar = () => {sidebarOpen=!sidebarOpen;document.getElementById('sidebar').className='sidebar '+(sidebarOpen?'open':'closed');document.getElementById('overlay').className='sidebar-overlay '+(sidebarOpen?'active':'');document.getElementById('hamburger').className='hamburger '+(sidebarOpen?'open':'');};
   window.closeSidebar = () => {sidebarOpen=false;document.getElementById('sidebar').className='sidebar closed';document.getElementById('overlay').className='sidebar-overlay';document.getElementById('hamburger').className='hamburger';};
-  window.selectItem = (el,crumb) => {document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');document.getElementById('header-crumb').textContent=crumb;};
   window.filterItems = (v) => {document.querySelectorAll('.sidebar-item').forEach(i=>{i.style.display=i.dataset.search.includes(v.toLowerCase())?'flex':'none';});};
   window.switchDevo = (g) => {document.querySelectorAll('.devo-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.devo-btn').forEach(b=>{b.classList.remove('active-m');b.classList.remove('active-f');});document.getElementById('devo-'+g).classList.add('active');if(g==='masc')document.getElementById('btn-masc').classList.add('active-m');else document.getElementById('btn-fem').classList.add('active-f');};
+  window.switchDevoAdao = (g) => {['devo-adao-masc','devo-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});['btn-adao-masc','btn-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('active-m');el.classList.remove('active-f');}});const panel=document.getElementById('devo-adao-'+g);const btn=document.getElementById('btn-adao-'+g);if(panel)panel.classList.add('active');if(btn)btn.classList.add(g==='masc'?'active-m':'active-f');};
 
-  window.switchDevoAdao = (g) => {
-    ['devo-adao-masc','devo-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});
-    ['btn-adao-masc','btn-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('active-m');el.classList.remove('active-f');}});
-    const panel=document.getElementById('devo-adao-'+g);
-    const btn=document.getElementById('btn-adao-'+g);
-    if(panel)panel.classList.add('active');
-    if(btn)btn.classList.add(g==='masc'?'active-m':'active-f');
-  };
+  // Expõe variáveis de plano para o script global
+  window.__niveis = niveis;
+  window.__nomePlano = nomePlano;
+  window.__precos = precos;
+  window.__getPlano = () => planoAtual;
+  window.__solicitarUpgrade = solicitarUpgrade;
+</script>
 
-  // NAVEGAÇÃO ENTRE ESBOÇOS
+<!-- NAVEGAÇÃO ENTRE ESBOÇOS — script global (não módulo) -->
+<script>
+(function() {
   let esbocoAtual = 'genesis-1';
-
-  window.trocarEsboco = (id, el) => {
-    // Atualiza sidebar
-    document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
-    if(el) el.classList.add('active');
-
-    // Oculta todos os esboços
-    const mainContent = document.querySelector('.content');
-    const esbocoAdao = document.getElementById('esboco-adao-eva');
-
-    if(id === 'genesis-1') {
-      if(mainContent) mainContent.style.display = 'block';
-      if(esbocoAdao) esbocoAdao.style.display = 'none';
-      document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
-      // Volta para a aba ativa do Gn 1:1
-      switchTab(tabAtiva || 'pregacao');
-    } else if(id === 'adao-eva') {
-      if(mainContent) mainContent.style.display = 'none';
-      if(esbocoAdao) esbocoAdao.style.display = 'block';
-      document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
-      esbocoAtual = 'adao-eva';
-      // Mostra a aba correta de Adão e Eva
-      switchTabAdao(tabAtivaAdao || 'pregacao');
-    }
-    closeSidebar();
-  };
-
   let tabAtiva = 'pregacao';
   let tabAtivaAdao = 'pregacao';
 
-  // Override do switchTab para salvar aba ativa do Gn 1:1
-  const origSwitchTab = window.switchTab;
-  window.switchTab = (tab) => {
-    tabAtiva = tab;
-    origSwitchTab(tab);
+  function getPlano() { return window.__getPlano ? window.__getPlano() : 'gratuito'; }
+  function getNiveis() { return window.__niveis || {gratuito:1,basico:2,premium:3}; }
+  function getNomePlano() { return window.__nomePlano || {1:'Gratuito',2:'Básico',3:'Premium'}; }
+  function getPrecos() { return window.__precos || {basico:{valor:'29,90',features:[]},premium:{valor:'49,90',features:[]}}; }
+
+  window.trocarEsboco = function(id, el) {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    const mainContent = document.querySelector('.content');
+    const esbocoAdao  = document.getElementById('esboco-adao-eva');
+    const mainEl      = document.getElementById('main-area');
+
+    if (id === 'genesis-1') {
+      esbocoAtual = 'genesis-1';
+      if (mainContent) mainContent.style.display = 'block';
+      if (esbocoAdao)  esbocoAdao.style.display  = 'none';
+      document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
+      if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
+    } else if (id === 'adao-eva') {
+      esbocoAtual = 'adao-eva';
+      if (mainContent) mainContent.style.display = 'none';
+      if (esbocoAdao)  esbocoAdao.style.display  = 'block';
+      if (mainEl) mainEl.className = 'main bg-pregacao';
+      document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
+      switchTabAdao(tabAtivaAdao || 'pregacao');
+    }
+    if (window.closeSidebar) window.closeSidebar();
   };
 
-  window.switchTabAdao = (tab) => {
+  // Intercepta cliques nas tabs para redirecionar quando Adão e Eva estiver ativo
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    if (esbocoAtual === 'adao-eva') {
+      e.stopImmediatePropagation();
+      switchTabAdao(btn.dataset.tab);
+    } else {
+      tabAtiva = btn.dataset.tab;
+    }
+  }, true);
+
+  function switchTabAdao(tab) {
     tabAtivaAdao = tab;
-    const planoNec = tab === 'conselho' || tab === 'devocional' ? 'premium' : tab === 'ensino' || tab === 'ebd' ? 'basico' : 'gratuito';
+    const niveis    = getNiveis();
+    const planoAtual = getPlano();
+    const nomePlano = getNomePlano();
+    const precos    = getPrecos();
+
+    const planoNec = (tab==='conselho'||tab==='devocional') ? 'premium'
+                   : (tab==='ensino'||tab==='ebd')          ? 'basico'
+                   : 'gratuito';
     const temAcesso = niveis[planoAtual] >= niveis[planoNec];
 
-    // Atualiza tabs
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    const btn = document.querySelector(`[data-tab="${tab}"]`);
-    if(btn) btn.classList.add('active');
+    // Atualiza tabs visuais
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector('[data-tab="'+tab+'"]');
+    if (activeBtn) activeBtn.classList.add('active');
 
-    // Oculta todos panels adão
-    ['pregacao','ensino','ebd','conselho','devocional'].forEach(id=>{
+    // Oculta todos panels de Adão e Eva
+    ['pregacao','ensino','ebd','conselho','devocional'].forEach(function(id) {
       const el = document.getElementById('panel-adao-'+id);
-      if(el) el.style.display='none';
+      if (el) el.style.display = 'none';
     });
 
-    if(temAcesso) {
-      const panel = document.getElementById('panel-adao-'+tab);
-      if(panel) panel.style.display='block';
+    const panel = document.getElementById('panel-adao-'+tab);
+    if (!panel) return;
+
+    if (temAcesso) {
+      panel.style.display = 'block';
     } else {
-      const panel = document.getElementById('panel-adao-'+tab);
-      if(!panel) return;
-      panel.style.display='block';
+      panel.style.display = 'block';
       const nivelNec = nomePlano[niveis[planoNec]];
-      const preco = precos[planoNec] || {valor:'—',features:[]};
-      const featuresHTML = preco.features.map(f=>`<div class="preco-feature">${f}</div>`).join('');
-      panel.innerHTML=`<div class="tela-bloqueio">
-        <div class="lock-big">🔒</div>
-        <div class="bloqueio-title">Plano ${nivelNec}</div>
-        <div class="bloqueio-sub">Desbloqueie este conteúdo assinando o plano ${nivelNec}.</div>
-        <div class="preco-card">
-          <div class="preco-plano">Plano ${nivelNec}</div>
-          <div class="preco-valor"><sup>R$</sup>${preco.valor}<sub>/mês</sub></div>
-          <div class="preco-periodo">Cobrado mensalmente</div>
-          <div class="preco-features">${featuresHTML}</div>
-        </div>
-        <button class="btn-solicitar" id="btn-sol-adao-${tab}" onclick="solicitarUpgrade('${planoNec}','adao-${tab}')">Assinar por R$ ${preco.valor}/mês</button>
-        <div class="msg-sol" id="msg-sol-adao-${tab}"></div>
-      </div>`;
+      const preco    = precos[planoNec] || {valor:'—', features:[]};
+      const featuresHTML = (preco.features||[]).map(function(f){return '<div class="preco-feature">'+f+'</div>';}).join('');
+      panel.innerHTML =
+        '<div class="tela-bloqueio">' +
+          '<div class="lock-big">🔒</div>' +
+          '<div class="bloqueio-title">Plano '+nivelNec+'</div>' +
+          '<div class="bloqueio-sub">Desbloqueie este conteúdo assinando o plano '+nivelNec+'.</div>' +
+          '<div class="preco-card">' +
+            '<div class="preco-plano">Plano '+nivelNec+'</div>' +
+            '<div class="preco-valor"><sup>R$</sup>'+preco.valor+'<sub>/mês</sub></div>' +
+            '<div class="preco-periodo">Cobrado mensalmente</div>' +
+            '<div class="preco-features">'+featuresHTML+'</div>' +
+          '</div>' +
+          '<button class="btn-solicitar" onclick="window.__solicitarUpgrade && window.__solicitarUpgrade(\''+planoNec+'\',\'adao-'+tab+'\')">Assinar por R$ '+preco.valor+'/mês</button>' +
+          '<div class="msg-sol" id="msg-sol-adao-'+tab+'"></div>' +
+        '</div>';
     }
-    document.querySelector('.main').scrollTop=0;
-  };
+    const mainEl = document.getElementById('main-area');
+    if (mainEl) mainEl.scrollTop = 0;
+  }
 
-  // Conecta tabs ao sistema de Adão e Eva quando estiver ativo
-  const origTabBtns = document.querySelectorAll('.tab-btn');
-  origTabBtns.forEach(btn=>{
-    const originalOnclick = btn.getAttribute('onclick');
-    btn.addEventListener('click',()=>{
-      if(esbocoAtual==='adao-eva'){
-        switchTabAdao(btn.dataset.tab);
-      }
-    });
-  });
+  // Expõe para uso externo (modo apresentação de Adão)
+  window.switchTabAdao = switchTabAdao;
+})();
 </script>
 
 <!-- STRONG DICTIONARY ENGINE -->
