@@ -307,6 +307,20 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .devo-desafio-text{font-size:13px;color:var(--text2);line-height:1.7;}
 .divider{height:1px;background:var(--border);margin:2rem 0;}
 .aparato-title{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;}
+/* COMENTÁRIO BÍBLICO */
+.comentario-section{margin:2rem 0 1rem;}
+.comentario-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.comentario-badge{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:10px;background:var(--navy);color:#fff;}
+.comentario-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);}
+.comentario-block{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:0 8px 8px 0;padding:1.1rem 1.25rem;margin-bottom:1rem;transition:background .25s;}
+.comentario-block-title{font-size:11px;font-weight:600;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem;}
+.comentario-text{font-size:13.5px;color:var(--text2);line-height:1.9;}
+.comentario-text em{color:var(--wine);font-style:normal;font-weight:500;}
+.voz-classica{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1rem 0;transition:background .25s;}
+.voz-classica-autor{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;gap:6px;}
+.voz-classica-autor::before{content:'❝';font-size:14px;}
+.voz-classica-text{font-family:'Playfair Display',serif;font-size:13.5px;font-style:italic;color:var(--text);line-height:1.85;}
+.voz-classica-ref{font-size:11px;color:var(--text3);margin-top:5px;font-family:'DM Sans',sans-serif;font-style:normal;}
 .aparato-item{margin-bottom:1rem;padding:1rem 1.1rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);transition:background .25s;}
 .aparato-label{font-size:10px;font-weight:500;color:var(--wine);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
 .aparato-text{font-size:13px;color:var(--text2);line-height:1.75;}
@@ -513,6 +527,59 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
           <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div></div><div class="tl-content"><strong>1927 — Georges Lemaître</strong>O padre católico propõe o Big Bang. Inicialmente rejeitado por ser "demasiado criacionista".</div></div>
         </div>
         <button class="present-btn" onclick="startPresent('ensino')"><span class="play-icon"></span> Modo apresentação</button>
+
+        <!-- COMENTÁRIO BÍBLICO — GÊNESIS 1:1 -->
+        <div class="comentario-section">
+          <div class="divider"></div>
+          <div class="comentario-header">
+            <span class="comentario-badge">Comentário</span>
+            <span class="comentario-title">Gênesis 1:1 — Análise exegética e teológica</span>
+          </div>
+
+          <div class="comentario-block">
+            <div class="comentario-block-title">Estrutura e posição canônica</div>
+            <div class="comentario-text">Gênesis 1:1 funciona como título e tese do livro inteiro — e, por extensão, de toda a Escritura. O versículo não é simplesmente a abertura de uma narrativa cosmogônica: é uma declaração de soberania absoluta que subordina toda a realidade à iniciativa divina. O hebraico <em>bereshit bara Elohim</em> coloca o verbo antes do sujeito — construção incomum em prosa hebraica — o que enfatiza a ação criadora como ponto de partida epistemológico: antes que qualquer coisa possa ser afirmada, é necessário afirmar que Deus criou.<br><br>A questão do estado gramatical de <em>bereshit</em> — se absoluto ou construto — divide os comentaristas desde Rashi (séc. XI) até os hebraístas modernos. Se absoluto, o versículo é uma declaração independente sobre o início absoluto da criação (<em>creatio ex nihilo</em>). Se construto, funciona como cláusula temporal: "No princípio de quando Deus criou os céus e a terra, a terra estava sem forma e vazia..." A maioria dos comentaristas evangélicos contemporâneos (Wenham, Hamilton, Waltke, Sailhamer) opta pelo estado absoluto, considerando-o mais coerente com a teologia posterior da Escritura sobre a criação.</div>
+          </div>
+
+          <div class="voz-classica">
+            <div class="voz-classica-autor">Matthew Henry — Commentary on the Whole Bible (1706)</div>
+            <div class="voz-classica-text">"No princípio" — não apenas o princípio do tempo, mas o princípio antes do qual não havia nada além de Deus. A criação não é uma emanação de Deus, como se Ele tivesse transbordado; é um ato livre e soberano da vontade divina. Que Ele devesse criar este mundo, neste tempo, desta forma, depende apenas do seu próprio prazer eterno.</div>
+            <div class="voz-classica-ref">Vol. I, Comentário sobre Gênesis 1:1 — domínio público</div>
+          </div>
+
+          <div class="comentario-block">
+            <div class="comentario-block-title">O verbo bara e a unicidade do ato criador</div>
+            <div class="comentario-text">O verbo <em>bara</em> (H1254) ocorre 48 vezes no Antigo Testamento e, em todas elas, o sujeito é exclusivamente Deus. Não existe em hebraico bíblico um único exemplo de um ser humano ou angélico executando a ação de <em>bara</em>. Essa exclusividade gramatical não é acidental — é teológica. O legislador do vocabulário hebraico reservou um verbo inteiro para designar uma categoria de ação que pertence à jurisdição divina exclusiva.<br><br>A distinção entre <em>bara</em> (criar do nada), <em>asah</em> (fazer com materiais preexistentes) e <em>yatsar</em> (moldar/plasmar como oleiro) estrutura a teologia da criação no Antigo Testamento. Em Gênesis 1, os três aparecem: <em>bara</em> é usado nas grandes inaugurações (v.1, v.21 para os animais marinhos, v.27 para o ser humano); <em>asah</em> aparece para atos de configuração e separação; <em>yatsar</em> domina em Gênesis 2:7 (a formação do homem). A combinação dos três revela uma teologia criacional sofisticada: há criação absoluta, há organização de materiais já existentes, e há modelagem artesanal íntima — Deus opera nos três níveis.</div>
+          </div>
+
+          <div class="voz-classica">
+            <div class="voz-classica-autor">Adam Clarke — Clarke's Commentary (1810)</div>
+            <div class="voz-classica-text">A palavra bara implica não apenas criar, mas criar algo inteiramente novo — trazer à existência o que jamais existiu. Não é reformar o que estava disforme, não é reorganizar o que estava em desordem: é o surgimento absoluto do ser onde havia apenas a ausência total do ser. Nenhuma criatura pode bara — somente Aquele que é o ser por si mesmo pode dar ser àquilo que não tem ser.</div>
+            <div class="voz-classica-ref">Vol. I, Comentário sobre Gênesis 1:1 — domínio público</div>
+          </div>
+
+          <div class="comentario-block">
+            <div class="comentario-block-title">Elohim — o Deus plural que age no singular</div>
+            <div class="comentario-text"><em>Elohim</em> (H430) é morfologicamente plural — terminação <em>-im</em> do hebraico, típica do plural masculino. O verbo <em>bara</em>, entretanto, está no singular. Essa combinação — sujeito plural, verbo singular — tem sido objeto de debate exegético desde a patrística. O rabinismo clássico a explica como <em>pluralis majestatis</em> (plural de majestade ou intensidade), convocando paralelos como os faraós egípcios que se referiam a si mesmos no plural. A teologia cristã, sem negar o <em>pluralis majestatis</em>, vê nessa tensão gramatical uma abertura para a revelação trinitária posterior — não uma prova dedutiva da Trindade a partir do Gênesis, mas uma consistência retroativa: o texto não contradiz o que o NT revela sobre a pluralidade de pessoas na unidade divina.<br><br>Notavelmente, a Septuaginta (LXX) usa <em>ὁ θεός</em> com artigo definido — "o Deus" — tornando inequívoca a referência ao Deus único e supremo, não a uma divindade genérica.</div>
+          </div>
+
+          <div class="voz-classica">
+            <div class="voz-classica-autor">Albert Barnes — Barnes' Notes on the Old Testament (1851)</div>
+            <div class="voz-classica-text">O plural de Elohim, combinado com o verbo singular, prepara o leitor para aquela unidade-na-pluralidade que a revelação progressiva explicará mais plenamente. Não é necessário — nem legítimo — deduzir a Trindade diretamente deste texto; mas é igualmente ilegítimo ignorar que a gramática hebraica escolhida pelo Espírito Santo aqui não é a gramática mais simples ou óbvia. Há uma riqueza sintática que aponta além de si mesma.</div>
+            <div class="voz-classica-ref">Notes on Genesis, vol. I — domínio público</div>
+          </div>
+
+          <div class="comentario-block">
+            <div class="comentario-block-title">Gênesis 1:1 e o diálogo com as cosmogonias do AOP</div>
+            <div class="comentario-text">O contexto do Antigo Oriente Próximo é indispensável para a interpretação de Gênesis 1:1. Textos como o <em>Enuma Elish</em> babilônico apresentam a criação como subproduto de um conflito cosmogônico entre divindades — Marduk, filho do deus Ea, mata a deusa Tiamat e de seu corpo desmembrado forma os céus e a terra. Os seres humanos são criados do sangue de Kingu, o aliado de Tiamat, para servir aos deuses nas tarefas pesadas.<br><br>Gênesis 1 é uma resposta silenciosa mas sistemática a essa cosmologia. Não há conflito — Deus age sozinho, sem oposição, sem negociação. Não há teogonia — o texto não explica de onde Deus veio porque Deus simplesmente <em>era</em>, antes do princípio. Não há politeísmo — há uma única Voz que fala e as coisas surgem. O sol e a lua não são nomeados em Gênesis 1:16 (são chamados apenas de "o luminar maior" e "o luminar menor") precisamente porque <em>Shemesh</em> (sol) e <em>Yareach</em> (lua) eram nomes de divindades cananéias — o texto os desmitifica classificando-os como criaturas funcionais, não como seres divinos. Max Weber chamou esse processo de <em>Entzauberung der Welt</em> — o "desencantamento do mundo" — e identificou Gênesis 1 como sua origem histórica e cultural.</div>
+          </div>
+
+          <div class="voz-classica">
+            <div class="voz-classica-autor">John Calvin — Commentaries on the First Book of Moses (1554)</div>
+            <div class="voz-classica-text">Moisés não discute filosoficamente a natureza de Deus, nem entra em especulações sobre a eternidade divina: começa com a criação, porque é a criação que nos é acessível. A existência de Deus antes da criação está pressuposta — mas pressuposta com a dignidade do silêncio. O que Moisés afirma é que no momento em que o tempo começou, Deus já era o Criador. Não houve antecedente à sua ação criadora: Ele é a causa primeira sem causa.</div>
+            <div class="voz-classica-ref">Commentaries on Genesis, vol. I — domínio público</div>
+          </div>
+        </div>
         <div class="divider"></div>
         <div class="aparato-title">Aparato crítico</div>
         <div class="aparato-item"><div class="aparato-label">Hebraico</div><div class="aparato-text"><strong>בְּרֵאשִׁית (bereshit)</strong> — estado absoluto vs. construto. Maioria moderna: absoluto.<br><br><strong>בָּרָא (bara)</strong> — verbo exclusivo de Deus. Creatio ex nihilo.<br><br><strong>אֱלֹהִים (Elohim)</strong> — plural de majestade. Verbo singular demonstra unicidade.</div></div>
@@ -740,6 +807,81 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     <div class="aparato-item"><div class="aparato-label">Rashi (séc. XI)</div><div class="aparato-text"><div class="quote-pull">"Tsela — o lado; como em Ex 26:20. A mulher foi tirada do lado do homem, para que caminhassem lado a lado."</div></div></div>
     <div class="aparato-item"><div class="aparato-label">Agostinho</div><div class="aparato-text"><div class="quote-pull">"Não das costas para criar um seguidor, nem da cabeça para criar um superior, mas do lado — para criar uma companheira."</div></div></div>
     <button class="present-btn" onclick="startPresentAdao('ensino')"><span class="play-icon"></span> Modo apresentação</button>
+
+    <!-- COMENTÁRIO BÍBLICO — GÊNESIS 2:7-25 -->
+    <div class="comentario-section">
+      <div class="divider"></div>
+      <div class="comentario-header">
+        <span class="comentario-badge">Comentário</span>
+        <span class="comentario-title">Gênesis 2:7-25 — Análise exegética e teológica</span>
+      </div>
+
+      <div class="comentario-block">
+        <div class="comentario-block-title">Gênesis 2 e sua relação com Gênesis 1</div>
+        <div class="comentario-text">A relação entre Gênesis 1 e 2 tem sido objeto de debate exegético por séculos. Uma leitura superficial pode sugerir contradição: a ordem da criação parece diferente, o nome divino muda de <em>Elohim</em> para <em>YHWH Elohim</em>, e o foco se estreita dramaticamente. A explicação mais coerente com a estrutura literária hebraica é que Gênesis 1 apresenta o panorama cósmico, enquanto Gênesis 2 é um <em>close-up</em> — um zoom sobre o ser humano dentro daquele panorama. Não há contradição: há complementaridade narrativa.<br><br>A mudança no nome divino é teologicamente carregada. Em Gênesis 1, o Criador é <em>Elohim</em> — o Deus poderoso, transcendente, que age por decreto soberano. Em Gênesis 2, é <em>YHWH Elohim</em> — o nome pessoal e relacional de Deus, combinado com seu título de poder. O Deus que criou os céus pelo seu decreto agora se inclina sobre o pó para formar um homem com as mãos e soprar-lhe nas narinas. A transcendência e a imanência são apresentadas juntas.</div>
+      </div>
+
+      <div class="voz-classica">
+        <div class="voz-classica-autor">Matthew Henry — Commentary on the Whole Bible (1706)</div>
+        <div class="voz-classica-text">O segundo capítulo não é uma segunda criação, mas uma expansão da primeira — como um pintor que, depois de esboçar o quadro inteiro, volta ao centro para trabalhar os detalhes com pincel mais fino. Deus nos dá primeiro o esboço do universo, e então se detém no rosto do homem, que é o centro de tudo o que criou visível.</div>
+        <div class="voz-classica-ref">Vol. I, Comentário sobre Gênesis 2 — domínio público</div>
+      </div>
+
+      <div class="comentario-block">
+        <div class="comentario-block-title">Gênesis 2:7 — A dupla natureza do ser humano</div>
+        <div class="comentario-text">O versículo 7 é um dos mais densos da Escritura em termos antropológicos. A estrutura é tripartite: <em>formação</em> (yatsar + aphar), <em>animação</em> (nishmat chayyim) e <em>resultado</em> (nephesh chayyah). Cada elemento carrega peso teológico independente.<br><br>O uso de <em>aphar</em> (H6083 — pó seco, cinza) em vez de <em>adamah</em> (solo fértil) ou <em>chomer</em> (argila maleável) é deliberado. O pó não é o material mais promissor para uma criação grandiosa — é o mais frágil, o mais efêmero, o que mais facilmente retorna à terra de onde veio. A escolha do pó é uma declaração teológica sobre a condição humana antes de qualquer intervenção divina: fragilidade radical, mortalidade inscrita na constituição.<br><br>Mas então vem o gesto sem paralelo na narrativa criacional: <em>wayyippach be'appayw nishmat chayyim</em> — "e soprou em suas narinas o sopro de vida." O verbo <em>naphach</em> (soprar) pressupõe proximidade absoluta. Ao contrário da criação por decreto de Gênesis 1 ("haja luz" — e houve), aqui Deus age por contato direto. A neshamah não é transmitida à distância — é comunicada face a face, boca a boca. O ser humano carrega em sua constituição algo que veio diretamente do ser de Deus.</div>
+      </div>
+
+      <div class="voz-classica">
+        <div class="voz-classica-autor">Adam Clarke — Clarke's Commentary (1810)</div>
+        <div class="voz-classica-text">Neste versículo temos a filosofia mais elevada que o mundo jamais recebeu sobre a natureza do homem. O corpo formado do pó da terra — e aqui está a humildade de nossa origem e o segredo de nossa mortalidade. O espírito soprado pelo próprio Deus — e aqui está a nobreza de nossa natureza e o fundamento de nossa imortalidade. O homem não é nem apenas animal nem apenas espírito: é a conjunção de ambos numa unidade que nenhuma filosofia humana jamais descreveu adequadamente.</div>
+        <div class="voz-classica-ref">Vol. I, Comentário sobre Gênesis 2:7 — domínio público</div>
+      </div>
+
+      <div class="comentario-block">
+        <div class="comentario-block-title">Nephesh — a unidade psicossomática hebraica</div>
+        <div class="comentario-text">O resultado da formação mais a animação é que o homem se torna <em>nephesh chayyah</em> — "alma vivente." A tradução grega da LXX usa <em>psyche zosa</em>, e a KJV preserva "living soul." O que é fundamental notar é que o hebraico não diz que Deus deu ao homem uma alma — diz que o homem se tornou uma alma.<br><br>Essa distinção é abismal filosoficamente. A antropologia hebraica é holística: o ser humano não é uma alma presa num corpo (dicotomia platônica), mas uma unidade psicossomática indivisível. A <em>nephesh</em> é a pessoa inteira em sua vitalidade animada — não a parte imaterial separável do corpo. Quando a Escritura fala da "alma" em contextos de morte, não está afirmando uma sobrevivência independente do corpo à maneira platônica, mas preservando a identidade pessoal no poder de Deus até a ressurreição corporal — que é precisamente a esperança do NT.<br><br>Isso tem implicações pastorais profundas: o ser humano não é um espírito que usa um corpo como instrumento. O corpo não é prisão nem acessório. A incarnação do Filho, a ressurreição corporal de Cristo, e a promessa de ressurreição para os crentes fazem sentido precisamente porque o corpo é constitutivo da identidade humana desde Gênesis 2:7.</div>
+      </div>
+
+      <div class="voz-classica">
+        <div class="voz-classica-autor">Albert Barnes — Barnes' Notes on the Old Testament (1851)</div>
+        <div class="voz-classica-text">O homem não recebeu uma alma como algo externo e separado: ele se tornou uma alma. Corpo e espírito não são dois seres distintos habitando o mesmo espaço — são dois aspectos de uma única realidade pessoal. É por isso que a morte é sempre apresentada na Escritura como tragédia e violência, nunca como libertação: ela desfaz o que Deus fez. E é por isso que a ressurreição — não a mera imortalidade da alma — é a esperança definitiva do cristão.</div>
+        <div class="voz-classica-ref">Notes on Genesis, vol. I — domínio público</div>
+      </div>
+
+      <div class="comentario-block">
+        <div class="comentario-block-title">Gênesis 2:18 — O primeiro diagnóstico negativo</div>
+        <div class="comentario-text">A frase "não é bom que o homem esteja só" (Gn 2:18) é o primeiro julgamento negativo de Deus na narrativa criacional — e ocorre antes da queda, no estado pré-lapsário. Isso é teologicamente decisivo: a necessidade de comunhão não é consequência do pecado, mas design original. A solidão não é fraqueza espiritual — é condição ontológica que Deus mesmo diagnostica e resolve.<br><br>A solução que Deus propõe é <em>ezer kenegdo</em> — literalmente "uma ajuda que lhe corresponde" ou "uma força correspondente." O substantivo <em>ezer</em> (H5828) ocorre 21 vezes no AT: nas três primeiras ocorrências o referente é humano (aqui e em outros dois contextos), mas nas 16 ocorrências seguintes o referente é o próprio Deus como socorro de Israel (Sl 121:2; 124:8; Ex 18:4; Dt 33:7 etc.). O uso do termo para descrever a mulher não implica subordinação — implica que ela exerce em relação ao homem a mesma função que Deus exerce em relação à humanidade: força que socorre onde há deficiência.<br><br>O advérbio-preposição <em>kenegdo</em> ("diante dele", "correspondente a ele") reforça a ideia de equivalência — não identidade, mas espelho. A mulher é apresentada não como cópia inferior nem como substituta, mas como contrapartida necessária: aquela cuja presença resolve o que a criação sem ela não conseguia resolver.</div>
+      </div>
+
+      <div class="voz-classica">
+        <div class="voz-classica-autor">John Calvin — Commentaries on the First Book of Moses (1554)</div>
+        <div class="voz-classica-text">Deus declara que não é bom para o homem estar só — não porque o homem seja imperfeito, mas porque foi criado para relação. A solidão de Adão no jardim não é falta de fé; é falta de um correspondente humano. Há necessidades que a comunhão com Deus preenche, e há necessidades que apenas a comunhão humana pode preencher — e Deus criou as duas porque conhece a natureza que Ele mesmo fez.</div>
+        <div class="voz-classica-ref">Commentaries on Genesis, vol. I — domínio público</div>
+      </div>
+
+      <div class="comentario-block">
+        <div class="comentario-block-title">Gênesis 2:21-23 — A criação da mulher e o primeiro poema</div>
+        <div class="comentario-text">O procedimento descrito nos versículos 21-22 é único na narrativa criacional: Deus causa um sono profundo sobre Adão (<em>tardema</em> — H8639, sono induzido divinamente, o mesmo da visão de Abraão em Gn 15:12), toma uma de suas <em>tsela</em> (H6763) e constrói (<em>wayiben</em> — H1129, edificar/construir, não apenas formar) a mulher.<br><br>O substantivo <em>tsela</em> é traduzido "costela" em quase todas as versões portuguesas, mas seu significado primário em hebraico é "lado" ou "câmara lateral" — do tabernáculo (Ex 26:20-27), do templo (1 Rs 6:5), da arca da aliança (Ex 25:12). Das 41 ocorrências no AT, apenas esta é traduzida "costela"; nas demais, o sentido é estrutural: o lado de um edifício, a câmara de um santuário. Isso não é irrelevante: a mulher é construída do <em>lado</em> do homem — do que é mais central, mais estrutural, não de um apêndice periférico.<br><br>A resposta de Adão em 2:23 é o primeiro discurso humano registrado e tem forma poética: paralelismo, ritmo, exclamação. "Esta, sim (<em>zot happa'am</em> — finalmente, agora sim!)..." O homem que havia nomeado todos os animais sem encontrar o que procurava reconhece de imediato sua correspondente. O reconhecimento é imediato, intuitivo, exultante. O primeiro poema da Bíblia é um homem admirando uma mulher.</div>
+      </div>
+
+      <div class="voz-classica">
+        <div class="voz-classica-autor">Matthew Henry — Commentary on the Whole Bible (1706)</div>
+        <div class="voz-classica-text">Que a mulher foi feita de uma costela do lado do homem, não da sua cabeça para estar acima dele, nem dos seus pés para ser pisada por ele, mas do seu lado para ser igual a ele, de baixo de seu braço para ser protegida por ele, e próxima ao seu coração para ser amada por ele.</div>
+        <div class="voz-classica-ref">Vol. I, Comentário sobre Gênesis 2:21-22 — domínio público</div>
+      </div>
+
+      <div class="comentario-block">
+        <div class="comentario-block-title">Gênesis 2:24-25 — O paradigma do casamento e a nudez sem vergonha</div>
+        <div class="comentario-text">O versículo 24 funciona como conclusão hermenêutica da narrativa: "Por isso o homem deixará pai e mãe e se unirá à sua mulher, e os dois serão uma só carne." A fórmula é notavelmente audaciosa: o casamento redefinirá o vínculo mais forte existente na sociedade antiga (pai e mãe) em favor de uma nova unidade. E essa nova unidade é descrita como <em>basar echad</em> — "uma só carne" — a mais completa expressão de unidade ontológica disponível na linguagem hebraica.<br><br>Jesus citará esse versículo em Mateus 19:5 como fundamento normativo do casamento — irrevogável precisamente por ser pré-queda, anterior ao pecado e à dureza de coração. Paulo o citará em Efésios 5:31-32 e o declarará "mistério grande" (<em>mysterion mega</em>) referente a Cristo e à Igreja.<br><br>O versículo 25 encerra a seção com uma imagem que se tornará ainda mais poderosa quando contrastada com Gênesis 3:7: "E estavam ambos nus, o homem e sua mulher, e não se envergonhavam." A ausência de vergonha não é ingenuidade — é integridade. No estado pré-lapsário, a transparência radical não ameaçava; a vulnerabilidade não expunha ao julgamento. A queda de Gênesis 3 não introduz a consciência — introduz a vergonha. E a redenção em Cristo move gradualmente de volta à direção de 2:25: a possibilidade de ser visto completamente e não ser destruído.</div>
+      </div>
+
+      <div class="voz-classica">
+        <div class="voz-classica-autor">Albert Barnes — Barnes' Notes on the Old Testament (1851)</div>
+        <div class="voz-classica-text">A nudez sem vergonha não era uma condição primitiva de ignorância, como se o homem ainda não tivesse consciência moral para se envergonhar. Era a condição da integridade — quando a transparência entre as pessoas e entre o homem e Deus era perfeitamente segura porque havia perfeita harmonia. A vergonha entrou com o pecado, não como castigo externo, mas como consequência interna da ruptura de uma relação. O evangelho trabalha para restaurar aquela integridade — não abolindo a consciência, mas curando o que a quebrou.</div>
+        <div class="voz-classica-ref">Notes on Genesis, vol. I — domínio público</div>
+      </div>
+    </div>
   </div>
 
   <!-- EBD -->
