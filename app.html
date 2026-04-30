@@ -42,7 +42,7 @@
   --border:#2e2540;
   --border2:#3a3050;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .25s,color .25s;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .25s,color .25s;} /* overflow:hidden necessário para layout fixo */
 
 /* HEADER */
 header{display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:54px;background:var(--wine);border-bottom:none;z-index:100;flex-shrink:0;transition:background .25s;}
@@ -78,19 +78,22 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .lock-icon{font-size:11px;}
 
 /* LAYOUT */
-.layout{display:flex;flex:1;overflow:hidden;position:relative;}
+.layout{display:flex;flex:1;overflow:hidden;position:relative;min-height:0;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:40;}
 .sidebar-overlay.active{display:block;}
 .sidebar{width:var(--sidebar);flex-shrink:0;background:#f8f2ee;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.4,0,.2,1),background .25s;overflow:hidden;}
-.sidebar.closed{transform:translateX(-100%);position:absolute;top:0;left:0;bottom:0;z-index:50;}
-/* Desktop — sidebar sempre visível independente de classe */
+/* MOBILE: sidebar começa fechada */
+@media(max-width:899px){
+  .sidebar{position:absolute;top:0;left:0;bottom:0;z-index:50;transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar.closed{transform:translateX(-100%);}
+}
+/* DESKTOP: sidebar sempre visível, ignora classes open/closed */
 @media(min-width:900px){
-  .sidebar,.sidebar.closed,.sidebar.open{
+  .sidebar,.sidebar.open,.sidebar.closed{
     position:relative !important;
     transform:none !important;
-    top:auto !important; left:auto !important; bottom:auto !important;
-    z-index:auto !important;
-    min-height:calc(100vh - 108px);
+    top:auto;left:auto;bottom:auto;z-index:auto;
   }
   .sidebar-overlay{display:none !important;}
   .hamburger{display:none !important;}
@@ -497,7 +500,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
 <div class="layout">
   <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
-  <div class="sidebar closed" id="sidebar">
+  <div class="sidebar" id="sidebar">
     <div class="sidebar-search"><input type="text" placeholder="Buscar esboço..." oninput="filterItems(this.value)"/></div>
     <div class="sidebar-scroll">
       <div class="book-header">Gênesis</div>
@@ -1329,19 +1332,27 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   let sidebarOpen=false, dark=false;
   window.toggleTheme = () => {dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'');};
   window.toggleSidebar = () => {
-    if (window.innerWidth >= 900) return; // desktop — sidebar sempre visível
-    sidebarOpen=!sidebarOpen;
-    document.getElementById('sidebar').className='sidebar '+(sidebarOpen?'open':'closed');
-    document.getElementById('overlay').className='sidebar-overlay '+(sidebarOpen?'active':'');
-    document.getElementById('hamburger').className='hamburger '+(sidebarOpen?'open':'');
+    if (window.innerWidth >= 900) return;
+    sidebarOpen = !sidebarOpen;
+    const sb = document.getElementById('sidebar');
+    sb.classList.toggle('open', sidebarOpen);
+    sb.classList.toggle('closed', !sidebarOpen);
+    document.getElementById('overlay').className = 'sidebar-overlay ' + (sidebarOpen ? 'active' : '');
+    document.getElementById('hamburger').className = 'hamburger ' + (sidebarOpen ? 'open' : '');
   };
   window.closeSidebar = () => {
     if (window.innerWidth >= 900) return;
-    sidebarOpen=false;
-    document.getElementById('sidebar').className='sidebar closed';
-    document.getElementById('overlay').className='sidebar-overlay';
-    document.getElementById('hamburger').className='hamburger';
+    sidebarOpen = false;
+    const sb = document.getElementById('sidebar');
+    sb.classList.remove('open');
+    sb.classList.add('closed');
+    document.getElementById('overlay').className = 'sidebar-overlay';
+    document.getElementById('hamburger').className = 'hamburger';
   };
+  // No mobile, fecha a sidebar ao iniciar
+  if (window.innerWidth < 900) {
+    document.getElementById('sidebar').classList.add('closed');
+  }
   window.filterItems = (v) => {document.querySelectorAll('.sidebar-item').forEach(i=>{i.style.display=i.dataset.search.includes(v.toLowerCase())?'flex':'none';});};
   window.switchDevo = (g) => {document.querySelectorAll('.devo-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.devo-btn').forEach(b=>{b.classList.remove('active-m');b.classList.remove('active-f');});document.getElementById('devo-'+g).classList.add('active');if(g==='masc')document.getElementById('btn-masc').classList.add('active-m');else document.getElementById('btn-fem').classList.add('active-f');};
   window.switchDevoAdao = (g) => {['devo-adao-masc','devo-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});['btn-adao-masc','btn-adao-fem'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('active-m');el.classList.remove('active-f');}});const panel=document.getElementById('devo-adao-'+g);const btn=document.getElementById('btn-adao-'+g);if(panel)panel.classList.add('active');if(btn)btn.classList.add(g==='masc'?'active-m':'active-f');};
@@ -1376,19 +1387,21 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
-      if (gn1)     gn1.style.display     = 'block';
-      if (adaoEva) adaoEva.style.display  = 'none';
+      if (gn1)     gn1.style.display    = 'block';
+      if (adaoEva) adaoEva.style.display = 'none';
       document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
       if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
     } else if (id === 'adao-eva') {
       esbocoAtual = 'adao-eva';
-      if (gn1)     gn1.style.display     = 'none';
-      if (adaoEva) adaoEva.style.display  = 'block';
-      if (mainEl)  mainEl.className       = 'main bg-pregacao';
+      if (gn1)     gn1.style.display    = 'none';
+      if (adaoEva) adaoEva.style.display = 'block';
+      if (mainEl)  mainEl.className      = 'main bg-pregacao';
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
-    if (mainEl) mainEl.scrollTop = 0;
+    // Scroll para o topo imediatamente
+    if (mainEl) { mainEl.scrollTop = 0; mainEl.scrollTo(0,0); }
+    window.scrollTo(0,0);
     if (window.closeSidebar) window.closeSidebar();
   };
 
