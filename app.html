@@ -692,13 +692,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
         </div>
       </div>
 
-    </div>
-  </div>
-</div>
+    </div><!-- fim .content (Gn 1:1) -->
 
-<!-- ESBOÇO: ADÃO E EVA — Gênesis 2:7-25 (oculto por padrão) -->
-<div id="esboco-adao-eva" style="display:none;">
-<div style="max-width:700px;margin:0 auto;padding:2rem 1.5rem;position:relative;z-index:1;">
+    <!-- ESBOÇO: ADÃO E EVA — dentro do main-area -->
+    <div id="esboco-adao-eva" style="display:none;">
+    <div class="content">
 
   <!-- HEADER DO ESBOÇO -->
   <div class="content-header">
@@ -986,9 +984,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     </div>
   </div>
 
-</div><!-- fim inner div -->
+</div><!-- fim .content (Adão e Eva) -->
 </div><!-- fim #esboco-adao-eva -->
 
+  </div><!-- fim #main-area -->
+</div><!-- fim .layout -->
+
+<div class="present-overlay" id="present-overlay">
   <button class="present-close" onclick="closePresent()">✕ Fechar</button>
   <div class="present-ref" id="p-ref"></div>
   <div class="present-verse" id="p-verse"></div>
@@ -1275,24 +1277,25 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
     if (el) el.classList.add('active');
 
-    const mainContent = document.querySelector('.content');
-    const esbocoAdao  = document.getElementById('esboco-adao-eva');
-    const mainEl      = document.getElementById('main-area');
+    const gn1    = document.querySelector('.content');
+    const adaoEva = document.getElementById('esboco-adao-eva');
+    const mainEl  = document.getElementById('main-area');
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
-      if (mainContent) mainContent.style.display = 'block';
-      if (esbocoAdao)  esbocoAdao.style.display  = 'none';
+      if (gn1)    gn1.style.display    = 'block';
+      if (adaoEva) adaoEva.style.display = 'none';
       document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
       if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
     } else if (id === 'adao-eva') {
       esbocoAtual = 'adao-eva';
-      if (mainContent) mainContent.style.display = 'none';
-      if (esbocoAdao)  esbocoAdao.style.display  = 'block';
-      if (mainEl) mainEl.className = 'main bg-pregacao';
+      if (gn1)    gn1.style.display    = 'none';
+      if (adaoEva) adaoEva.style.display = 'block';
+      if (mainEl)  mainEl.className     = 'main bg-pregacao';
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
+    if (mainEl) mainEl.scrollTop = 0;
     if (window.closeSidebar) window.closeSidebar();
   };
 
