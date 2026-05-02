@@ -487,6 +487,25 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 </head>
 <body>
 
+<!-- FORÇA SIDEBAR NO DESKTOP — executa antes de qualquer renderização -->
+<script>
+(function(){
+  function fixSidebar(){
+    var sb = document.getElementById('sidebar');
+    if(!sb) return;
+    if(window.innerWidth >= 900){
+      sb.style.cssText = 'position:relative!important;transform:none!important;display:flex!important;flex-direction:column;width:var(--sidebar);flex-shrink:0;flex-grow:0;background:#f8f2ee;border-right:1px solid var(--border);overflow:hidden;min-height:calc(100vh - 108px);';
+    }
+  }
+  // Executa assim que DOM estiver pronto
+  document.addEventListener('DOMContentLoaded', fixSidebar);
+  // Executa também no resize
+  window.addEventListener('resize', fixSidebar);
+  // Executa após qualquer clique (para casos de trocarEsboco)
+  document.addEventListener('click', function(){ setTimeout(fixSidebar, 50); });
+})();
+</script>
+
 <!-- LOADING -->
 <div class="loading-screen" id="loading-screen">
   <div class="loading-logo">א</div>
