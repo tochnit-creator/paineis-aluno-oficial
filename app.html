@@ -109,6 +109,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .sidebar-item-badge{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);white-space:nowrap;}
 
 .main{flex:1;overflow-y:auto;position:relative;min-width:0;}
+#main-adao{align-items:flex-start;}
+#main-adao::before{display:none;}
 .main::-webkit-scrollbar{width:4px;}
 .main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
 
@@ -821,7 +823,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   </div><!-- fim #main-area -->
 
   <!-- ESBOÇO ADÃO E EVA — irmão do main-area, dentro do layout -->
-  <div class="main bg-pregacao" id="main-adao" style="display:none;flex:1;overflow-y:auto;position:relative;min-width:0;">
+  <div class="main bg-pregacao" id="main-adao" style="display:none;flex:1;overflow-y:auto;position:relative;min-width:0;align-items:flex-start;">
     <div class="content" id="adao-content">
 
   <!-- HEADER DO ESBOÇO -->
