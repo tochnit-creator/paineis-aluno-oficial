@@ -109,10 +109,19 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .sidebar-item-badge{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);white-space:nowrap;}
 
 .main{flex:1;overflow-y:auto;position:relative;min-width:0;}
-#main-adao{align-items:flex-start;justify-content:flex-start;}
-#main-adao::before{display:none;}
-#adao-content{width:100%;padding-top:0;}
-#adao-content .content-header{margin-top:1.5rem;}
+/* MAINS — o container .layout já é position:relative, os mains ficam absolutos dentro dele mas após a sidebar */
+#main-area, #main-adao {
+  position: absolute !important;
+  top: 0;
+  left: var(--sidebar);
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+#main-adao { display: none; }
+@media (max-width: 899px) {
+  #main-area, #main-adao { left: 0; }
+}
 .main::-webkit-scrollbar{width:4px;}
 .main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
 
@@ -1426,14 +1435,14 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
-      if (mainGn1)  { mainGn1.style.display = 'block'; mainGn1.style.flex = '1'; mainGn1.style.width = ''; }
-      if (mainAdao) { mainAdao.style.display = 'none';  mainAdao.style.flex = '0'; mainAdao.style.width = '0'; }
+      if (mainGn1)  mainGn1.style.display  = 'block';
+      if (mainAdao) mainAdao.style.display  = 'none';
       document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
       if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
     } else if (id === 'adao-eva') {
       esbocoAtual = 'adao-eva';
-      if (mainGn1)  { mainGn1.style.display = 'none';  mainGn1.style.flex = '0'; mainGn1.style.width = '0'; }
-      if (mainAdao) { mainAdao.style.display = 'block'; mainAdao.style.flex = '1'; mainAdao.style.width = ''; }
+      if (mainGn1)  mainGn1.style.display  = 'none';
+      if (mainAdao) mainAdao.style.display  = 'block';
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
