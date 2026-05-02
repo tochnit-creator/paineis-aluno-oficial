@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { height: 100vh; display: flex; flex-direction: column; font-family: sans-serif; }
+header { background: #7B1535; color: white; padding: 1rem; flex-shrink: 0; }
+.layout { display: flex; flex: 1; overflow: hidden; }
+.sidebar { width: 260px; flex-shrink: 0; flex-grow: 0; background: #f8f2ee; border-right: 1px solid #ddd; overflow-y: auto; }
+.item { padding: 1rem; cursor: pointer; border-left: 3px solid transparent; }
+.item:hover { background: #f0e8e0; }
+.item.active { border-left-color: #7B1535; color: #7B1535; font-weight: bold; }
+.main { flex: 1; overflow-y: auto; padding: 2rem; }
+.main.hidden { display: none; }
+</style>
+</head>
+<body>
+<header>Esboços Bíblicos — TESTE SIDEBAR</header>
+<div class="layout">
+  <div class="sidebar" id="sidebar">
+    <div class="item active" onclick="trocar('gn1', this)">1:1 — No princípio</div>
+    <div class="item" onclick="trocar('adao', this)">2:7 — Adão e Eva</div>
+    <div class="item" onclick="trocar('gn1', this)">3:1 — em breve</div>
+  </div>
+
+  <div class="main" id="main-gn1">
+    <h1>Gênesis 1:1 — No princípio</h1>
+    <p>Conteúdo de Gênesis 1:1 aqui...</p>
+  </div>
+
+  <div class="main hidden" id="main-adao">
+    <h1>Adão e Eva — Gênesis 2:7</h1>
+    <p>Conteúdo de Adão e Eva aqui...</p>
+    <p>Testando se o scroll funciona...</p>
+    <br><br><br><br><br><br><br><br><br><br>
+    <p>Fim do conteúdo — scroll funcionou!</p>
+  </div>
+</div>
+
+<script>
+function trocar(id, el) {
+  // Atualiza sidebar
+  document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+
+  // Troca main
+  document.getElementById('main-gn1').classList.toggle('hidden', id !== 'gn1');
+  document.getElementById('main-adao').classList.toggle('hidden', id !== 'adao');
+}
+</script>
+</body>
+</html>
