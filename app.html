@@ -1416,7 +1416,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     const gn1     = document.getElementById('gn1-content');
     const adaoEva = document.getElementById('esboco-adao-eva');
     const mainEl  = document.getElementById('main-area');
-    const sidebar  = document.getElementById('sidebar');
+    const sidebar = document.getElementById('sidebar');
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
@@ -1432,9 +1432,29 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
+
     // Scroll para o topo
     if (mainEl) mainEl.scrollTop = 0;
-    // Só fecha no mobile
+
+    // Desktop: garante sidebar sempre visível
+    if (window.innerWidth >= 900 && sidebar) {
+      sidebar.style.cssText = [
+        'position:relative',
+        'transform:none',
+        'display:flex',
+        'flex-direction:column',
+        'width:var(--sidebar)',
+        'flex-shrink:0',
+        'flex-grow:0',
+        'background:#f8f2ee',
+        'border-right:1px solid var(--border)',
+        'overflow:hidden',
+        'min-height:calc(100vh - 108px)',
+        'transition:background .25s'
+      ].join('!important;') + '!important';
+    }
+
+    // Mobile: fecha sidebar
     if (window.innerWidth < 900 && window.closeSidebar) window.closeSidebar();
   };
 
