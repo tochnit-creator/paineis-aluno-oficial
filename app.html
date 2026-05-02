@@ -109,8 +109,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .sidebar-item-badge{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);white-space:nowrap;}
 
 .main{flex:1;overflow-y:auto;position:relative;min-width:0;}
-#main-adao{align-items:flex-start;}
+#main-adao{align-items:flex-start;justify-content:flex-start;}
 #main-adao::before{display:none;}
+#adao-content{width:100%;padding-top:0;}
+#adao-content .content-header{margin-top:1.5rem;}
 .main::-webkit-scrollbar{width:4px;}
 .main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
 
@@ -118,7 +120,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .main::before{
   content:'';
   position:fixed;
-  inset:0;
+  top:108px;
+  left:0;right:0;bottom:0;
   z-index:0;
   opacity:1;
   transition:background .5s ease;
@@ -1423,14 +1426,14 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
-      if (mainGn1)  { mainGn1.style.display = 'block'; mainGn1.style.flex = '1'; }
-      if (mainAdao) { mainAdao.style.display = 'none';  mainAdao.style.flex = '0'; }
+      if (mainGn1)  { mainGn1.style.display = 'block'; mainGn1.style.flex = '1'; mainGn1.style.width = ''; }
+      if (mainAdao) { mainAdao.style.display = 'none';  mainAdao.style.flex = '0'; mainAdao.style.width = '0'; }
       document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
       if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
     } else if (id === 'adao-eva') {
       esbocoAtual = 'adao-eva';
-      if (mainGn1)  { mainGn1.style.display = 'none';  mainGn1.style.flex = '0'; }
-      if (mainAdao) { mainAdao.style.display = 'block'; mainAdao.style.flex = '1'; }
+      if (mainGn1)  { mainGn1.style.display = 'none';  mainGn1.style.flex = '0'; mainGn1.style.width = '0'; }
+      if (mainAdao) { mainAdao.style.display = 'block'; mainAdao.style.flex = '1'; mainAdao.style.width = ''; }
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
