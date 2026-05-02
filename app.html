@@ -821,7 +821,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   </div><!-- fim #main-area -->
 
   <!-- ESBOÇO ADÃO E EVA — irmão do main-area, dentro do layout -->
-  <div class="main bg-pregacao" id="main-adao" style="display:none;">
+  <div class="main bg-pregacao" id="main-adao" style="display:none;flex:1;overflow-y:auto;position:relative;min-width:0;">
     <div class="content" id="adao-content">
 
   <!-- HEADER DO ESBOÇO -->
@@ -1421,17 +1421,14 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
     if (id === 'genesis-1') {
       esbocoAtual = 'genesis-1';
-      if (mainGn1)  mainGn1.style.display  = 'block';
-      if (mainAdao) mainAdao.style.display  = 'none';
+      if (mainGn1)  { mainGn1.style.display = 'block'; mainGn1.style.flex = '1'; }
+      if (mainAdao) { mainAdao.style.display = 'none';  mainAdao.style.flex = '0'; }
       document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
       if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
     } else if (id === 'adao-eva') {
       esbocoAtual = 'adao-eva';
-      if (mainGn1)  mainGn1.style.display  = 'none';
-      if (mainAdao) {
-        mainAdao.style.display = 'block';
-        mainAdao.style.flex = '1';
-      }
+      if (mainGn1)  { mainGn1.style.display = 'none';  mainGn1.style.flex = '0'; }
+      if (mainAdao) { mainAdao.style.display = 'block'; mainAdao.style.flex = '1'; }
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
     }
