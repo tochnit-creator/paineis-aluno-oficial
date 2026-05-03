@@ -1446,6 +1446,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
       if (mainAdao) mainAdao.scrollTop = 0;
+      setTimeout(function(){ if (mainAdao) mainAdao.scrollTop = 0; }, 50);
     }
 
     if (mainGn1 && id === 'genesis-1')  mainGn1.scrollTop  = 0;
@@ -1515,7 +1516,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
         '</div>';
     }
     const mainEl = document.getElementById('main-adao') || document.getElementById('main-area');
-    if (mainEl) mainEl.scrollTop = 0;
+    if (mainEl) { mainEl.scrollTop = 0; setTimeout(function(){ mainEl.scrollTop = 0; }, 30); }
   }
 
   // Expõe para uso externo (modo apresentação de Adão)
