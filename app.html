@@ -835,16 +835,21 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   </div><!-- fim #main-area -->
 
   <!-- ESBOÇO ADÃO E EVA — irmão do main-area, dentro do layout -->
-  <div class="main bg-pregacao" id="main-adao" style="display:none;flex:1;overflow-y:auto;position:relative;min-width:0;align-items:flex-start;">
-    <div class="content" id="adao-content">
+  <div class="main bg-pregacao" id="main-adao" style="display:none;flex-direction:column;">
+    <!-- Header fixo fora do scroll -->
+    <div style="flex-shrink:0;padding:2rem 1.5rem 0;max-width:880px;width:100%;margin:0 auto;">
+      <div class="content-header">
+        <div class="breadcrumb">Gênesis › Adão e Eva</div>
+        <div class="content-title">Adão e Eva</div>
+        <div class="content-subtitle">Gênesis 2:7-25 — Esboço completo com aparato crítico</div>
+        <div class="badges"><span class="badge badge-tema">Identidade</span><span class="badge badge-tipo">Criação · Casamento · Complementaridade</span></div>
+      </div>
+    </div>
+    <!-- Conteúdo scrollável -->
+    <div style="flex:1;overflow-y:auto;" id="adao-scroll">
+    <div class="content" id="adao-content" style="padding-top:0;">
 
-  <!-- HEADER DO ESBOÇO -->
-  <div class="content-header">
-    <div class="breadcrumb">Gênesis › Adão e Eva</div>
-    <div class="content-title">Adão e Eva</div>
-    <div class="content-subtitle">Gênesis 2:7-25 — Esboço completo com aparato crítico</div>
-    <div class="badges"><span class="badge badge-tema">Identidade</span><span class="badge badge-tipo">Criação · Casamento · Complementaridade</span></div>
-  </div>
+  <!-- HEADER DO ESBOÇO — movido para fora do scroll -->
 
   <!-- PREGAÇÃO -->
   <div id="panel-adao-pregacao" class="panel active">
@@ -1125,6 +1130,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   </div>
 
 </div><!-- fim adao-content -->
+    </div><!-- fim adao-scroll -->
   </div><!-- fim main-adao -->
 
 </div><!-- fim .layout -->
@@ -1445,8 +1451,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
       if (mainAdao) mainAdao.style.display  = 'block';
       document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
       switchTabAdao(tabAtivaAdao || 'pregacao');
-      if (mainAdao) mainAdao.scrollTop = 0;
-      setTimeout(function(){ if (mainAdao) mainAdao.scrollTop = 0; }, 50);
+      var adaoScroll = document.getElementById('adao-scroll');
+      if (adaoScroll) adaoScroll.scrollTop = 0;
+      setTimeout(function(){ var s=document.getElementById('adao-scroll'); if(s) s.scrollTop=0; }, 50);
     }
 
     if (mainGn1 && id === 'genesis-1')  mainGn1.scrollTop  = 0;
@@ -1515,7 +1522,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
           '<div class="msg-sol" id="msg-sol-adao-'+tab+'"></div>' +
         '</div>';
     }
-    const mainEl = document.getElementById('main-adao') || document.getElementById('main-area');
+    const mainEl = document.getElementById('adao-scroll') || document.getElementById('main-adao');
     if (mainEl) { mainEl.scrollTop = 0; setTimeout(function(){ mainEl.scrollTop = 0; }, 30); }
   }
 
