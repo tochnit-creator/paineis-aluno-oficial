@@ -108,19 +108,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .sidebar-item.active .sidebar-item-title{color:var(--wine);font-weight:500;}
 .sidebar-item-badge{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);white-space:nowrap;}
 
-.main{flex:1;overflow-y:auto;position:relative;min-width:0;}
-/* MAINS — o container .layout já é position:relative, os mains ficam absolutos dentro dele mas após a sidebar */
-#main-area, #main-adao {
-  position: absolute !important;
-  top: 0;
-  left: var(--sidebar);
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;
-}
-#main-adao { display: none; }
+.main{flex:1;overflow-y:auto;position:relative;min-width:0;min-height:0;}
+
 @media (max-width: 899px) {
-  #main-area, #main-adao { left: 0; }
+  
 }
 .main::-webkit-scrollbar{width:4px;}
 .main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
@@ -501,28 +492,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 </head>
 <body>
 
-<!-- FORÇA SIDEBAR NO DESKTOP — executa antes de qualquer renderização -->
-<script>
-(function(){
-  function fixSidebar(){
-    var sb = document.getElementById('sidebar');
-    if(!sb) return;
-    if(window.innerWidth >= 900){
-      sb.style.cssText = 'position:relative!important;transform:none!important;display:flex!important;flex-direction:column;width:var(--sidebar);flex-shrink:0;flex-grow:0;background:#f8f2ee;border-right:1px solid var(--border);overflow:hidden;min-height:calc(100vh - 108px);';
-    }
-  }
-  // Executa assim que DOM estiver pronto
-  document.addEventListener('DOMContentLoaded', fixSidebar);
-  // Executa também no resize
-  window.addEventListener('resize', fixSidebar);
-  // Executa após qualquer clique (para casos de trocarEsboco)
-  document.addEventListener('click', function(){ setTimeout(fixSidebar, 50); });
-})();
-</script>
-
-<!-- LOADING -->
 <div class="loading-screen" id="loading-screen">
-  <div class="loading-logo">א</div>
+  <div class="loading-logo">🤲</div>
   <div class="loading-spinner"></div>
 </div>
 
@@ -557,37 +528,50 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     <div class="sidebar-scroll">
       <div class="book-header">Gênesis</div>
       <div class="sidebar-item active" onclick="trocarEsboco('genesis-1',this)" data-search="genesis 1 principio criacao">
-        <div class="sidebar-item-num">1:1</div><div class="sidebar-item-title">No princípio</div><div class="sidebar-item-badge">5 abas</div>
+        <div class="sidebar-item-num">1:1</div>
+        <div class="sidebar-item-title">No princípio</div>
+        <div class="sidebar-item-badge">5 abas</div>
       </div>
       <div class="sidebar-item" onclick="trocarEsboco('adao-eva',this)" data-search="genesis 2 adao eva">
-        <div class="sidebar-item-num">2:7</div><div class="sidebar-item-title">Adão e Eva</div><div class="sidebar-item-badge">5 abas</div>
+        <div class="sidebar-item-num">2:7</div>
+        <div class="sidebar-item-title">Adão e Eva</div>
+        <div class="sidebar-item-badge">5 abas</div>
       </div>
-      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · A Queda')" data-search="genesis 3 queda">
-        <div class="sidebar-item-num">3:1</div><div class="sidebar-item-title">O afastamento de Adão</div><div class="sidebar-item-badge">em breve</div>
+      <div class="sidebar-item" onclick="selectItem(this)" data-search="genesis 3 queda">
+        <div class="sidebar-item-num">3:1</div>
+        <div class="sidebar-item-title">O afastamento de Adão</div>
+        <div class="sidebar-item-badge">em breve</div>
       </div>
-      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Caim e Abel')" data-search="genesis 4 caim abel">
-        <div class="sidebar-item-num">4:1</div><div class="sidebar-item-title">Caim e Abel</div><div class="sidebar-item-badge">em breve</div>
+      <div class="sidebar-item" onclick="selectItem(this)" data-search="genesis 4 caim abel">
+        <div class="sidebar-item-num">4:1</div>
+        <div class="sidebar-item-title">Caim e Abel</div>
+        <div class="sidebar-item-badge">em breve</div>
       </div>
-      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Noé')" data-search="genesis 6 noe arca">
-        <div class="sidebar-item-num">6:9</div><div class="sidebar-item-title">Noé e o dilúvio</div><div class="sidebar-item-badge">em breve</div>
+      <div class="sidebar-item" onclick="selectItem(this)" data-search="genesis 6 noe arca">
+        <div class="sidebar-item-num">6:9</div>
+        <div class="sidebar-item-title">Noé e o dilúvio</div>
+        <div class="sidebar-item-badge">em breve</div>
       </div>
-      <div class="sidebar-item" onclick="selectItem(this,'Gênesis · Abraão')" data-search="genesis 12 abraao chamado">
-        <div class="sidebar-item-num">12:1</div><div class="sidebar-item-title">O chamado de Abraão</div><div class="sidebar-item-badge">em breve</div>
+      <div class="sidebar-item" onclick="selectItem(this)" data-search="genesis 12 abraao chamado">
+        <div class="sidebar-item-num">12:1</div>
+        <div class="sidebar-item-title">O chamado de Abraão</div>
+        <div class="sidebar-item-badge">em breve</div>
       </div>
     </div>
   </div>
 
+  <!-- ÚNICO MAIN — conteúdo troca internamente -->
   <div class="main bg-pregacao" id="main-area">
-    <div class="content" id="gn1-content">
+
+    <!-- ESBOÇO 1: GÊNESIS 1:1 -->
+    <div id="esboco-gn1" class="content">
       <div class="content-header">
         <div class="breadcrumb">Gênesis › Criação</div>
         <div class="content-title">No princípio</div>
         <div class="content-subtitle">Gênesis 1:1 — Esboço completo com aparato crítico</div>
         <div class="badges"><span class="badge badge-tema">Criação</span><span class="badge badge-tipo">Pregação · Ensino · EBD · Aconselhamento · Devocional</span></div>
       </div>
-
-      <!-- PREGAÇÃO -->
-      <div class="panel active" id="panel-pregacao">
+<div class="panel active" id="panel-pregacao">
         <div class="verse-block"><div class="verse-ref">Gênesis 1:1</div><div class="verse-text">"No princípio, Deus criou os céus e a terra."</div></div>
         <div class="versoes-title">Comparação de versões</div>
         <div class="versoes-grid">
@@ -828,30 +812,18 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
         </div>
       </div>
 
-    </div><!-- fim .content (Gn 1:1) -->
+    
+    </div>
 
-
-
-  </div><!-- fim #main-area -->
-
-  <!-- ESBOÇO ADÃO E EVA — irmão do main-area, dentro do layout -->
-  <div class="main bg-pregacao" id="main-adao" style="display:none;flex-direction:column;">
-    <!-- Header fixo fora do scroll -->
-    <div style="flex-shrink:0;padding:2rem 1.5rem 0;max-width:880px;width:100%;margin:0 auto;">
+    <!-- ESBOÇO 2: ADÃO E EVA -->
+    <div id="esboco-adao" class="content" style="display:none;">
       <div class="content-header">
         <div class="breadcrumb">Gênesis › Adão e Eva</div>
         <div class="content-title">Adão e Eva</div>
         <div class="content-subtitle">Gênesis 2:7-25 — Esboço completo com aparato crítico</div>
         <div class="badges"><span class="badge badge-tema">Identidade</span><span class="badge badge-tipo">Criação · Casamento · Complementaridade</span></div>
       </div>
-    </div>
-    <!-- Conteúdo scrollável -->
-    <div style="flex:1;overflow-y:auto;" id="adao-scroll">
-    <div class="content" id="adao-content" style="padding-top:0;">
-
-  <!-- HEADER DO ESBOÇO — movido para fora do scroll -->
-
-  <!-- PREGAÇÃO -->
+<!-- PREGAÇÃO -->
   <div id="panel-adao-pregacao" class="panel active">
     <div class="verse-block"><div class="verse-ref">Gênesis 2:7</div><div class="verse-text">"Então o Senhor Deus formou o homem do pó da terra, e soprou em suas narinas o fôlego da vida; e o homem se tornou alma vivente."</div></div>
     <div class="versoes-title">Comparação de versões</div>
@@ -1129,19 +1101,23 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     </div>
   </div>
 
-</div><!-- fim adao-content -->
-    </div><!-- fim adao-scroll -->
-  </div><!-- fim main-adao -->
 
-</div><!-- fim .layout -->
+    </div>
 
+  </div>
+</div>
+
+<!-- MODO APRESENTAÇÃO -->
 <div class="present-overlay" id="present-overlay">
   <button class="present-close" onclick="closePresent()">✕ Fechar</button>
   <div class="present-ref" id="p-ref"></div>
   <div class="present-verse" id="p-verse"></div>
   <div class="present-title" id="p-title"></div>
   <div class="present-subs" id="p-subs"></div>
-  <div class="present-nav"><button onclick="prevSlide()">← Anterior</button><button onclick="nextSlide()">Próximo →</button></div>
+  <div class="present-nav">
+    <button onclick="prevSlide()">← Anterior</button>
+    <button onclick="nextSlide()">Próximo →</button>
+  </div>
   <div class="present-counter" id="p-counter"></div>
 </div>
 
@@ -1158,11 +1134,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
     <button class="strong-search-btn" onclick="buscarStrong()">Buscar</button>
   </div>
   <div class="strong-body" id="strong-body">
-    <div class="strong-loading">Clique em uma palavra destacada<br>ou busque um número Strong acima.</div>
+    <div class="strong-loading">Clique em uma palavra destacada ou busque um número Strong acima.</div>
   </div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -1420,53 +1395,53 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
   window.__solicitarUpgrade = solicitarUpgrade;
 </script>
 
-<!-- NAVEGAÇÃO ENTRE ESBOÇOS — script global (não módulo) -->
+<!-- NAVEGAÇÃO ENTRE ESBOÇOS -->
 <script>
 (function() {
-  let esbocoAtual = 'genesis-1';
-  let tabAtiva = 'pregacao';
-  let tabAtivaAdao = 'pregacao';
+  var esbocoAtual = "gn1";
+  var tabAtiva = "pregacao";
+  var tabAtivaAdao = "pregacao";
 
-  function getPlano() { return window.__getPlano ? window.__getPlano() : 'gratuito'; }
-  function getNiveis() { return window.__niveis || {gratuito:1,basico:2,premium:3}; }
-  function getNomePlano() { return window.__nomePlano || {1:'Gratuito',2:'Básico',3:'Premium'}; }
-  function getPrecos() { return window.__precos || {basico:{valor:'29,90',features:[]},premium:{valor:'49,90',features:[]}}; }
+  function getPlano()    { return window.__getPlano ? window.__getPlano() : "gratuito"; }
+  function getNiveis()   { return window.__niveis   || {gratuito:1, basico:2, premium:3}; }
+  function getNomePlano(){ return window.__nomePlano || {1:"Gratuito", 2:"Básico", 3:"Premium"}; }
+  function getPrecos()   { return window.__precos   || {basico:{valor:"29,90",features:[]}, premium:{valor:"49,90",features:[]}}; }
 
   window.trocarEsboco = function(id, el) {
-    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-    if (el) el.classList.add('active');
+    document.querySelectorAll(".sidebar-item").forEach(function(i){ i.classList.remove("active"); });
+    if (el) el.classList.add("active");
 
-    const mainGn1  = document.getElementById('main-area');
-    const mainAdao = document.getElementById('main-adao');
+    var gn1  = document.getElementById("esboco-gn1");
+    var adao = document.getElementById("esboco-adao");
+    var main = document.getElementById("main-area");
 
-    if (id === 'genesis-1') {
-      esbocoAtual = 'genesis-1';
-      if (mainGn1)  mainGn1.style.display  = 'block';
-      if (mainAdao) mainAdao.style.display  = 'none';
-      document.getElementById('header-crumb').textContent = 'Gênesis · Criação';
-      if (window.switchTab) window.switchTab(tabAtiva || 'pregacao');
-    } else if (id === 'adao-eva') {
-      esbocoAtual = 'adao-eva';
-      if (mainGn1)  mainGn1.style.display  = 'none';
-      if (mainAdao) mainAdao.style.display  = 'block';
-      document.getElementById('header-crumb').textContent = 'Gênesis · Adão e Eva';
-      switchTabAdao(tabAtivaAdao || 'pregacao');
-      var adaoScroll = document.getElementById('adao-scroll');
-      if (adaoScroll) adaoScroll.scrollTop = 0;
-      setTimeout(function(){ var s=document.getElementById('adao-scroll'); if(s) s.scrollTop=0; }, 50);
+    if (id === "genesis-1") {
+      esbocoAtual = "gn1";
+      if (gn1)  gn1.style.display  = "block";
+      if (adao) adao.style.display = "none";
+      document.getElementById("header-crumb").textContent = "Gênesis · Criação";
+      if (window.switchTab) window.switchTab(tabAtiva || "pregacao");
+    } else {
+      esbocoAtual = "adao";
+      if (gn1)  gn1.style.display  = "none";
+      if (adao) adao.style.display = "block";
+      document.getElementById("header-crumb").textContent = "Gênesis · Adão e Eva";
+      switchTabAdao(tabAtivaAdao || "pregacao");
     }
 
-    if (mainGn1 && id === 'genesis-1')  mainGn1.scrollTop  = 0;
-    if (mainAdao && id === 'adao-eva')  mainAdao.scrollTop = 0;
-
+    if (main) main.scrollTop = 0;
     if (window.innerWidth < 900 && window.closeSidebar) window.closeSidebar();
   };
 
-  // Intercepta cliques nas tabs para redirecionar quando Adão e Eva estiver ativo
-  document.addEventListener('click', function(e) {
-    const btn = e.target.closest('.tab-btn');
+  window.selectItem = function(el) {
+    document.querySelectorAll(".sidebar-item").forEach(function(i){ i.classList.remove("active"); });
+    if (el) el.classList.add("active");
+  };
+
+  document.addEventListener("click", function(e) {
+    var btn = e.target.closest(".tab-btn");
     if (!btn) return;
-    if (esbocoAtual === 'adao-eva') {
+    if (esbocoAtual === "adao") {
       e.stopImmediatePropagation();
       switchTabAdao(btn.dataset.tab);
     } else {
@@ -1476,65 +1451,66 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 
   function switchTabAdao(tab) {
     tabAtivaAdao = tab;
-    const niveis     = getNiveis();
-    const planoAtual = getPlano();
-    const nomePlano  = getNomePlano();
-    const precos     = getPrecos();
+    var niveis     = getNiveis();
+    var planoAtual = getPlano();
+    var nomePlano  = getNomePlano();
+    var precos     = getPrecos();
 
-    const planoNec = (tab==='conselho'||tab==='devocional') ? 'premium'
-                   : (tab==='ensino'||tab==='ebd')          ? 'basico'
-                   : 'gratuito';
-    const temAcesso = niveis[planoAtual] >= niveis[planoNec];
+    var planoNec = (tab === "conselho" || tab === "devocional") ? "premium"
+                 : (tab === "ensino"   || tab === "ebd")        ? "basico"
+                 : "gratuito";
+    var temAcesso = niveis[planoAtual] >= niveis[planoNec];
 
-    // Atualiza tabs visuais
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    const activeBtn = document.querySelector('[data-tab="'+tab+'"]');
-    if (activeBtn) activeBtn.classList.add('active');
+    document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
+    var activeBtn = document.querySelector("[data-tab='" + tab + "']");
+    if (activeBtn) activeBtn.classList.add("active");
 
-    // Oculta todos panels de Adão usando classe (não style inline)
-    ['pregacao','ensino','ebd','conselho','devocional'].forEach(function(id) {
-      const el = document.getElementById('panel-adao-'+id);
-      if (el) { el.classList.remove('active'); el.style.display = ''; }
+    ["pregacao","ensino","ebd","conselho","devocional"].forEach(function(id) {
+      var el = document.getElementById("panel-adao-" + id);
+      if (el) { el.classList.remove("active"); el.style.display = ""; }
     });
 
-    const panel = document.getElementById('panel-adao-'+tab);
+    var panel = document.getElementById("panel-adao-" + tab);
     if (!panel) return;
 
     if (temAcesso) {
-      panel.classList.add('active');
+      panel.classList.add("active");
     } else {
-      panel.classList.add('active');
-      const nivelNec     = nomePlano[niveis[planoNec]];
-      const preco        = precos[planoNec] || {valor:'—', features:[]};
-      const featuresHTML = (preco.features||[]).map(function(f){return '<div class="preco-feature">'+f+'</div>';}).join('');
-      panel.innerHTML =
-        '<div class="tela-bloqueio">' +
-          '<div class="lock-big">🔒</div>' +
-          '<div class="bloqueio-title">Plano '+nivelNec+'</div>' +
-          '<div class="bloqueio-sub">Desbloqueie este conteúdo assinando o plano '+nivelNec+'.</div>' +
-          '<div class="preco-card">' +
-            '<div class="preco-plano">Plano '+nivelNec+'</div>' +
-            '<div class="preco-valor"><sup>R$</sup>'+preco.valor+'<sub>/mês</sub></div>' +
-            '<div class="preco-periodo">Cobrado mensalmente</div>' +
-            '<div class="preco-features">'+featuresHTML+'</div>' +
-          '</div>' +
-          '<button class="btn-solicitar" onclick="window.__solicitarUpgrade && window.__solicitarUpgrade(\''+planoNec+'\',\'adao-'+tab+'\')">Assinar por R$ '+preco.valor+'/mês</button>' +
-          '<div class="msg-sol" id="msg-sol-adao-'+tab+'"></div>' +
-        '</div>';
+      panel.classList.add("active");
+      var nivelNec = nomePlano[niveis[planoNec]];
+      var preco    = precos[planoNec] || {valor:"—", features:[]};
+      var fts      = (preco.features || []).map(function(f){ return "<div class='preco-feature'>" + f + "</div>"; }).join("");
+      var btnId    = "btn-sol-adao-" + tab;
+      var msgId    = "msg-sol-adao-" + tab;
+      panel.innerHTML = [
+        "<div class='tela-bloqueio'>",
+        "<div class='lock-big'>🔒</div>",
+        "<div class='bloqueio-title'>Plano " + nivelNec + "</div>",
+        "<div class='bloqueio-sub'>Desbloqueie este conteúdo assinando o plano " + nivelNec + ".</div>",
+        "<div class='preco-card'>",
+          "<div class='preco-plano'>Plano " + nivelNec + "</div>",
+          "<div class='preco-valor'><sup>R$</sup>" + preco.valor + "<sub>/mês</sub></div>",
+          "<div class='preco-periodo'>Cobrado mensalmente</div>",
+          "<div class='preco-features'>" + fts + "</div>",
+        "</div>",
+        "<button class='btn-solicitar' id='" + btnId + "'>Assinar por R$ " + preco.valor + "/mês</button>",
+        "<div class='msg-sol' id='" + msgId + "'></div>",
+        "</div>"
+      ].join("");
+      var solBtn = document.getElementById(btnId);
+      if (solBtn) solBtn.onclick = function(){ if(window.__solicitarUpgrade) window.__solicitarUpgrade(planoNec, "adao-" + tab); };
     }
-    const mainEl = document.getElementById('adao-scroll') || document.getElementById('main-adao');
-    if (mainEl) { mainEl.scrollTop = 0; setTimeout(function(){ mainEl.scrollTop = 0; }, 30); }
+
+    var main = document.getElementById("main-area");
+    if (main) main.scrollTop = 0;
   }
 
-  // Expõe para uso externo (modo apresentação de Adão)
   window.switchTabAdao = switchTabAdao;
 })();
 </script>
 
 <!-- STRONG DICTIONARY ENGINE -->
 <script>
-// Strong's Exhaustive Concordance — termos principais de Genesis 1
-// Fonte: dominio publico (1890). Traducoes e notas teologicas em portugues.
 const STRONG_LOCAL = {
   "H7225": {
     lemma:"ראשית", xlit:"reshiyth", pron:"ray-sheeth",
@@ -1721,81 +1697,57 @@ async function carregarStrong(tipo) {
     const dict = JSON.parse(jsonStr);
     STRONG_CACHE[tipo] = dict;
     return dict;
-  } catch(e) {
-    return null;
-  }
+  } catch(e) { return null; }
 }
 
 async function abrirStrong(numero, palavra) {
   document.getElementById("strong-overlay").classList.add("active");
   document.getElementById("strong-panel").classList.add("open");
   const body = document.getElementById("strong-body");
-  body.innerHTML = '<div class="strong-loading"><div class="strong-spinner"></div><br>Carregando Strong ' + numero + '...</div>';
+  body.innerHTML = "<div class='strong-loading'><div class='strong-spinner'></div><br>Carregando " + numero + "...</div>";
 
   const tipo = numero.charAt(0);
-  const num = numero.slice(1);
-
+  const num  = numero.slice(1);
   const dict = await carregarStrong(tipo);
   let entry = null;
   if (dict) {
-    entry = dict[numero] || dict[num] ||
-      dict[tipo + num.padStart(4,"0")] ||
-      Object.values(dict).find(function(e) { return e.strongs === numero || e.strongs === num; });
+    entry = dict[numero] || dict[num] || dict[tipo + num.padStart(4,"0")] ||
+            Object.values(dict).find(function(e){ return e.strongs === numero || e.strongs === num; });
   }
   if (!entry) entry = STRONG_LOCAL[numero];
+  if (!entry) { body.innerHTML = "<div class='strong-error'>Verbete " + numero + " não encontrado.</div>"; return; }
 
-  if (!entry) {
-    body.innerHTML = '<div class="strong-error">Verbete <strong>' + numero + '</strong> nao encontrado.</div>';
-    return;
-  }
-
-  const lemma    = entry.lemma || entry.word || "";
-  const translit = entry.xlit || entry.translit || "";
-  const pron     = entry.pron || "";
-  const def      = entry.strongs_def || entry.derivation || "";
-  const kjvDef   = entry.kjv_def || "";
+  const lemma   = entry.lemma || entry.word || "";
+  const translit= entry.xlit  || entry.translit || "";
+  const pron    = entry.pron  || "";
+  const def     = entry.strongs_def || entry.derivation || "";
+  const kjvDef  = entry.kjv_def || "";
 
   body.innerHTML =
-    '<div class="strong-num">' + (tipo === "H" ? "Hebraico" : "Grego") + " \u00b7 " + numero + "</div>" +
-    '<div class="strong-word">' + lemma + "</div>" +
-    (translit ? '<div class="strong-translit">' + translit + (pron ? ' \u00b7 "' + pron + '"' : "") + "</div>" : "") +
-    '<div class="strong-divider"></div>' +
-    '<div class="strong-section-label">Defini\u00e7\u00e3o original (Strong, 1890)</div>' +
-    '<div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">' + (def || "—") + "</div>" +
-    (kjvDef ? '<div class="strong-section-label" style="margin-top:.75rem;">Usos na KJV</div><div class="strong-def" style="font-size:11px;color:var(--text3);font-style:italic;">' + kjvDef + "</div>" : "") +
-    '<div class="strong-divider"></div>' +
-    '<div class="strong-claude">' +
-      '<div class="strong-claude-label">\u2726 Em portugu\u00eas \u2014 defini\u00e7\u00e3o e coment\u00e1rio teol\u00f3gico</div>' +
-      '<div class="strong-claude-text" id="strong-claude-text"><div class="strong-loading" style="padding:.5rem 0;text-align:left;"><div class="strong-spinner" style="width:14px;height:14px;display:inline-block;"></div></div></div>' +
-    "</div>";
+    "<div class='strong-num'>" + (tipo === "H" ? "Hebraico" : "Grego") + " · " + numero + "</div>" +
+    "<div class='strong-word'>" + lemma + "</div>" +
+    (translit ? "<div class='strong-translit'>" + translit + (pron ? ' · "' + pron + '"' : "") + "</div>" : "") +
+    "<div class='strong-divider'></div>" +
+    "<div class='strong-section-label'>Definição original (Strong, 1890)</div>" +
+    "<div class='strong-def' style='font-size:11px;color:var(--text3);font-style:italic;'>" + (def || "—") + "</div>" +
+    (kjvDef ? "<div class='strong-section-label' style='margin-top:.75rem;'>Usos na KJV</div><div class='strong-def' style='font-size:11px;color:var(--text3);font-style:italic;'>" + kjvDef + "</div>" : "") +
+    "<div class='strong-divider'></div>" +
+    "<div class='strong-claude'><div class='strong-claude-label'>✦ Em português — definição e comentário teológico</div>" +
+    "<div class='strong-claude-text' id='strong-claude-text'><div class='strong-loading' style='padding:.5rem 0;'><div class='strong-spinner' style='width:14px;height:14px;display:inline-block;'></div></div></div></div>";
 
   const local = STRONG_LOCAL[numero];
-  if (local && local.pt_definicao) {
-    renderComentarioPT(local.pt_definicao, local.pt_usos, local.pt_teologia);
-  } else {
-    const el = document.getElementById("strong-claude-text");
-    if (el) el.innerHTML = '<span style="font-size:12px;color:var(--text3);">Consulte a defini\u00e7\u00e3o original acima.</span>';
-  }
+  if (local && local.pt_definicao) renderComentarioPT(local.pt_definicao, local.pt_usos, local.pt_teologia);
+  else { const el = document.getElementById("strong-claude-text"); if(el) el.innerHTML = "<span style='font-size:12px;color:var(--text3);'>Consulte a definição original acima.</span>"; }
 }
 
-function renderComentarioPT(definicao, usos, teologia) {
+function renderComentarioPT(def, usos, teol) {
   const el = document.getElementById("strong-claude-text");
   if (!el) return;
   el.innerHTML =
-    '<div style="margin-bottom:.85rem;">' +
-      '<span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Defini\u00e7\u00e3o em portugu\u00eas</span>' +
-      '<span style="font-size:13.5px;color:var(--text);line-height:1.75;">' + definicao + "</span>" +
-    "</div>" +
-    (usos ?
-      '<div style="margin-bottom:.85rem;">' +
-        '<span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Usos em portugu\u00eas</span>' +
-        '<span style="font-size:12.5px;color:var(--text2);line-height:1.7;">' + usos + "</span>" +
-      "</div>" : "") +
-    (teologia ?
-      '<div style="padding-top:.75rem;border-top:1px solid var(--border);">' +
-        '<span style="font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;">Nota teol\u00f3gica</span>' +
-        '<span style="font-size:13px;color:var(--text2);line-height:1.85;">' + teologia + "</span>" +
-      "</div>" : "");
+    "<div style='margin-bottom:.85rem;'><span style='font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;'>Definição em português</span>" +
+    "<span style='font-size:13.5px;color:var(--text);line-height:1.75;'>" + def + "</span></div>" +
+    (usos ? "<div style='margin-bottom:.85rem;'><span style='font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;'>Usos em português</span><span style='font-size:12.5px;color:var(--text2);line-height:1.7;'>" + usos + "</span></div>" : "") +
+    (teol ? "<div style='padding-top:.75rem;border-top:1px solid var(--border);'><span style='font-size:10px;font-weight:600;color:var(--wine);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;'>Nota teológica</span><span style='font-size:13px;color:var(--text2);line-height:1.85;'>" + teol + "</span></div>" : "");
 }
 
 function closeStrong() {
@@ -1806,21 +1758,18 @@ function closeStrong() {
 function buscarStrong() {
   const val = document.getElementById("strong-search-input").value.trim().toUpperCase();
   if (!val) return;
-  const match = val.match(/^([HG])(\d+)$/);
-  if (match) {
+  if (/^[HG]\d+$/.test(val)) {
     abrirStrong(val, val);
     document.getElementById("strong-search-input").value = "";
   } else {
-    document.getElementById("strong-body").innerHTML =
-      '<div class="strong-error">Formato inv\u00e1lido.<br>Use H seguido de n\u00famero (ex: <strong>H1254</strong>)<br>ou G seguido de n\u00famero (ex: <strong>G746</strong>).</div>';
+    document.getElementById("strong-body").innerHTML = "<div class='strong-error'>Use H+número (ex: H1254) ou G+número (ex: G746).</div>";
     document.getElementById("strong-overlay").classList.add("active");
     document.getElementById("strong-panel").classList.add("open");
   }
 }
 
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") closeStrong();
-});
+document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeStrong(); } });
 </script>
+
 </body>
 </html>
