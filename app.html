@@ -1349,9 +1349,23 @@ window.switchTab = (tab) => {
   const panel = document.getElementById(panelId);
   if (!panel) return;
 
+  // Restaura conteúdo original se havia sido substituído
+  const originalKey = "__orig_" + panelId;
+  if (panel.dataset.bloqueado === "1") {
+    if (window[originalKey]) {
+      panel.innerHTML = window[originalKey];
+      panel.dataset.bloqueado = "0";
+    }
+  }
+
   if (temAcesso) {
     panel.classList.add("active");
   } else {
+    // Salva conteúdo original antes de sobrescrever (só na primeira vez)
+    if (!window[originalKey]) {
+      window[originalKey] = panel.innerHTML;
+    }
+    panel.dataset.bloqueado = "1";
     panel.classList.add("active");
     const nivelNec = nomePlano[niveis[planoNec]];
     const preco = precos[planoNec] || { valor:"—", features:[] };
@@ -1429,8 +1443,7 @@ window.mudarEsboco = function(id, el) {
   window.__esbocoAtual = id;
 
   // Reseta tab para pregação
-  var tab = document.querySelector(".tab[data-tab='pregacao']");
-  if (tab) tab.click();
+  if (window.switchTab) window.switchTab("pregacao");
 
   // Scroll pro topo
   var main = document.getElementById("main");
