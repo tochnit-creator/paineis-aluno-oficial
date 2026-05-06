@@ -481,7 +481,20 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;backgroun
           <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div></div><div class="tl-text"><strong>1927 — Georges Lemaître</strong>O padre católico propõe o Big Bang. Inicialmente rejeitado por ser "demasiado criacionista".</div></div>
         </div>
         <button class="present-btn" onclick="startPresent('gn1-ensino')"><span class="play-icon"></span> Modo apresentação</button>
-        <div class="com-sec">
+
+        <!-- VISUAL: Comparação Gênesis vs cosmogonias AOP -->
+        <div style="margin:1.5rem 0;">
+          <div class="ver-title">Comparação visual — Gênesis 1 vs. cosmogonias do AOP</div>
+          <div id="vis-aop" style="border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2);">
+            <div style="display:flex;border-bottom:1px solid var(--border);">
+              <div style="flex:1;padding:.6rem 1rem;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);border-right:1px solid var(--border);background:var(--bg3);">Cosmogonia</div>
+              <div style="flex:2;padding:.6rem 1rem;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#b07020;border-right:1px solid var(--border);background:#fff8ee;">Enuma Elish (Babilônia)</div>
+              <div style="flex:2;padding:.6rem 1rem;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--wine);background:#fff0f4;">Gênesis 1</div>
+            </div>
+            <div id="aop-rows"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:.75rem;justify-content:center;" id="aop-btns"></div>
+        </div>
           <div class="divider"></div>
           <div class="com-header"><span class="com-badge">Comentário</span><span class="com-title">Gênesis 1:1 — Análise exegética e teológica</span></div>
           <div class="com-block"><div class="com-block-t">Estrutura e posição canônica</div><div class="com-text">Gênesis 1:1 funciona como título e tese do livro inteiro — e, por extensão, de toda a Escritura. O hebraico <em>bereshit bara Elohim</em> coloca o verbo antes do sujeito — construção incomum em prosa hebraica — o que enfatiza a ação criadora como ponto de partida epistemológico.<br><br>A questão do estado gramatical de <em>bereshit</em> divide os comentaristas desde Rashi (séc. XI) até os hebraístas modernos. A maioria dos comentaristas evangélicos contemporâneos (Wenham, Hamilton, Waltke, Sailhamer) opta pelo estado absoluto.</div></div>
@@ -666,9 +679,15 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;backgroun
           <div class="ccard hl"><div class="ccard-t">Reação de Adão (2:23)</div>"Esta, sim, é osso dos meus ossos e carne da minha carne." Primeiro poema da Bíblia.</div>
         </div>
         <button class="present-btn" onclick="startPresent('adao-ensino')"><span class="play-icon"></span> Modo apresentação</button>
-        <div class="com-sec">
-          <div class="divider"></div>
-          <div class="com-header"><span class="com-badge">Comentário</span><span class="com-title">Gênesis 2:7-25 — Análise exegética e teológica</span></div>
+
+        <!-- VISUAL: Diagrama animado dos 3 verbos da criação -->
+        <div style="margin:1.5rem 0;">
+          <div class="ver-title">Diagrama — Os 3 verbos da criação em Gênesis</div>
+          <div id="vis-verbos" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding:1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;"></div>
+          <div style="text-align:center;margin-top:.75rem;">
+            <button onclick="animarVerbos()" style="padding:7px 18px;background:var(--wine);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">▶ Animar sequência</button>
+          </div>
+        </div>
           <div class="com-block"><div class="com-block-t">Gênesis 2 e sua relação com Gênesis 1</div><div class="com-text">Gênesis 1 apresenta o panorama cósmico, enquanto Gênesis 2 é um close-up sobre o ser humano. A mudança no nome divino é teologicamente carregada: em Gênesis 1, o Criador é <em>Elohim</em> — transcendente, que age por decreto soberano. Em Gênesis 2, é <em>YHWH Elohim</em> — o nome pessoal e relacional de Deus. O Deus que criou os céus pelo seu decreto agora se inclina sobre o pó para formar um homem com as mãos.</div></div>
           <div class="voz"><div class="voz-autor">Matthew Henry — Commentary on the Whole Bible (1706)</div><div class="voz-text">O segundo capítulo não é uma segunda criação, mas uma expansão da primeira — como um pintor que, depois de esboçar o quadro inteiro, volta ao centro para trabalhar os detalhes com pincel mais fino.</div><div class="voz-ref">Vol. I, Comentário sobre Gênesis 2 — domínio público</div></div>
           <div class="com-block"><div class="com-block-t">Gênesis 2:7 — A dupla natureza do ser humano</div><div class="com-text">O versículo 7 é um dos mais densos da Escritura em termos antropológicos. A estrutura é tripartite: <em>formação</em> (yatsar + aphar), <em>animação</em> (nishmat chayyim) e <em>resultado</em> (nephesh chayyah).<br><br>O verbo <em>naphach</em> (soprar) pressupõe proximidade absoluta. Ao contrário da criação por decreto de Gênesis 1, aqui Deus age por contato direto. A neshamah não é transmitida à distância — é comunicada face a face, boca a boca.</div></div>
@@ -910,6 +929,16 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;backgroun
         <div class="atv"><div class="atv-lbl">Atividade individual</div><div style="font-size:13px;color:var(--text2);line-height:1.75;">Complete em silêncio:<br><br><strong>1.</strong> "Uma mentira sobre Deus que às vezes acredito é..."<br><strong>2.</strong> "Um lugar onde estou escondido (de Deus ou de pessoas) é..."<br><strong>3.</strong> "Uma 'folha' que uso para me cobrir em vez de aceitar a cobertura de Deus é..."</div></div>
         <div class="fech"><strong>Fechamento:</strong> "Gênesis 3 não termina com a expulsão — termina com Deus costurando vestes. Antes de saírem, foram cobertos. A graça antecede o exílio. Isso é o Evangelho."</div>
         <button class="present-btn" onclick="startPresent('gn3-ebd')"><span class="play-icon"></span> Modo apresentação</button>
+
+        <!-- VISUAL: Mapa ilustrado do jardim do Éden -->
+        <div style="margin:1.5rem 0;">
+          <div class="ver-title">Mapa — As cenas de Gênesis 3</div>
+          <div id="vis-eden" style="border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;background:var(--bg2);cursor:default;user-select:none;">
+            <canvas id="eden-canvas" style="display:block;width:100%;"></canvas>
+            <div id="eden-tooltip" style="display:none;position:absolute;background:var(--navy);color:#fff;padding:8px 12px;border-radius:8px;font-size:12px;max-width:200px;line-height:1.5;pointer-events:none;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.3);"></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:.75rem;justify-content:center;" id="eden-legend"></div>
+        </div>
       </div>
 
       <!-- GN3: CONSELHO -->
@@ -1105,6 +1134,15 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;backgroun
         <div class="atv"><div class="atv-lbl">Atividade individual</div><div style="font-size:13px;color:var(--text2);line-height:1.75;">Complete em silêncio:<br><br><strong>1.</strong> "Uma oferta que tenho dado sem o coração é..."<br><strong>2.</strong> "Um pecado que está 'agachado à minha porta' agora é..."<br><strong>3.</strong> "Uma pessoa de quem devo ser guarda e não tenho sido é..."</div></div>
         <div class="fech"><strong>Fechamento:</strong> "A história de Caim e Abel termina com um assassino protegido por Deus. Se você chegou aqui carregando culpa — saiba: a mesma graça que colocou uma marca em Caim está disponível para você. Não como aprovação do erro — como proteção no caminho da restauração."</div>
         <button class="present-btn" onclick="startPresent('gn4-ebd')"><span class="play-icon"></span> Modo apresentação</button>
+
+        <!-- VISUAL: Diagrama animado - A Janela de Caim -->
+        <div style="margin:1.5rem 0;">
+          <div class="ver-title">Diagrama animado — Do impulso ao ato</div>
+          <div id="vis-caim" style="padding:1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;"></div>
+          <div style="text-align:center;margin-top:.75rem;">
+            <button onclick="animarCaim()" id="btn-caim-anim" style="padding:7px 18px;background:var(--wine);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">▶ Animar sequência</button>
+          </div>
+        </div>
       </div>
 
       <!-- GN4: CONSELHO -->
@@ -1693,6 +1731,265 @@ window.buscarStrong = function() {
     document.getElementById("strong-panel").classList.add("open");
   }
 };
+
+// ============================================================
+// VISUALIZAÇÕES INTERATIVAS
+// ============================================================
+
+// 1. COMPARAÇÃO VISUAL — Gênesis vs Enuma Elish
+(function() {
+  var rows = [
+    { tema:"Origem do cosmos",    enuma:"Corpo da deusa Tiamat desmembrado por Marduk",          gen:"Palavra soberana de Deus — sem conflito, sem matéria prévia" },
+    { tema:"Motivação criadora",  enuma:"Vitória de guerra — subproduto do conflito",             gen:"Amor e propósito — Deus cria intencionalmente" },
+    { tema:"Ser humano",          enuma:"Sangue de Kingu — criado para servir os deuses",         gen:"Imagem de Deus (imago Dei) — para reinar e cuidar" },
+    { tema:"Sol e lua",           enuma:"Divindades com nomes e poderes próprios",                 gen:"'Luminar maior / menor' — criaturas, não deuses" },
+    { tema:"Caos primordial",     enuma:"Tiamat: deusa do caos, inimiga ativa",                   gen:"Tohu vavohu: ausência de forma — material para criação" },
+    { tema:"Conclusão",           enuma:"Cosmos = campo de batalha dos deuses",                   gen:"Cosmos = obra de arte de um Deus soberano e bom" },
+  ];
+
+  function renderAop(animar) {
+    var container = document.getElementById('aop-rows');
+    if (!container) return;
+    container.innerHTML = '';
+    rows.forEach(function(r, i) {
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;border-bottom:1px solid var(--border);opacity:'+(animar?'0':'1')+';transform:'+(animar?'translateX(-12px)':'translateX(0)')+';transition:opacity .4s ease '+(i*0.12)+'s,transform .4s ease '+(i*0.12)+'s;';
+      row.innerHTML =
+        '<div style="flex:1;min-width:80px;padding:.65rem .9rem;font-size:11px;font-weight:600;color:var(--text2);border-right:1px solid var(--border);background:var(--bg3);">'+r.tema+'</div>'+
+        '<div style="flex:2;padding:.65rem .9rem;font-size:11px;color:#b07020;border-right:1px solid var(--border);line-height:1.5;">'+r.enuma+'</div>'+
+        '<div style="flex:2;padding:.65rem .9rem;font-size:11px;color:var(--wine);line-height:1.5;">'+r.gen+'</div>';
+      container.appendChild(row);
+      if (animar) setTimeout(function(el){ el.style.opacity='1'; el.style.transform='translateX(0)'; }, 60, row);
+    });
+    if (container.lastChild) container.lastChild.style.borderBottom='none';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderAop(false);
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) { renderAop(true); obs.disconnect(); } });
+      }, { threshold:0.2 });
+      var el = document.getElementById('vis-aop');
+      if (el) obs.observe(el);
+    }
+  });
+})();
+
+// 2. DIAGRAMA ANIMADO — Os 3 verbos da criação
+(function() {
+  var verbos = [
+    { heb:'בָּרָא', tr:'bara', pt:'Criar do nada', cor:'#7B1535', bg:'#faf0f3', icon:'✦', refs:['Gn 1:1','Gn 1:21','Gn 1:27'], desc:'Exclusivo de Deus. Jamais usado com sujeito humano. Indica criação sem matéria preexistente.', ex:'Os céus, os seres vivos, o ser humano' },
+    { heb:'עָשָׂה', tr:'asah',  pt:'Fazer / Produzir', cor:'#1A1F3C', bg:'#f0f2f8', icon:'◈', refs:['Gn 1:7','Gn 1:16','Gn 1:25'], desc:'Qualquer agente pode ser sujeito. Trabalhar com materiais já existentes para configurar e organizar.', ex:'O firmamento, os luminares, os animais' },
+    { heb:'יָצַר', tr:'yatsar', pt:'Moldar / Plasmar', cor:'#b07020', bg:'#fff8ee', icon:'◉', refs:['Gn 2:7','Gn 2:19','Jr 18:6'], desc:'O verbo do oleiro. Implica trabalho artesanal íntimo. Destaca o cuidado e a proximidade do Criador.', ex:'O homem do pó (Gn 2:7), os animais' },
+  ];
+
+  window.animarVerbos = function() {
+    var c = document.getElementById('vis-verbos');
+    if (!c) return;
+    c.innerHTML = '';
+    verbos.forEach(function(v, i) {
+      var card = document.createElement('div');
+      card.style.cssText = 'flex:1;min-width:150px;max-width:220px;border:2px solid '+v.cor+';border-radius:10px;padding:1rem;background:'+v.bg+';opacity:0;transform:translateY(20px);transition:opacity .5s ease '+(i*.2)+'s,transform .5s ease '+(i*.2)+'s;cursor:pointer;';
+      card.innerHTML =
+        '<div style="font-size:20px;color:'+v.cor+';margin-bottom:4px;">'+v.icon+'</div>'+
+        '<div style="font-family:\'Playfair Display\',serif;font-size:20px;color:'+v.cor+';margin-bottom:3px;">'+v.heb+'</div>'+
+        '<div style="font-size:11px;color:var(--text3);font-style:italic;margin-bottom:6px;">'+v.tr+'</div>'+
+        '<div style="font-size:13px;font-weight:600;color:'+v.cor+';margin-bottom:7px;">'+v.pt+'</div>'+
+        '<div class="vd" style="font-size:11px;color:var(--text2);line-height:1.6;">'+v.desc+'</div>'+
+        '<div style="font-size:10px;color:var(--text3);font-style:italic;border-top:1px solid '+v.cor+'33;margin-top:8px;padding-top:6px;line-height:1.5;"><strong style="color:'+v.cor+';">Ex:</strong> '+v.ex+'</div>'+
+        '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;">'+v.refs.map(function(r){ return '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:'+v.cor+'22;color:'+v.cor+';border:1px solid '+v.cor+'44;">'+r+'</span>'; }).join('')+'</div>';
+      card.onclick = function() { var d=card.querySelector('.vd'); d.style.display=(d.style.display==='none'?'':'none'); };
+      c.appendChild(card);
+      setTimeout(function(el){ el.style.opacity='1'; el.style.transform='translateY(0)'; }, 60, card);
+    });
+    var nota = document.createElement('div');
+    nota.style.cssText = 'width:100%;text-align:center;font-size:11px;color:var(--text3);margin-top:.75rem;padding:.5rem;background:var(--bg3);border-radius:6px;border:1px solid var(--border);';
+    nota.textContent = '💡 Clique em cada card para ver/ocultar a descrição';
+    c.appendChild(nota);
+  };
+
+  document.addEventListener('DOMContentLoaded', function() { window.animarVerbos(); });
+})();
+
+// 3. MAPA ILUSTRADO — Jardim do Éden (Gênesis 3)
+(function() {
+  var cenas = [
+    { id:'arvore',    x:.50, y:.30, r:26, cor:'#3B6D11', bg:'#eaf3de', icone:'🌳', nome:'A Árvore',         desc:'Gn 2:17 — "No dia em que dela comerdes, certamente morrereis." A proibição não é arbítrio — é proteção.' },
+    { id:'serpente',  x:.22, y:.40, r:21, cor:'#8B4513', bg:'#fff3e0', icone:'🐍', nome:'A Serpente',       desc:'Gn 3:1 — "É verdade que Deus disse...?" Não ataca diretamente. Questiona o caráter de Deus.' },
+    { id:'eva',       x:.40, y:.54, r:21, cor:'#993556', bg:'#fff0f4', icone:'👁',  nome:'Eva',             desc:'Gn 3:6 — o apelo triplo: bom (físico) + agradável (estético) + desejável (intelectual). 1 Jo 2:16.' },
+    { id:'adao',      x:.62, y:.54, r:21, cor:'#1A1F3C', bg:'#f0f2f8', icone:'🫴', nome:'Adão',            desc:'Gn 3:6 — "e deu também ao marido que estava com ela." Adão estava presente. Seu pecado foi a passividade.' },
+    { id:'escon',     x:.80, y:.36, r:21, cor:'#7B1535', bg:'#faf0f3', icone:'🫣', nome:'O Esconderijo',   desc:'Gn 3:8 — "se esconderam". Primeira consequência do pecado: ruptura relacional. O medo substituiu a intimidade.' },
+    { id:'pergunta',  x:.50, y:.72, r:21, cor:'#c8960c', bg:'#fdf5dc', icone:'❓', nome:'"Onde estás?"',   desc:'Gn 3:9 — Deus não busca informação. É um convite pastoral. A primeira palavra após a queda é uma pergunta de amor.' },
+    { id:'veste',     x:.18, y:.68, r:21, cor:'#185FA5', bg:'#e8f0fe', icone:'🧥', nome:'As Vestes',        desc:'Gn 3:21 — Antes do exílio, Deus veste Adão e Eva com pele. Primeiro sacrifício. Padrão tipológico da justificação.' },
+  ];
+  var ATIVO = null;
+
+  function draw() {
+    var cv = document.getElementById('eden-canvas');
+    if (!cv) return;
+    var W = cv.offsetWidth || 580;
+    var H = Math.round(W * 0.50);
+    cv.width = W; cv.height = H;
+    var ctx = cv.getContext('2d');
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    // Fundo
+    var g = ctx.createLinearGradient(0,0,0,H);
+    if (dark) { g.addColorStop(0,'#0a1a0a'); g.addColorStop(1,'#0f1a0f'); }
+    else       { g.addColorStop(0,'#b9e0bb'); g.addColorStop(1,'#88c98b'); }
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    // Rio
+    ctx.beginPath();
+    ctx.moveTo(0, H*.62);
+    ctx.bezierCurveTo(W*.3, H*.57, W*.7, H*.67, W, H*.60);
+    ctx.lineWidth = 14; ctx.strokeStyle = dark ? '#1a3a5c' : '#80d0f0'; ctx.stroke();
+    ctx.lineWidth = 7;  ctx.strokeStyle = dark ? '#1e4a80' : '#b3e5fc'; ctx.stroke();
+
+    // Árvores bg
+    [[.12,.28],[.88,.22],[.32,.16],[.68,.14]].forEach(function(p) {
+      ctx.beginPath(); ctx.arc(p[0]*W, p[1]*H, 16, 0, Math.PI*2);
+      ctx.fillStyle = dark ? '#1a3a1a' : '#6abf6d'; ctx.fill();
+    });
+
+    // Pontos
+    cenas.forEach(function(c) {
+      var cx=c.x*W, cy=c.y*H, r=c.r*(W/580), isA=(ATIVO&&ATIVO.id===c.id);
+      ctx.shadowColor='rgba(0,0,0,.2)'; ctx.shadowBlur=8;
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.fillStyle = isA ? c.cor : c.bg; ctx.fill();
+      ctx.lineWidth = isA?3:1.5; ctx.strokeStyle=c.cor; ctx.stroke();
+      ctx.shadowBlur=0;
+      ctx.font=(r*.95)+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillStyle = isA?'#fff':'#111'; ctx.fillText(c.icone, cx, cy-1);
+      ctx.font='bold '+Math.max(9,r*.38)+'px "DM Sans",sans-serif';
+      ctx.fillStyle = dark?'#e8ddf0':'#1A1F3C'; ctx.textBaseline='top';
+      ctx.fillText(c.nome, cx, cy+r+3);
+    });
+  }
+
+  function hit(e) {
+    var cv = document.getElementById('eden-canvas');
+    if (!cv) return;
+    var rect = cv.getBoundingClientRect();
+    var touch = e.touches ? e.touches[0] : e;
+    var mx=(touch.clientX-rect.left)*(cv.width/rect.width);
+    var my=(touch.clientY-rect.top)*(cv.height/rect.height);
+    var found = null;
+    cenas.forEach(function(c) {
+      var dx=mx-c.x*cv.width, dy=my-c.y*cv.height, r=c.r*(cv.width/580);
+      if (Math.sqrt(dx*dx+dy*dy)<r) found=c;
+    });
+    ATIVO = (found && ATIVO && ATIVO.id===found.id) ? null : found;
+    draw();
+    var tt = document.getElementById('eden-tooltip');
+    if (!tt) return;
+    if (ATIVO) {
+      tt.innerHTML='<strong style="color:'+ATIVO.cor+';">'+ATIVO.icone+' '+ATIVO.nome+'</strong><br><span style="font-size:11px;">'+ATIVO.desc+'</span>';
+      tt.style.display='block';
+      var ox=Math.min(ATIVO.x*rect.width+12, rect.width-215);
+      var oy=Math.max(ATIVO.y*rect.height-85, 6);
+      tt.style.left=ox+'px'; tt.style.top=oy+'px';
+    } else tt.style.display='none';
+    e.preventDefault();
+  }
+
+  function legend() {
+    var leg = document.getElementById('eden-legend');
+    if (!leg) return;
+    leg.innerHTML='';
+    cenas.forEach(function(c) {
+      var s=document.createElement('span');
+      s.style.cssText='font-size:11px;padding:3px 10px;border-radius:12px;border:1px solid;cursor:pointer;';
+      s.style.borderColor=c.cor; s.style.color=c.cor; s.style.background=c.bg;
+      s.innerHTML=c.icone+' '+c.nome;
+      s.onclick=function(){
+        ATIVO=(ATIVO&&ATIVO.id===c.id)?null:c;
+        draw();
+        var tt=document.getElementById('eden-tooltip');
+        if(!tt) return;
+        if(ATIVO){ tt.innerHTML='<strong style="color:'+c.cor+';">'+c.icone+' '+c.nome+'</strong><br><span style="font-size:11px;">'+c.desc+'</span>'; tt.style.display='block'; tt.style.left='10px'; tt.style.top='10px'; }
+        else tt.style.display='none';
+      };
+      leg.appendChild(s);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var cv=document.getElementById('eden-canvas');
+    if (!cv) return;
+    draw();
+    cv.addEventListener('click', hit);
+    cv.addEventListener('touchstart', hit, {passive:false});
+    window.addEventListener('resize', draw);
+    legend();
+  });
+})();
+
+// 4. DIAGRAMA ANIMADO — A Janela de Caim
+(function() {
+  var etapas = [
+    { cor:'#3B6D11', bg:'#eaf3de', icon:'🙏', t:'1. A Oferta Rejeitada',      d:'Caim traz "do fruto" — sem primícias, sem fé. Deus aceita Abel e rejeita Caim. A rejeição é sintoma, não causa.', ref:'Gn 4:3-5' },
+    { cor:'#b07020', bg:'#fff8ee', icon:'😠', t:'2. A Ira',                   d:'"Caim ficou muito irado e seu semblante se abateu." Raiva + depressão juntas. A emoção é real; a resposta pode não ser.', ref:'Gn 4:5' },
+    { cor:'#1A1F3C', bg:'#e8f0fe', icon:'🪟', t:'3. A Janela — Deus Fala',    d:'"Por que estás irado?" Deus aparece ANTES do crime. Nomeia a emoção. Abre o caminho da restauração. Esta é a janela.', ref:'Gn 4:6-7', destaque:true },
+    { cor:'#7B1535', bg:'#faf0f3', icon:'🚪', t:'4. O Pecado à Porta',        d:'"O pecado está à porta e te deseja — tu deves dominá-lo." Predador agachado. A janela ainda está aberta.', ref:'Gn 4:7' },
+    { cor:'#8B0000', bg:'#ffe8e8', icon:'⚡', t:'5. O Ato (Janela Ignorada)', d:'"Caim se levantou contra Abel e o matou." A janela foi fechada por dentro. O impulso virou ato.', ref:'Gn 4:8' },
+    { cor:'#185FA5', bg:'#e8f0fe', icon:'🛡', t:'6. A Marca — Graça Inesperada', d:'Após o crime, Deus protege Caim com uma marca. Não como aprovação — como graça que não abandona o exilado.', ref:'Gn 4:15' },
+  ];
+
+  var paso = 0;
+
+  window.animarCaim = function() {
+    var c = document.getElementById('vis-caim');
+    var btn = document.getElementById('btn-caim-anim');
+    if (!c) return;
+    paso = 0;
+    c.innerHTML = '';
+
+    var prog = document.createElement('div');
+    prog.style.cssText='width:100%;height:4px;background:var(--border);border-radius:2px;margin-bottom:1rem;overflow:hidden;';
+    var fill = document.createElement('div');
+    fill.style.cssText='height:100%;background:var(--wine);border-radius:2px;width:0%;transition:width .4s;';
+    prog.appendChild(fill); c.appendChild(prog);
+
+    var grid = document.createElement('div');
+    grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;';
+    c.appendChild(grid);
+
+    var info = document.createElement('div');
+    info.style.cssText='text-align:center;font-size:11px;color:var(--text3);margin-top:.75rem;';
+    info.textContent='Clique em qualquer card para ver detalhes';
+    c.appendChild(info);
+
+    function next() {
+      if (paso >= etapas.length) {
+        if (btn) { btn.textContent='↺ Reiniciar'; btn.onclick=window.animarCaim; }
+        info.textContent='💡 Clique em qualquer card para ver/ocultar detalhes';
+        return;
+      }
+      var e = etapas[paso];
+      var card = document.createElement('div');
+      card.style.cssText='border:2px solid '+e.cor+';border-radius:10px;padding:.85rem;background:'+e.bg+';opacity:0;transform:scale(.85);transition:opacity .35s,transform .35s;cursor:pointer;'+(e.destaque?'grid-column:1/-1;':'');
+      card.innerHTML=
+        '<div style="font-size:18px;margin-bottom:3px;">'+e.icon+(e.destaque?' <span style="font-size:10px;background:'+e.cor+';color:#fff;padding:2px 7px;border-radius:4px;">DEUS FALA</span>':'')+'</div>'+
+        '<div style="font-size:12px;font-weight:600;color:'+e.cor+';line-height:1.3;margin-bottom:4px;">'+e.t+'</div>'+
+        '<div class="cd" style="display:none;font-size:11px;color:var(--text2);line-height:1.6;margin-top:5px;border-top:1px solid '+e.cor+'33;padding-top:5px;">'+e.d+'<br><span style="font-size:10px;color:'+e.cor+';font-weight:600;">'+e.ref+'</span></div>';
+      card.onclick=function(){ var d=card.querySelector('.cd'); d.style.display=(d.style.display==='none'?'block':'none'); };
+      grid.appendChild(card);
+      setTimeout(function(){card.style.opacity='1';card.style.transform='scale(1)';},50);
+      paso++;
+      fill.style.width=(paso/etapas.length*100)+'%';
+      if (paso < etapas.length) setTimeout(next, 420);
+      else { if(btn){btn.textContent='↺ Reiniciar';btn.onclick=window.animarCaim;} }
+    }
+
+    if (btn) btn.textContent='⏸ Animando...';
+    next();
+  };
+
+  document.addEventListener('DOMContentLoaded', function() { window.animarCaim(); });
+})();
 
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") { window.closeStrong(); window.closePresent(); }
