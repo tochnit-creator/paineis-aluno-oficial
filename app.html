@@ -1297,19 +1297,15 @@ function atualizarUI() {
   const badge = document.getElementById("badge-plano");
   badge.textContent = planoAtual.charAt(0).toUpperCase() + planoAtual.slice(1);
   badge.className = "badge-plano plano-" + planoAtual;
-
-  // Marca tabs bloqueadas
   document.querySelectorAll(".tab").forEach(btn => {
     const pNec = btn.dataset.plano || "gratuito";
-    if (niveis[planoAtual] < niveis[pNec]) {
-      btn.classList.add("locked");
-    } else {
-      btn.classList.remove("locked");
-    }
+    if (niveis[planoAtual] < niveis[pNec]) btn.classList.add("locked");
+    else btn.classList.remove("locked");
   });
-
-  // Mostra o panel de pregação (sempre acessível)
-  if (window.switchTab) window.switchTab("pregacao");
+  // Re-renderiza a tab ativa com o plano correto agora definido
+  var tabAtiva = document.querySelector(".tab.active");
+  var tab = tabAtiva ? tabAtiva.dataset.tab : "pregacao";
+  if (window.switchTab) window.switchTab(tab);
 }
 
 window.__niveis = niveis;
@@ -1341,65 +1337,75 @@ window.solicitarUpgrade = async (planoNec, painelId) => {
   }
 };
 
-// Switch de tabs — exibe panel, verifica acesso só quando necessário
-window.switchTab = (tab) => {
-  const esboco = window.__esbocoAtual || "gn1";
+// Switch de tabs — simples e independente do Firebase
+window.switchTab = function(tab) {
+  var esboco = window.__esbocoAtual || "gn1";
+  var planoMap = { pregacao:"gratuito", ensino:"basico", ebd:"basico", conselho:"premium", devocional:"premium" };
+  var planoNec = planoMap[tab] || "gratuito";
+  var niveisLocal = window.__niveis || {gratuito:1, basico:2, premium:3};
+  var planoLocal  = window.__getPlano ? window.__getPlano() : "gratuito";
+  var carregou    = window.__planoCarregou === true;
+  var temAcesso   = !carregou || (niveisLocal[planoLocal] >= niveisLocal[planoNec]);
 
   // Atualiza tabs visuais
-  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-  const activeTab = document.querySelector("[data-tab='" + tab + "']");
-  if (activeTab) activeTab.classList.add("active");
+  document.querySelectorAll(".tab").forEach(function(b){ b.classList.remove("active"); });
+  var at = document.querySelector("[data-tab='" + tab + "']");
+  if (at) at.classList.add("active");
 
-  // Oculta todos os panels do esboço atual
-  document.querySelectorAll("[id^='p-" + esboco + "-']").forEach(p => p.classList.remove("active"));
+  // Oculta todos os panels deste esboço
+  document.querySelectorAll("[id^='p-" + esboco + "-']").forEach(function(p){ p.classList.remove("active"); });
 
-  const panelId = "p-" + esboco + "-" + tab;
-  const panel = document.getElementById(panelId);
+  var pid   = "p-" + esboco + "-" + tab;
+  var panel = document.getElementById(pid);
   if (!panel) return;
 
-  // Verifica acesso — só bloqueia se plano já carregou
-  const planoMap = { pregacao:"gratuito", ensino:"basico", ebd:"basico", conselho:"premium", devocional:"premium" };
-  const planoNec = planoMap[tab] || "gratuito";
-  const planoJaCarregou = (planoAtual !== "gratuito") || (window.__planoCarregou === true);
-  const temAcesso = !planoJaCarregou || (niveis[planoAtual] >= niveis[planoNec]);
-
-  // Restaura conteúdo original se necessário
-  const origKey = "__orig_" + panelId;
-  if (panel.dataset.bloqueado === "1" && temAcesso && window[origKey]) {
-    panel.innerHTML = window[origKey];
-    panel.dataset.bloqueado = "0";
+  // Restaura se estava bloqueado e agora tem acesso
+  var ok = "__ok_" + pid;
+  if (panel.dataset.locked === "1" && temAcesso && window[ok]) {
+    panel.innerHTML = window[ok];
+    panel.dataset.locked = "0";
   }
 
   panel.classList.add("active");
 
-  if (!temAcesso && panel.dataset.bloqueado !== "1") {
-    if (!window[origKey]) window[origKey] = panel.innerHTML;
-    panel.dataset.bloqueado = "1";
-    const nivelNec = nomePlano[niveis[planoNec]];
-    const preco = precos[planoNec] || { valor:"—", features:[] };
-    const fts = (preco.features||[]).map(f => "<div class='price-feat'>" + f + "</div>").join("");
-    const uid = panelId.replace(/-/g,"_");
-    panel.innerHTML = [
-      "<div class='bloq'>",
-      "<div class='bloq-icon'>🔒</div>",
-      "<div class='bloq-title'>Plano " + nivelNec + "</div>",
-      "<div class='bloq-sub'>Desbloqueie este conteúdo assinando o plano " + nivelNec + ".</div>",
-      "<div class='price-card'>",
-        "<div class='price-plan'>Plano " + nivelNec + "</div>",
-        "<div class='price-val'><sup>R$</sup>" + preco.valor + "<sub>/mês</sub></div>",
-        "<div class='price-period'>Cobrado mensalmente</div>",
-        "<div class='price-feats'>" + fts + "</div>",
-      "</div>",
-      "<button class='btn-assinar' id='btn-sol-" + uid + "'>Assinar por R$ " + preco.valor + "/mês</button>",
-      "<div class='msg-sol' id='msg-sol-" + uid + "'></div>",
-      "</div>"
-    ].join("");
-    const solBtn = document.getElementById("btn-sol-" + uid);
-    if (solBtn) solBtn.onclick = () => window.solicitarUpgrade(planoNec, uid);
+  // Bloqueia se necessário (só após Firebase carregar)
+  if (!temAcesso && panel.dataset.locked !== "1") {
+    window[ok] = panel.innerHTML;
+    panel.dataset.locked = "1";
+    var nomes  = window.__nomePlano || {1:"Gratuito",2:"Básico",3:"Premium"};
+    var precos = window.__precos   || {basico:{valor:"29,90",features:[]},premium:{valor:"49,90",features:[]}};
+    var nNec   = nomes[niveisLocal[planoNec]];
+    var preco  = precos[planoNec] || {valor:"—", features:[]};
+    var fts    = (preco.features||[]).map(function(f){ return "<div class='price-feat'>"+f+"</div>"; }).join("");
+    var uid    = pid.replace(/-/g,"_");
+    panel.innerHTML =
+      "<div class='bloq'>" +
+      "<div class='bloq-icon'>🔒</div>" +
+      "<div class='bloq-title'>Plano "+nNec+"</div>" +
+      "<div class='bloq-sub'>Desbloqueie assinando o plano "+nNec+".</div>" +
+      "<div class='price-card'>" +
+        "<div class='price-plan'>Plano "+nNec+"</div>" +
+        "<div class='price-val'><sup>R$</sup>"+preco.valor+"<sub>/mês</sub></div>" +
+        "<div class='price-period'>Cobrado mensalmente</div>" +
+        "<div class='price-feats'>"+fts+"</div>" +
+      "</div>" +
+      "<button class='btn-assinar' id='bsol-"+uid+"'>Assinar R$ "+preco.valor+"/mês</button>" +
+      "<div class='msg-sol' id='msol-"+uid+"'></div>" +
+      "</div>";
+    var sb = document.getElementById("bsol-"+uid);
+    if (sb) sb.onclick = function(){ if(window.__solicitarUpgrade) window.__solicitarUpgrade(planoNec, uid); };
   }
 
-  document.getElementById("main").scrollTop = 0;
+  var main = document.getElementById("main");
+  if (main) main.scrollTop = 0;
 };
+</script>
+
+<!-- WRAPPER GLOBAL — garante que switchTab é acessível pelo onclick do HTML -->
+<script>
+function switchTab(tab) {
+  if (window.switchTab) window.switchTab(tab);
+}
 </script>
 
 <!-- APP JS -->
