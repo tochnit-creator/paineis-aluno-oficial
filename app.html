@@ -1333,6 +1333,11 @@ window.solicitarUpgrade = async (planoNec, painelId) => {
   }
 };
 
+
+</script>
+
+<!-- SWITCHTAB — script normal, não module, para ficar acessível globalmente -->
+<script>
 // Switch de tabs — simples e independente do Firebase
 window._switchTab = function(tab) {
   var esboco = window.__esbocoAtual || "gn1";
@@ -1396,7 +1401,6 @@ window._switchTab = function(tab) {
   if (main) main.scrollTop = 0;
 };
 </script>
-
 
 <!-- APP JS -->
 <script>
