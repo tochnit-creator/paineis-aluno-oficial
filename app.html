@@ -1262,7 +1262,6 @@ window.addEventListener("DOMContentLoaded", function(){
   var b = document.getElementById("badge-plano");
   if(b){ b.textContent="Premium"; b.className="badge-plano plano-premium"; }
   window.__planoCarregou = true;
-  if(window._switchTab) window._switchTab("pregacao");
 });
 </script>
 
@@ -1317,7 +1316,6 @@ window.mudarEsboco = function(id, el) {
   window.__esbocoAtual = id;
 
   // Reseta tab para pregação
-  if (window._switchTab) window._switchTab("pregacao");
 
   // Scroll pro topo
   var main = document.getElementById("main");
